@@ -1,30 +1,70 @@
-{{-- This is the User Confirmation E-mail after Registration (which contains the 'Activation Link') file using Mailtrap --}} {{-- All the variables (like $name, $mobile, $email, $code, ...) used here are passed in from the userRegister() method in Front/UserController.php --}}
-
-
+{{-- User Confirmation Email after Registration --}}
+{{-- Variables ($name, $email, $code, ...) are passed from userRegister() in Front/UserController.php --}}
 
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Your Account</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 30px;
+        }
+        .email-container {
+            background-color: #fff;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        p {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white !important;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <h2>Welcome to Multi-vendor E-commerce Application!</h2>
 
+        <p>Xin chào <strong>{{ $name }}</strong>,</p>
 
+        <p>Cảm ơn bạn đã đăng ký tài khoản tại <strong>Multi-vendor E-commerce Application</strong>.</p>
 
-        <table>
-            <tr><td>Dear {{ $name }},</td></tr>
-            <tr><td>&nbsp;</td></tr>
-            <tr><td>Please click on below link to activate your Multi-vendor E-commerce Application account:-</td></tr>
-            <tr><td>&nbsp;</td></tr>
-            <tr><td><a href="{{ url('/user/confirm/' . $code) }}">Confirm Account</a></td></tr> {{-- $code is passed in from userRegister() method in UserController.php --}}
-            <tr><td>&nbsp;</td></tr>
-            <tr><td>&nbsp;</td></tr>
-            <tr><td>Thanks & Regards,</td></tr>
-            <tr><td>Multi-vendor E-commerce Application</td></tr>
-        </table>
+        <p>Vui lòng nhấn vào nút bên dưới để kích hoạt tài khoản của bạn:</p>
 
+        <p style="text-align:center; margin: 25px 0;">
+            <a href="{{ url('/user/confirm/' . $code) }}" class="btn">Kích hoạt tài khoản</a>
+        </p>
 
+        <p>Nếu bạn không thực hiện đăng ký này, vui lòng bỏ qua email này.</p>
 
-    </body>
+        <div class="footer">
+            <p>Trân trọng,<br><strong>Đội ngũ Multi-vendor E-commerce Application</strong></p>
+        </div>
+    </div>
+</body>
 </html>

@@ -29,7 +29,7 @@ class UserController extends Controller
             $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
                 // the 'name' HTML attribute of the request (the array key of the $request array) (ATTRIBUTE) => Validation Rules
                 'name'     => 'required|string|max:100',
-                'mobile'   => 'required|numeric|digits:11',
+                'mobile'   => 'required|numeric|digits:10',
                 'email'    => 'required|email|max:150|unique:users', // 'unique:users'    means it's unique in the `users` table
                 'password' => 'required|min:6',
                 'accept'   => 'required'
@@ -317,7 +317,7 @@ class UserController extends Controller
                 'state'   => 'required|string|max:100',
                 'address' => 'required|string|max:100',
                 'country' => 'required|string|max:100',
-                'mobile'  => 'required|numeric|digits:11',
+                'mobile'  => 'required|numeric|digits:10',
                 'pincode' => 'required|digits:6',
 
             ] /*, [ // Customizing The Error Messages: https://laravel.com/docs/9.x/validation#manual-customizing-the-error-messages
