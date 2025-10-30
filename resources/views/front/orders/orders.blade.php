@@ -199,7 +199,7 @@
                 <table class="table table-striped table-borderless" id="ordersTable">
                     <thead>
                         <tr>
-                            <th>Order ID</th>
+                            <th>ID đơn hàng</th>
                             <th>Sản phẩm</th>
                             <th>Phương thức thanh toán</th>
                             <th>Tổng tiền</th>
