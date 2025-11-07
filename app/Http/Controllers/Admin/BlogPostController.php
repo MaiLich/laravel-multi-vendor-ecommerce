@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreBlogPostRequest;
+use App\Http\Requests\Admin\UpdateBlogPostRequest;
+use App\Models\BlogPost;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+class BlogPostController extends Controller
+{
+    // index
+    public function index(){
+        $posts = BlogPost::latest()->paginate(15);
+        return view('admin.blog.index', compact('posts'));
+    }
+
+    public function create(){
+        return view('admin.blog.form', ['post' => new BlogPost()]);
+    }
+
+    public function store(StoreBlogPostRequest $request){
+        $data = $request->validated();
+        $data['author_id'] = auth()->id();
+
+        if ($request->hasFile('thumbnail')) {
+            $data['thumbnail'] = $request->file('thumbnail')->store('blog','public');
+        }
+
+        BlogPost::create($data);
+        return redirect()->route('admin.blog.index')->with('success','Post created');
+    }
+
+    public function edit(BlogPost $post){
+        return view('admin.blog.form', compact('post'));
+    }
+
+    public function update(UpdateBlogPostRequest $request, BlogPost $post){
+        $data = $request->validated();
+
+        if ($request->hasFile('thumbnail')) {
+            if ($post->thumbnail) Storage::disk('public')->delete($post->thumbnail);
+            $data['thumbnail'] = $request->file('thumbnail')->store('blog','public');
+        }
+
+        if($data['status']==='published' && !$post->published_at){
+            $data['published_at'] = now();
+        }
+
+        $post->update($data);
+        return redirect()->route('admin.blog.index')->with('success','Post updated');
+    }
+
+    public function destroy(BlogPost $post){
+        if ($post->thumbnail) Storage::disk('public')->delete($post->thumbnail);
+        $post->delete();
+        return back()->with('success','Post deleted');
+    }
+
+    public function toggle(BlogPost $post){
+        $post->status = $post->status==='published' ? 'draft' : 'published';
+        if ($post->status==='published' && !$post->published_at) $post->published_at = now();
+        $post->save();
+        return back()->with('success','Status updated');
+    }
+
+    // Duyệt comment nhanh trong admin
+    public function comments(BlogPost $post){
+        $post->load(['comments.user']);
+        return view('admin.blog.comments', compact('post'));
+    }
+    public function approveComment($commentId){
+        \App\Models\BlogComment::where('id',$commentId)->update(['status'=>'approved']);
+        return back()->with('success','Comment approved');
+    }
+    public function rejectComment($commentId){
+        \App\Models\BlogComment::where('id',$commentId)->update(['status'=>'rejected']);
+        return back()->with('success','Comment rejected');
+    }
+}

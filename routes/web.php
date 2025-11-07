@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BlogPostController;
+use App\Http\Controllers\Front\BlogController as FrontBlogController;
+use App\Http\Controllers\Front\BlogCommentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -320,4 +324,47 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
         Route::get('iyzipay/pay', 'IyzipayController@pay'); 
     });
 
+});
+
+/*
+|--------------------------------------------------------------------------
+| FRONT: Blog listing + detail + comment
+|--------------------------------------------------------------------------
+| - /blog            : danh sách bài đã publish
+| - /blog/{slug}     : chi tiết bài
+| - POST /blog/{slug}/comments : user đăng nhập mới được gửi bình luận (pending duyệt)
+*/
+Route::get('/blog', [FrontBlogController::class,'index'])->name('front.blog.index');
+Route::get('/blog/{slug}', [FrontBlogController::class,'show'])->name('front.blog.show');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/blog/{slug}/comments', [BlogCommentController::class,'store'])
+        ->name('front.blog.comment.store');
+});
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN: Blog Management (ngay dưới Shipping Management trong sidebar)
+|--------------------------------------------------------------------------
+| Tuỳ cấu hình guard/middleware hiện có của dự án:
+| - Nếu dự án đang dùng middleware 'admin' => giữ nguyên như dưới.
+| - Nếu dự án bạn chỉ dùng 'auth' cho admin, đổi middleware('admin') -> middleware('auth').
+| - Nếu dùng guard riêng: middleware('auth:admin') cũng được.
+*/
+Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function () {
+    // CRUD bài viết
+    Route::get('blog',               [BlogPostController::class,'index'])->name('blog.index');
+    Route::get('blog/create',        [BlogPostController::class,'create'])->name('blog.create');
+    Route::post('blog',              [BlogPostController::class,'store'])->name('blog.store');
+    Route::get('blog/{post}/edit',   [BlogPostController::class,'edit'])->name('blog.edit');
+    Route::put('blog/{post}',        [BlogPostController::class,'update'])->name('blog.update');
+    Route::delete('blog/{post}',     [BlogPostController::class,'destroy'])->name('blog.destroy');
+
+    // Bật/tắt publish nhanh
+    Route::patch('blog/{post}/toggle', [BlogPostController::class,'toggle'])->name('blog.toggle');
+
+    // Duyệt bình luận theo bài
+    Route::get('blog/{post}/comments',   [BlogPostController::class,'comments'])->name('blog.comments');
+    Route::patch('blog/comments/{id}/approve', [BlogPostController::class,'approveComment'])->name('blog.comments.approve');
+    Route::patch('blog/comments/{id}/reject',  [BlogPostController::class,'rejectComment'])->name('blog.comments.reject');
 });
