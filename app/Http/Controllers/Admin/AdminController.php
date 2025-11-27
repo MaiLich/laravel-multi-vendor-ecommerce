@@ -15,7 +15,9 @@ use App\Models\Admin;
 use App\Models\Section;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductsAttribute;
 use App\Models\Order;
+use App\Models\OrdersProduct;
 use App\Models\Coupon;
 use App\Models\Brand;
 use App\Models\User;
@@ -24,10 +26,12 @@ use App\Models\VendorsBusinessDetail;
 use App\Models\VendorsBankDetail;
 use App\Models\Country;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
-    public function dashboard() {
+    public function dashboard()
+    {
         // Correcting issues in the Skydash Admin Panel Sidebar using Session:
         Session::put('page', 'dashboard');
 
@@ -39,12 +43,82 @@ class AdminController extends Controller
         $couponsCount    = Coupon::count();
         $brandsCount     = Brand::count();
         $usersCount      = User::count();
+        $ordersByStatus = [
+            'shipped'    => Order::where('order_status', 'Shipped')->count(),
+            'canceled'   => Order::where('order_status', 'Canceled')->count(),
+            'processing' => Order::whereNotIn('order_status', ['Shipped', 'Canceled'])->count(),
+        ];
+
+        // === 1️⃣ Doanh thu theo ngày (7 ngày gần nhất) ===
+        $revenueByDay = Order::select(
+            DB::raw('DATE(created_at) as date'),
+            DB::raw('SUM(grand_total - shipping_charges) as total')
+        )
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->where('order_status', '!=', 'Canceled')
+            ->take(7)
+            ->get();
+
+        // === 2️⃣ Doanh thu theo tháng (trong năm hiện tại) ===
+        $revenueByMonth = Order::select(
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('SUM(grand_total - shipping_charges) as total')
+        )
+            ->whereYear('created_at', date('Y'))
+            ->where('order_status', '!=', 'Canceled')
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
+            ->get();
+
+        // === 3️⃣ Doanh thu theo năm ===
+        $revenueByYear = Order::select(
+            DB::raw('YEAR(created_at) as year'),
+            DB::raw('SUM(grand_total - shipping_charges) as total')
+        )
+            ->where('order_status', '!=', 'Canceled')
+            ->groupBy('year')
+            ->orderBy('year', 'asc')
+            ->get();
+        // === Thống kê sản phẩm ===
+        // 1. Sản phẩm được mua nhiều nhất (theo tổng quantity)
+        $mostPurchased = OrdersProduct::selectRaw('product_id, SUM(product_qty) as total_qty')
+            ->groupBy('product_id')
+            ->orderByDesc('total_qty')
+            ->take(5)
+            ->with('product:id,product_name')
+            ->get();
+
+        // 2. Sản phẩm bán chạy nhất (theo tổng doanh thu)
+        $bestSelling = OrdersProduct::selectRaw('product_id, SUM(product_qty * product_price) as total_revenue')
+            ->groupBy('product_id')
+            ->orderByDesc('total_revenue')
+            ->take(5)
+            ->with('product:id,product_name')
+            ->get();
+
+        // 3. Sản phẩm tồn kho nhiều nhất
+        $mostInStock = DB::table('products_attributes')
+            ->join('products', 'products.id', '=', 'products_attributes.product_id')
+            ->select(
+                'products.id',
+                'products.product_name',
+                DB::raw('SUM(products_attributes.stock) as total_stock')
+            )
+            ->groupBy('products.id', 'products.product_name')
+            ->orderByDesc('total_stock')
+            ->take(5)
+            ->get();
 
 
-        return view('admin/dashboard')->with(compact('sectionsCount', 'categoriesCount', 'productsCount', 'ordersCount', 'couponsCount', 'brandsCount', 'usersCount')); // is the same as:    return view('admin.dashboard');
+
+
+
+        return view('admin/dashboard')->with(compact('sectionsCount', 'categoriesCount', 'productsCount', 'ordersCount', 'couponsCount', 'brandsCount', 'usersCount', 'ordersByStatus', 'revenueByDay', 'revenueByMonth', 'revenueByYear', 'mostPurchased', 'bestSelling', 'mostInStock')); // is the same as:    return view('admin.dashboard');
     }
 
-    public function login(Request $request) { // Logging in using our 'admin' guard (whether 'vendor' or 'admin' (depending on the `type` and `vendor_id` columns in `admins` table)) we created in auth.php
+    public function login(Request $request)
+    { // Logging in using our 'admin' guard (whether 'vendor' or 'admin' (depending on the `type` and `vendor_id` columns in `admins` table)) we created in auth.php
         if ($request->isMethod('post')) {
             $data = $request->all();
             // dd($data);
@@ -68,14 +142,11 @@ class AdminController extends Controller
             if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password']])) { // Accessing Specific Guard Instances: https://laravel.com/docs/9.x/authentication#accessing-specific-guard-instances
                 if (Auth::guard('admin')->user()->type == 'vendor' && Auth::guard('admin')->user()->confirm == 'No') { // if the entity trying to login is 'vendor' and not 'admin' (i.e. `type` column is `vendor`, and `vendor_id` is not zero 0 in `admins` table)    // check the `type` column in the `admins` table for if the logging in user is 'venodr', and check the `confirm` column if the vendor is not yet confirmed (`confirm` = 'No'), then don't allow logging in    // Accessing Specific Guard Instances: https://laravel.com/docs/9.x/authentication#accessing-specific-guard-instances
                     return redirect()->back()->with('error_message', 'Please confirm your email to activate your Vendor Account');
-
                 } else if (Auth::guard('admin')->user()->type != 'vendor' && Auth::guard('admin')->user()->status == '0') { // if the entity trying to login is 'admin' and not 'vendor' (i.e. `type` column is `superadmin` or `admin`, and `vendor_id` is zero 0 in `admins` table)    // check the `type` column in the `admins` table for if the logging in user is 'admin' or 'superadmin' (not 'vendor'), and check the `status` column if the 'admin' or 'superadmin' is inactive/disabled (`status` = 0), then don't allow logging in    // Accessing Specific Guard Instances: https://laravel.com/docs/9.x/authentication#accessing-specific-guard-instances
                     return redirect()->back()->with('error_message', 'Your admin account is not active');
-
                 } else { // otherwise, login successfully!
                     return redirect('/admin/dashboard'); // Let them LOGIN!!
                 }
-
             } else { // If login credentials are incorrect
                 return redirect()->back()->with('error_message', 'Invalid Email or Password'); // Redirecting With Flashed Session Data: https://laravel.com/docs/9.x/responses#redirecting-with-flashed-session-data
             }
@@ -85,12 +156,14 @@ class AdminController extends Controller
         return view('admin/login');
     }
 
-    public function logout() {
+    public function logout()
+    {
         Auth::guard('admin')->logout(); // Logging out using our 'admin' guard that we created in auth.php    // Accessing Specific Guard Instances: https://laravel.com/docs/9.x/authentication#accessing-specific-guard-instances
         return redirect('admin/login');
     }
 
-    public function updateAdminPassword(Request $request) {
+    public function updateAdminPassword(Request $request)
+    {
         // Correcting issues in the Skydash Admin Panel Sidebar using Session
         Session::put('page', 'update_admin_password');
 
@@ -110,7 +183,6 @@ class AdminController extends Controller
                     ]); // we persist (update) the hashed password (not the password itself)
 
                     return redirect()->back()->with('success_message', 'Admin Password has been updated successfully!');
-
                 } else { // If new password and confirm password are not matching each other
                     return redirect()->back()->with('error_message', 'New Password and Confirm Password does not match!');
                 }
@@ -126,7 +198,8 @@ class AdminController extends Controller
         return view('admin/settings/update_admin_password')->with(compact('adminDetails'));
     }
 
-    public function checkAdminPassword(Request $request) { // This method is called from the AJAX call in admin/js/custom.js page
+    public function checkAdminPassword(Request $request)
+    { // This method is called from the AJAX call in admin/js/custom.js page
         $data = $request->all();
         // dd($data);
 
@@ -139,7 +212,8 @@ class AdminController extends Controller
         }
     }
 
-    public function updateAdminDetails(Request $request) { // the update_admin_details.blade.php
+    public function updateAdminDetails(Request $request)
+    { // the update_admin_details.blade.php
         // Correcting issues in the Skydash Admin Panel Sidebar using Session
         Session::put('page', 'update_admin_details');
 
@@ -184,7 +258,6 @@ class AdminController extends Controller
                     // Upload the image using the Intervention package and save it in our path inside the 'public' folder
                     Image::make($image_tmp)->save($imagePath); // '\Image' is the Intervention package
                 }
-
             } else if (!empty($data['current_admin_image'])) { // In case the admins updates other fields but doesn't update the image itself (doesn't upload a new image), but there's an already existing old image
                 $imageName = $data['current_admin_image'];
             } else { // In case the admins updates other fields but doesn't update the image itself (doesn't upload a new image), and originally there wasn't any image uploaded in the first place
@@ -206,7 +279,8 @@ class AdminController extends Controller
         return view('admin/settings/update_admin_details');
     }
 
-    public function updateVendorDetails($slug, Request $request) { // $slug can only be: 'personal', 'business' or 'bank'
+    public function updateVendorDetails($slug, Request $request)
+    { // $slug can only be: 'personal', 'business' or 'bank'
         if ($slug == 'personal') {
             // Correcting issues in the Skydash Admin Panel Sidebar using Session
             Session::put('page', 'update_personal_details');
@@ -255,7 +329,6 @@ class AdminController extends Controller
                         // Upload the image using the Intervention package and save it in our path inside the 'public' folder
                         Image::make($image_tmp)->save($imagePath); // '\Image' is the Intervention package
                     }
-
                 } else if (!empty($data['current_vendor_image'])) { // In case the admins updates other fields but doesn't update the image itself (doesn't upload a new image), but there's an already existing old image
                     $imageName = $data['current_vendor_image'];
                 } else { // In case the admins updates other fields but doesn't update the image itself (doesn't upload a new image), and originally there wasn't any image uploaded in the first place
@@ -335,7 +408,6 @@ class AdminController extends Controller
                         // Upload the image using the Intervention package and save it in our path inside the 'public' folder
                         Image::make($image_tmp)->save($imagePath); // '\Image' is the Intervention package
                     }
-
                 } else if (!empty($data['current_address_proof'])) { // In case the admins updates other fields but doesn't update the image itself (doesn't upload a new image), but there's an already existing old image
                     $imageName = $data['current_address_proof'];
                 } else { // In case the admins updates other fields but doesn't update the image itself (doesn't upload a new image), and originally there wasn't any image uploaded in the first place
@@ -361,7 +433,6 @@ class AdminController extends Controller
                         'address_proof'           => $data['address_proof'],
                         'address_proof_image'     => $imageName,
                     ]);
-
                 } else { // if there's no vendor already existing, then INSERT
                     // INSERT INTO `vendors_business_details` table
                     VendorsBusinessDetail::insert([
@@ -394,7 +465,6 @@ class AdminController extends Controller
             } else {
                 $vendorDetails = array();
             }
-
         } else if ($slug == 'bank') {
             // Correcting issues in the Skydash Admin Panel Sidebar using Session
             Session::put('page', 'update_bank_details');
@@ -433,7 +503,6 @@ class AdminController extends Controller
                         'account_number'      => $data['account_number'],
                         'bank_ifsc_code'      => $data['bank_ifsc_code'],
                     ]);
-
                 } else { // if there's no vendor already existing, then INSERT
                     // INSERT INTO `vendors_bank_details` table
                     VendorsBankDetail::insert([
@@ -456,7 +525,6 @@ class AdminController extends Controller
             } else {
                 $vendorDetails = array();
             }
-
         }
 
 
@@ -471,7 +539,8 @@ class AdminController extends Controller
     }
 
     // Update the vendor's commission percentage (by the Admin) in `vendors` table (for every vendor on their own) in the Admin Panel in admin/admins/view_vendor_details.blade.php (Commissions module: Every vendor must pay a certain commission (that may vary from a vendor to another) for the website owner (admin) on every item sold, and it's defined by the website owner (admin))
-    public function updateVendorCommission(Request $request) {
+    public function updateVendorCommission(Request $request)
+    {
         if ($request->isMethod('post')) { // if the HTML Form is submitted (in admin/admins/view_vendor_details.blade.php)
             $data = $request->all();
             // dd($data);
@@ -484,7 +553,8 @@ class AdminController extends Controller
         }
     }
 
-    public function admins($type = null) { // $type is the `type` column in the `admins` which can only be: superadmin, admin, subadmin or vendor    // A default value of null (to allow not passing a {type} slug, and in this case, the page will view ALL of the superadmin, admins, subadmins and vendors at the same time)
+    public function admins($type = null)
+    { // $type is the `type` column in the `admins` which can only be: superadmin, admin, subadmin or vendor    // A default value of null (to allow not passing a {type} slug, and in this case, the page will view ALL of the superadmin, admins, subadmins and vendors at the same time)
         $admins = Admin::query();
         // dd($admins);
 
@@ -494,7 +564,6 @@ class AdminController extends Controller
 
             // Correcting issues in the Skydash Admin Panel Sidebar using Session
             Session::put('page', 'view_' . strtolower($title));
-
         } else { // if there's no $type is passed, show ALL of the admins, subadmins and vendors
             $title = 'All Admins/Subadmins/Vendors';
 
@@ -508,15 +577,17 @@ class AdminController extends Controller
         return view('admin/admins/admins')->with(compact('admins', 'title'));
     }
 
-    public function viewVendorDetails($id) { // View further 'vendor' details inside Admin Management table (if the authenticated user is superadmin, admin or subadmin)
-        $vendorDetails = Admin::with('vendorPersonal', 'vendorBusiness','vendorBank')->where('id', $id)->first(); // Using the relationship defined in the Admin.php model to be able to get data from `vendors`, `vendors_business_details` and `vendors_bank_details` tables
+    public function viewVendorDetails($id)
+    { // View further 'vendor' details inside Admin Management table (if the authenticated user is superadmin, admin or subadmin)
+        $vendorDetails = Admin::with('vendorPersonal', 'vendorBusiness', 'vendorBank')->where('id', $id)->first(); // Using the relationship defined in the Admin.php model to be able to get data from `vendors`, `vendors_business_details` and `vendors_bank_details` tables
         $vendorDetails = json_decode(json_encode($vendorDetails), true); // We used json_decode(json_encode($variable), true) to convert $vendorDetails to an array instead of Laravel's toArray() method
         // dd($vendorDetails);
 
         return view('admin/admins/view_vendor_details')->with(compact('vendorDetails'));
     }
 
-    public function updateAdminStatus(Request $request) { // Update Admin Status using AJAX in admins.blade.php
+    public function updateAdminStatus(Request $request)
+    { // Update Admin Status using AJAX in admins.blade.php
         if ($request->ajax()) { // if the request is coming via an AJAX call
             $data = $request->all(); // Getting the name/value pairs array that are sent from the AJAX request (AJAX call)
             // dd($data);
@@ -569,5 +640,4 @@ class AdminController extends Controller
             ]);
         }
     }
-
 }

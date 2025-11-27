@@ -87,7 +87,7 @@
                         
                         {{-- The Route Parameter {type} is the `type` column in the `admins` table, which can only be: admin, subadmin or vendor. And if there's no parameter passed at all, show ALL of the admins, subadmins and vendors at the same page --}}
                         <li class="nav-item"> <a @if (Session::get('page') == 'view_admins')    style="background: #052CA3 !important; color: #FFF !important" @else style="background: #fff !important; color: #052CA3 !important" @endif class="nav-link" href="{{ url('admin/admins/admin') }}">Admins</a></li>
-                        <li class="nav-item"> <a @if (Session::get('page') == 'view_subadmins') style="background: #052CA3 !important; color: #FFF !important" @else style="background: #fff !important; color: #052CA3 !important" @endif class="nav-link" href="{{ url('admin/admins/subadmin') }}">Subadmins</a></li>
+                        <!-- <li class="nav-item"> <a @if (Session::get('page') == 'view_subadmins') style="background: #052CA3 !important; color: #FFF !important" @else style="background: #fff !important; color: #052CA3 !important" @endif class="nav-link" href="{{ url('admin/admins/subadmin') }}">Subadmins</a></li> -->
                         <li class="nav-item"> <a @if (Session::get('page') == 'view_vendors')   style="background: #052CA3 !important; color: #FFF !important" @else style="background: #fff !important; color: #052CA3 !important" @endif class="nav-link" href="{{ url('admin/admins/vendor') }}">Vendors</a></li>
                         <li class="nav-item"> <a @if (Session::get('page') == 'view_all')       style="background: #052CA3 !important; color: #FFF !important" @else style="background: #fff !important; color: #052CA3 !important" @endif class="nav-link" href="{{ url('admin/admins') }}">All</a></li>
                     </ul>
@@ -151,7 +151,7 @@
                 <div class="collapse" id="ui-users">
                     <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #052CA3 !important">
                         <li class="nav-item"> <a @if (Session::get('page') == 'users')       style="background: #052CA3 !important; color: #FFF !important" @else style="background: #fff !important; color: #052CA3 !important" @endif class="nav-link" href="{{ url('admin/users') }}">Users</a></li>
-                        <li class="nav-item"> <a @if (Session::get('page') == 'subscribers') style="background: #052CA3 !important; color: #FFF !important" @else style="background: #fff !important; color: #052CA3 !important" @endif class="nav-link" href="{{ url('admin/subscribers') }}">Subscribers</a></li>
+                        <!-- <li class="nav-item"> <a @if (Session::get('page') == 'subscribers') style="background: #052CA3 !important; color: #FFF !important" @else style="background: #fff !important; color: #052CA3 !important" @endif class="nav-link" href="{{ url('admin/subscribers') }}">Subscribers</a></li> -->
                     </ul>
                 </div>
             </li>
