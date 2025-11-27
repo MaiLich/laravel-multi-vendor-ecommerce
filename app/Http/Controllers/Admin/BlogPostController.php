@@ -9,16 +9,19 @@ use App\Models\BlogPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class BlogPostController extends Controller
 {
     // index
     public function index(){
+        Session::put('page', 'blog');
         $posts = BlogPost::latest()->paginate(15);
         return view('admin.blog.index', compact('posts'));
     }
 
     public function create(){
+        Session::put('page', 'blog');
         return view('admin.blog.form', ['post' => new BlogPost()]);
     }
 
@@ -40,6 +43,7 @@ class BlogPostController extends Controller
 
 
     public function edit(BlogPost $post){
+        Session::put('page', 'blog');
         return view('admin.blog.form', compact('post'));
     }
 
@@ -74,6 +78,7 @@ class BlogPostController extends Controller
 
     // Duyệt comment nhanh trong admin
     public function comments(BlogPost $post){
+        Session::put('page', 'blog'); 
         $post->load(['comments.user']);
         return view('admin.blog.comments', compact('post'));
     }

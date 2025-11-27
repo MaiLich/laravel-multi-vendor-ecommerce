@@ -9,9 +9,14 @@
           {{ $post->published_at? $post->published_at->format('d/m/Y H:i') : '' }} ·
           by {{ $post->author->name ?? 'Admin' }}
         </p>
+
         @if($post->thumbnail)
-          <img class="img-fluid rounded mb-3" src="{{ asset('storage/'.$post->thumbnail) }}" alt="{{ $post->title }}">
+          {{-- ĐƯỜNG DẪN TƯƠNG ĐỐI --}}
+          <img class="img-fluid rounded mb-3"
+               src="{{ '/storage/'.$post->thumbnail }}"
+               alt="{{ $post->title }}">
         @endif
+
         <div class="content">{!! $post->content !!}</div>
       </article>
 

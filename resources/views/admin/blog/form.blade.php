@@ -16,9 +16,12 @@
       <div class="mb-3">
         <label class="form-label">Thumbnail</label>
         <input type="file" name="thumbnail" class="form-control">
+
         @if($post->thumbnail)
-          <img src="{{ asset('storage/'.$post->thumbnail) }}" class="mt-2 rounded" height="80">
+          {{-- ĐƯỜNG DẪN TƯƠNG ĐỐI, KHÔNG PHỤ THUỘC APP_URL --}}
+          <img src="{{ '/storage/'.$post->thumbnail }}" class="mt-2 rounded" height="80" alt="{{ $post->title }}">
         @endif
+
         @error('thumbnail')<div class="text-danger small">{{ $message }}</div>@enderror
       </div>
 
@@ -46,4 +49,3 @@
 <script> tinymce.init({ selector:'textarea[name="content"]', height: 500 }); </script>
 @endpush
 @endsection
-s
