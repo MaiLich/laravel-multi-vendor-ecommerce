@@ -1,58 +1,97 @@
 @extends('front.layout.layout')
-@section('content')
-<div class="container py-4">
-  <div class="row">
-    <div class="col-lg-8">
-      <article class="mb-4">
-        <h1 class="mb-2">{{ $post->title }}</h1>
-        <p class="text-muted small mb-3">
-          {{ $post->published_at? $post->published_at->format('d/m/Y H:i') : '' }} ·
-          by {{ $post->author->name ?? 'Admin' }}
-        </p>
 
+@section('content')
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      {{-- Bài viết --}}
+      <article class="mb-5">
+        {{-- Tiêu đề + meta --}}
+        <header class="mb-4 text-center">
+          <h1 class="mb-3" style="font-size: 2.2rem; font-weight: 700;">
+            {{ $post->title }}
+          </h1>
+          <p class="text-muted mb-0" style="font-size: 0.9rem;">
+            {{ $post->published_at? $post->published_at->format('d/m/Y H:i') : '' }}
+            · by <span class="font-weight-semibold">{{ $post->author->name ?? 'Admin' }}</span>
+          </p>
+          <hr class="mt-3 mb-0" style="max-width: 120px; border-top: 2px solid #222; opacity:.8;">
+        </header>
+
+        {{-- Ảnh thumbnail --}}
         @if($post->thumbnail)
-          {{-- ĐƯỜNG DẪN TƯƠNG ĐỐI --}}
-          <img class="img-fluid rounded mb-3"
-               src="{{ '/storage/'.$post->thumbnail }}"
-               alt="{{ $post->title }}">
+          <figure class="mb-4 text-center">
+            <img class="img-fluid rounded shadow-sm"
+                 src="{{ '/storage/'.$post->thumbnail }}"
+                 alt="{{ $post->title }}"
+                 style="max-height: 520px; object-fit: cover;">
+          </figure>
         @endif
 
-        <div class="content">{!! $post->content !!}</div>
+        {{-- Nội dung --}}
+        <div class="content"
+             style="font-size: 1.05rem; line-height: 1.8; color:#333;">
+          {!! $post->content !!}
+        </div>
       </article>
 
-      <section id="comments">
+      {{-- Bình luận --}}
+      <section id="comments" class="mt-5">
         <h4 class="mb-3">Bình luận ({{ $post->comments->count() }})</h4>
 
         @auth
-        <form method="POST" action="{{ route('front.blog.comment.store',$post->slug) }}" class="mb-4">
-          @csrf
-          <textarea name="content" rows="4" class="form-control" placeholder="Viết bình luận của bạn...">{{ old('content') }}</textarea>
-          @error('content')<div class="small text-danger">{{ $message }}</div>@enderror
-          <button class="btn btn-primary mt-2">Gửi bình luận</button>
-        </form>
+          <div class="card mb-4 shadow-sm border-0">
+            <div class="card-body">
+              <form method="POST" action="{{ route('front.blog.comment.store',$post->slug) }}">
+                @csrf
+                <textarea name="content" rows="4" class="form-control"
+                          placeholder="Viết bình luận của bạn...">{{ old('content') }}</textarea>
+                @error('content')<div class="small text-danger mt-1">{{ $message }}</div>@enderror
+                <button class="btn btn-primary mt-3 px-4">Gửi bình luận</button>
+              </form>
+            </div>
+          </div>
         @else
-        <div class="alert alert-info">Vui lòng <a href="{{ url('/user/login-register') }}">đăng nhập</a> để bình luận.</div>
+          <div class="alert alert-info">
+            Vui lòng <a href="{{ url('/user/login-register') }}">đăng nhập</a> để bình luận.
+          </div>
         @endauth
 
         @forelse($post->comments as $c)
-        <div class="border rounded p-3 mb-2">
-          <strong>{{ $c->user->name ?? 'User #'.$c->user_id }}</strong>
-          <span class="text-muted small"> · {{ $c->created_at->diffForHumans() }}</span>
-          <p class="mb-0 mt-2">{{ $c->content }}</p>
-        </div>
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <strong>{{ $c->user->name ?? 'User #'.$c->user_id }}</strong>
+                <span class="text-muted small">{{ $c->created_at->diffForHumans() }}</span>
+              </div>
+              <p class="mb-0">{{ $c->content }}</p>
+            </div>
+          </div>
         @empty
-          <p>Chưa có bình luận.</p>
+          <p class="text-muted">Chưa có bình luận.</p>
         @endforelse
       </section>
+
     </div>
 
-    <div class="col-lg-4">
-      <h5 class="mb-3">Bài viết mới</h5>
-      <ul class="list-unstyled">
-        @foreach($related as $r)
-          <li class="mb-2"><a href="{{ route('front.blog.show',$r->slug) }}">{{ $r->title }}</a></li>
-        @endforeach
-      </ul>
+    {{-- Sidebar bài viết mới --}}
+    <div class="col-lg-3 mt-5 mt-lg-0">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-0">
+          <h5 class="mb-0">Bài viết mới</h5>
+        </div>
+        <div class="list-group list-group-flush">
+          @forelse($related as $r)
+            <a href="{{ route('front.blog.show',$r->slug) }}"
+               class="list-group-item list-group-item-action">
+              {{ $r->title }}
+            </a>
+          @empty
+            <div class="list-group-item text-muted">Chưa có bài viết khác.</div>
+          @endforelse
+        </div>
+      </div>
     </div>
   </div>
 </div>
