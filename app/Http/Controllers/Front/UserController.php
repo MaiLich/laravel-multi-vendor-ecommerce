@@ -17,6 +17,9 @@ class UserController extends Controller
 {
     // Render User Login/Register page (front/users/login_register.blade.php)    
     public function loginRegister() {
+        if (!Session::has('url.intended')) {
+            Session::put('url.intended', url()->previous());
+        }
         return view('front.users.login_register');
     }
 
@@ -149,14 +152,10 @@ class UserController extends Controller
                     }
 
  
-                    // redirect user to the Cart cart.blade.php page
-                    $redirectTo = url('cart'); // Check that route in web.php
-
-                    // Here, we return a JSON response because the request is ORIGINALLY submitting an HTML <form> data using an AJAX request
-                    return response()->json([ // JSON Responses: https://laravel.com/docs/9.x/responses#json-responses
-                        'type' => 'success',
-                        'url'  => $redirectTo // redirect user to the Cart cart.blade.php page
-                    ]);
+                        return response()->json([
+                            'type' => 'success',
+                            'url'  => redirect()->intended('/')->getTargetUrl()
+                        ]);
 
                 } else { // if Validation passes / is okay but login credentials provided by user are incorrect, login fails, and send a generic 'Wrong Credentials!' message
                     // Here, we return a JSON response because the request is ORIGINALLY submitting an HTML <form> data using an AJAX request

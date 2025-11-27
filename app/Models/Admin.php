@@ -12,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable; // https://laravel.com/d
 
 // class Admin extends Model
 
-class Admin extends Authenticatable 
+class Admin extends Authenticatable
 {
     use HasFactory;
 
@@ -25,15 +25,18 @@ class Admin extends Authenticatable
     // Defining the relationships    
     // An admin belongs to a vendor (the inverse of the relationship)
 
-    public function vendorPersonal() { // relationship between `admins` and `vendors` table
+    public function vendorPersonal()
+    { // relationship between `admins` and `vendors` table
         return $this->belongsTo('App\Models\Vendor', 'vendor_id'); // 'vendor_id' is the foreign key of the `admins` table
     }
 
-    public function vendorBusiness() { // relationship between `admins` and `vendors_business_details` table
-        return $this->belongsTo('App\Models\VendorsBusinessDetail', 'vendor_id'); // 'vendor_id' is the foreign key of the `admins` table
+    public function vendorBusiness()
+    {
+        return $this->belongsTo('App\Models\VendorsBusinessDetail', 'vendor_id', 'vendor_id');
     }
 
-    public function vendorBank() { // relationship between `admins` and `vendors_bank_details` table
-        return $this->belongsTo('App\Models\VendorsBankDetail', 'vendor_id'); // 'vendor_id' is the foreign key of the `admins` table
+    public function vendorBank()
+    {
+        return $this->belongsTo('App\Models\VendorsBankDetail', 'vendor_id', 'vendor_id');
     }
 }
