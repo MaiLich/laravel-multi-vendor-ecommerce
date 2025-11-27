@@ -26,7 +26,7 @@
           <button class="btn btn-primary mt-2">Gửi bình luận</button>
         </form>
         @else
-        <div class="alert alert-info">Vui lòng <a href="{{ url('/login') }}">đăng nhập</a> để bình luận.</div>
+        <div class="alert alert-info">Vui lòng <a href="{{ url('/user/login-register') }}">đăng nhập</a> để bình luận.</div>
         @endauth
 
         @forelse($post->comments as $c)

@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\UpdateBlogPostRequest;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class BlogPostController extends Controller
 {
@@ -23,15 +24,20 @@ class BlogPostController extends Controller
 
     public function store(StoreBlogPostRequest $request){
         $data = $request->validated();
-        $data['author_id'] = auth()->id();
+
+        // LẤY ID THEO GUARD admin
+        $data['author_id'] = Auth::guard('admin')->id();
 
         if ($request->hasFile('thumbnail')) {
             $data['thumbnail'] = $request->file('thumbnail')->store('blog','public');
         }
-
+        if ($data['status']==='published' && empty($data['published_at'])) {
+            $data['published_at'] = now();
+        }
         BlogPost::create($data);
         return redirect()->route('admin.blog.index')->with('success','Post created');
     }
+
 
     public function edit(BlogPost $post){
         return view('admin.blog.form', compact('post'));
