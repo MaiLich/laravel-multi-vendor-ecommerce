@@ -74,19 +74,19 @@
                     {{-- Plugin EasyZoom để phóng to hình ảnh sản phẩm khi di chuột --}}
                     <div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails">
                         <a href="{{ asset('front/images/product_images/large/' . $productDetails['product_image']) }}">
-                            <img src="{{ asset('front/images/product_images/large/' . $productDetails['product_image']) }}" alt="" width="500" height="500" />
+                            <img src="{{ asset('front/images/product_images/large/' . $productDetails['product_image']) }}" alt="{{ $productDetails['product_name'] }}" width="500" height="500" />
                         </a>
                     </div>
 
                     <div class="thumbnails" style="margin-top: 30px">
                         <a href="{{ asset('front/images/product_images/large/' . $productDetails['product_image']) }}" data-standard="{{ asset('front/images/product_images/small/' . $productDetails['product_image']) }}">
-                            <img src="{{ asset('front/images/product_images/small/' . $productDetails['product_image']) }}" width="120" height="120" alt="" />
+                            <img src="{{ asset('front/images/product_images/small/' . $productDetails['product_image']) }}" width="120" height="120" alt="{{ $productDetails['product_name'] }}" />
                         </a>
 
                         {{-- Hiển thị hình ảnh phụ của sản phẩm --}}
                         @foreach ($productDetails['images'] as $image)
                             <a href="{{ asset('front/images/product_images/large/' . $image['image']) }}" data-standard="{{ asset('front/images/product_images/small/' . $image['image']) }}">
-                                <img src="{{ asset('front/images/product_images/small/' . $image['image']) }}" width="120" height="120" alt="" />
+                                <img src="{{ asset('front/images/product_images/small/' . $image['image']) }}" width="120" height="120" alt="{{ $productDetails['product_name'] }}" />
                             </a>
                         @endforeach
                     </div>
@@ -145,7 +145,7 @@
                                     @if ($avgStarRating > 0)
                                         @php
                                             $star = 1;
-                                            while ($star < $avgStarRating):
+                                            while ($star <= $avgStarRating):
                                         @endphp
                                                 <span style="color: gold; font-size: 17px">&#9733;</span>
                                         @php
@@ -168,15 +168,19 @@
                             <span class="getAttributePrice">
                                 @if ($getDiscountPrice > 0)
                                     <div class="price">
-                                        <h4>Giá ưu đãi: EGP{{ $getDiscountPrice }}</h4>
+                                        <h4>{{ number_format($getDiscountPrice, 0, ',', '.') }}₫</h4>
                                     </div>
                                     <div class="original-price">
                                         <span>Giá gốc:</span>
-                                        <span>EGP{{ $productDetails['product_price'] }}</span>
+                                        <span>{{ number_format($productDetails['product_price'], 0, ',', '.') }}₫</span>
+                                    </div>
+                                    <div class="discount-price">
+                                        <span>Tiết kiệm:</span>
+                                        <span>{{ number_format($productDetails['product_price'] - $getDiscountPrice, 0, ',', '.') }}₫</span>
                                     </div>
                                 @else
                                     <div class="price">
-                                        <h4>EGP{{ $productDetails['product_price'] }}</h4>
+                                        <h4>{{ number_format($productDetails['product_price'], 0, ',', '.') }}₫</h4>
                                     </div>
                                 @endif
                             </span>
@@ -227,7 +231,7 @@
                                         <div style="margin-top: 10px">
                                             @foreach ($groupProducts as $product)
                                                 <a href="{{ url('product/' . $product['id']) }}">
-                                                    <img style="width: 80px" src="{{ asset('front/images/product_images/small/' . $product['product_image']) }}">
+                                                    <img style="width: 80px" src="{{ asset('front/images/product_images/small/' . $product['product_image']) }}" alt="{{ $product['product_name'] }}">
                                                 </a>
                                             @endforeach
                                         </div>
@@ -251,7 +255,7 @@
                                 <div class="quantity-wrapper u-s-m-b-22">
                                     <span>Số lượng:</span>
                                     <div class="quantity">
-                                        <input class="quantity-text-field" type="number" name="quantity" value="1">
+                                        <input class="quantity-text-field" type="number" name="quantity" value="1" min="1">
                                     </div>
                                 </div>
                                 <div>
@@ -263,7 +267,7 @@
                         </form>
 
                         <br><br><b>Giao hàng</b>
-                        <input type="text" id="pincode" placeholder="Nhập mã vùng giao hàng" required>
+                        <input type="text" id="pincode" placeholder="Nhập mã vùng giao hàng">
                         <button type="button" id="checkPincode">Kiểm tra</button>
                     </div>
                 </div>
@@ -275,7 +279,6 @@
                     <div class="detail-tabs-wrapper u-s-p-t-80">
                         <div class="detail-nav-wrapper u-s-m-b-30">
                             <ul class="nav single-product-nav justify-content-center">
-                                {{-- 🟢 Thứ tự mới: Chi tiết sản phẩm, Đánh giá, Chính sách đổi trả --}}
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="tab" href="#detail">Chi tiết sản phẩm</a>
                                 </li>
@@ -289,7 +292,6 @@
                         </div>
 
                         <div class="tab-content">
-                            {{-- 🟢 Tab Chi tiết sản phẩm --}}
                             <div class="tab-pane fade active show" id="detail">
                                 <div class="specification-whole-container">
                                     <div class="spec-table u-s-m-b-50">
@@ -323,9 +325,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- /Tab Chi tiết sản phẩm --}}
 
-                            {{-- 🟢 Tab Đánh giá (chỉ hiển thị, không form gửi) --}}
                             <div class="tab-pane fade" id="review">
                                 <div class="review-whole-container">
                                     <div class="row r-1 u-s-m-b-26 u-s-p-b-22">
@@ -350,7 +350,6 @@
                                         </div>
                                     </div>
 
-                                    {{-- Danh sách các đánh giá --}}
                                     <div class="get-reviews u-s-p-b-22">
                                         <div class="review-options u-s-m-b-16">
                                             <div class="review-option-heading">
@@ -364,7 +363,7 @@
                                                     <div class="review-data">
                                                         <div class="reviewer-name-and-date">
                                                             <h6 class="reviewer-name">{{ $rating['user']['name'] }}</h6>
-                                                            <h6 class="review-posted-date">{{ date('d-m-Y H:i:s', strtotime($rating['created_at'])) }}</h6>
+                                                            <h6 class="review-posted-date">{{ date('d/m/Y H:i', strtotime($rating['created_at'])) }}</h6>
                                                         </div>
                                                         <div class="reviewer-stars-title-body">
                                                             <div class="reviewer-stars">
@@ -389,22 +388,19 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- /Tab Đánh giá --}}
 
-                            {{-- 🟢 Tab Chính sách đổi trả (thay cho Video sản phẩm) --}}
                             <div class="tab-pane fade" id="policy">
                                 <div class="description-whole-container">
                                     <h4 class="u-s-m-b-16">Chính sách đổi trả</h4>
                                     <ul style="line-height: 1.8;">
-                                        <li>- Mức phí: <strong>30,000đ nội thành</strong> và <strong>40,000đ ngoại thành</strong></li>
+                                        <li>- Mức phí: <strong>30,000₫ nội thành</strong> và <strong>40,000₫ ngoại thành</strong></li>
                                         <li>- Được kiểm tra hàng trước khi nhận hàng</li>
                                         <li>- Đổi hàng trong vòng <strong>30 ngày</strong> kể từ khi nhận hàng</li>
                                         <li>- Không áp dụng đổi/trả sản phẩm trong chương trình khuyến mãi</li>
-                                        <li>- <strong>Miễn phí đổi trả</strong> nếu lỗi sai sót từ phía <strong>atino.vn</strong></li>
+                                        <li>- <strong>Miễn phí đổi trả</strong> nếu lỗi sai sót từ phía chúng tôi</li>
                                     </ul>
                                 </div>
                             </div>
-                            {{-- /Tab Chính sách đổi trả --}}
                         </div>
                     </div>
                 </div>
@@ -421,7 +417,6 @@
                         </div>
                         <div class="slider-fouc">
                             <div class="products-slider owl-carousel" data-item="4">
-                                {{-- Hiển thị sản phẩm tương tự (cùng danh mục) --}}
                                 @foreach ($similarProducts as $product)
                                     <div class="item">
                                         <div class="image-container">
@@ -430,9 +425,9 @@
                                                     $product_image_path = 'front/images/product_images/small/' . $product['product_image'];
                                                 @endphp
                                                 @if (!empty($product['product_image']) && file_exists($product_image_path))
-                                                    <img class="img-fluid" src="{{ asset($product_image_path) }}" alt="Sản phẩm">
+                                                    <img class="img-fluid" src="{{ asset($product_image_path) }}" alt="{{ $product['product_name'] }}">
                                                 @else
-                                                    <img class="img-fluid" src="{{ asset('front/images/product_images/small/no-image.png') }}" alt="Sản phẩm">
+                                                    <img class="img-fluid" src="{{ asset('front/images/product_images/small/no-image.png') }}" alt="{{ $product['product_name'] }}">
                                                 @endif
                                             </a>
 
@@ -448,13 +443,13 @@
                                             <div class="what-product-is">
                                                 <ul class="bread-crumb">
                                                     <li class="has-separator">
-                                                        <a href="shop-v1-root-category.html">{{ $product['product_code'] }}</a>
+                                                        <a href="javascript:void(0)">{{ $product['product_code'] }}</a>
                                                     </li>
                                                     <li class="has-separator">
-                                                        <a href="listing.html">{{ $product['product_color'] }}</a>
+                                                        <a href="javascript:void(0)">{{ $product['product_color'] }}</a>
                                                     </li>
                                                     <li>
-                                                        <a href="listing.html">{{ $product['brand']['name'] }}</a>
+                                                        <a href="javascript:void(0)">{{ $product['brand']['name'] ?? '' }}</a>
                                                     </li>
                                                 </ul>
                                                 <h6 class="item-title">
@@ -469,16 +464,16 @@
                                             @if ($getDiscountPrice > 0)
                                                 <div class="price-template">
                                                     <div class="item-new-price">
-                                                        EGP{{ $getDiscountPrice }} 
+                                                        {{ number_format($getDiscountPrice, 0, ',', '.') }}₫
                                                     </div>
                                                     <div class="item-old-price">
-                                                        EGP{{ $product['product_price'] }}
+                                                        {{ number_format($product['product_price'], 0, ',', '.') }}₫
                                                     </div>
                                                 </div>
                                             @else
                                                 <div class="price-template">
                                                     <div class="item-new-price">
-                                                        EGP{{ $product['product_price'] }}
+                                                        {{ number_format($product['product_price'], 0, ',', '.') }}₫
                                                     </div>
                                                 </div>
                                             @endif
@@ -503,7 +498,6 @@
                         </div>
                         <div class="slider-fouc">
                             <div class="products-slider owl-carousel" data-item="4">
-                                {{-- Hiển thị danh sách sản phẩm đã xem gần đây --}}
                                 @foreach ($recentlyViewedProducts as $product)
                                     <div class="item">
                                         <div class="image-container">
@@ -512,9 +506,9 @@
                                                     $product_image_path = 'front/images/product_images/small/' . $product['product_image'];
                                                 @endphp
                                                 @if (!empty($product['product_image']) && file_exists($product_image_path))
-                                                    <img class="img-fluid" src="{{ asset($product_image_path) }}" alt="Sản phẩm">
+                                                    <img class="img-fluid" src="{{ asset($product_image_path) }}" alt="{{ $product['product_name'] }}">
                                                 @else
-                                                    <img class="img-fluid" src="{{ asset('front/images/product_images/small/no-image.png') }}" alt="Sản phẩm">
+                                                    <img class="img-fluid" src="{{ asset('front/images/product_images/small/no-image.png') }}" alt="{{ $product['product_name'] }}">
                                                 @endif
                                             </a>
 
@@ -530,13 +524,13 @@
                                             <div class="what-product-is">
                                                 <ul class="bread-crumb">
                                                     <li class="has-separator">
-                                                        <a href="shop-v1-root-category.html">{{ $product['product_code'] }}</a>
+                                                        <a href="javascript:void(0)">{{ $product['product_code'] }}</a>
                                                     </li>
                                                     <li class="has-separator">
-                                                        <a href="listing.html">{{ $product['product_color'] }}</a>
+                                                        <a href="javascript:void(0)">{{ $product['product_color'] }}</a>
                                                     </li>
                                                     <li>
-                                                        <a href="listing.html">{{ $product['brand']['name'] }}</a>
+                                                        <a href="javascript:void(0)">{{ $product['brand']['name'] ?? '' }}</a>
                                                     </li>
                                                 </ul>
                                                 <h6 class="item-title">
@@ -551,16 +545,16 @@
                                             @if ($getDiscountPrice > 0)
                                                 <div class="price-template">
                                                     <div class="item-new-price">
-                                                        EGP{{ $getDiscountPrice }} 
+                                                        {{ number_format($getDiscountPrice, 0, ',', '.') }}₫
                                                     </div>
                                                     <div class="item-old-price">
-                                                        EGP{{ $product['product_price'] }}
+                                                        {{ number_format($product['product_price'], 0, ',', '.') }}₫
                                                     </div>
                                                 </div>
                                             @else
                                                 <div class="price-template">
                                                     <div class="item-new-price">
-                                                        EGP{{ $product['product_price'] }}
+                                                        {{ number_format($product['product_price'], 0, ',', '.') }}₫
                                                     </div>
                                                 </div>
                                             @endif

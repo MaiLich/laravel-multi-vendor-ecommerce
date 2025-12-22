@@ -4,25 +4,22 @@
         <!-- Outer-Footer -->
         <div class="outer-footer-wrapper u-s-p-y-80">
             <h6>
-                For special offers and other discount information
+                Để nhận các ưu đãi đặc biệt và thông tin giảm giá
             </h6>
             <h1>
-                Subscribe to our Newsletter
+                Đăng ký nhận bản tin
             </h1>
             <p>
-                Subscribe to the mailing list to receive updates on promotions, new arrivals, discount and coupons.
+                Đăng ký danh sách email để nhận thông tin cập nhật về khuyến mãi, sản phẩm mới, mã giảm giá và phiếu ưu đãi.
             </p>
 
-
-
-            
             <form class="newsletter-form">
-                <label class="sr-only" for="subscriber_email">Enter your Email</label>
-                <input type="text" placeholder="Your Email Address" id="subscriber_email" name="subscriber_email" required> {{-- We'll use the HTML id Global Attribute in jQuery in front/js/custom.js --}} 
-                <button type="button" class="button" onclick="addSubscriber()">SUBMIT</button> {{-- Check the addSubscriber() function in front/js/custom.js. We'll use it in conjunction with the    id="subscriber_email"    of the <input> field --}}
+                <label class="sr-only" for="subscriber_email">Nhập email của bạn</label>
+                <input type="text" placeholder="Địa chỉ Email của bạn" id="subscriber_email" name="subscriber_email" required> 
+                {{-- We'll use the HTML id Global Attribute in jQuery in front/js/custom.js --}} 
+                <button type="button" class="button" onclick="addSubscriber()">ĐĂNG KÝ</button> 
+                {{-- Check the addSubscriber() function in front/js/custom.js. We'll use it in conjunction with the id="subscriber_email" of the <input> field --}}
             </form>
-
-
 
         </div>
         <!-- Outer-Footer /- -->
@@ -31,56 +28,56 @@
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-12">
                     <div class="footer-list">
-                        <h6>COMPANY</h6>
+                        <h6>CÔNG TY</h6>
                         <ul>
                             <li>
-                                <a href="{{ url('about-us') }}">About Us</a>
+                                <a href="{{ url('about-us') }}">Giới thiệu</a>
                             </li>
                             <li>
-                                <a href="{{ url('contact') }}">Contact Us</a>
+                                <a href="{{ url('contact') }}">Liên hệ</a>
                             </li>
                             <li>
-                                <a href="{{ url('faq') }}">FAQ</a>
+                                <a href="{{ url('faq') }}">Câu hỏi thường gặp</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12">
                     <div class="footer-list">
-                        <h6>COLLECTION</h6>
+                        <h6>DANH MỤC</h6>
                         <ul>
                             <li>
-                                <a href="{{ url('men') }}">Men Clothing</a>
+                                <a href="{{ url('men') }}">Thời trang Nam</a>
                             </li>
                             <li>
-                                <a href="{{ url('women') }}">Women Clothing</a>
+                                <a href="{{ url('women') }}">Thời trang Nữ</a>
                             </li>
                             <li>
-                                <a href="{{ url('kids') }}">Kids Clothing</a>
+                                <a href="{{ url('kids') }}">Thời trang Trẻ em</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12">
                     <div class="footer-list">
-                        <h6>ACCOUNT</h6>
+                        <h6>TÀI KHOẢN</h6>
                         <ul>
                             <li>
-                                <a href="{{ url('user/account') }}">My Account</a>
+                                <a href="{{ url('user/account') }}">Tài khoản của tôi</a>
                             </li>
                             <li>
-                                <a href="{{ url('user/orders') }}">My Orders</a>
+                                <a href="{{ url('user/orders') }}">Đơn hàng của tôi</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12">
                     <div class="footer-list">
-                        <h6>Contact</h6>
+                        <h6>Liên hệ</h6>
                         <ul>
                             <li>
                                 <i class="fas fa-location-arrow u-s-m-r-9"></i>
-                                <span>Multi-vendor E-commerce Application</span>
+                                <span>Ứng dụng Thương mại Điện tử Đa nhà bán hàng</span>
                             </li>
                             <li>
                                 <a href="tel:+201255845857">
@@ -91,8 +88,7 @@
                             <li>
                                 <a href="mailto:info@multi-vendore-commerce.com">
                                 <i class="fas fa-envelope u-s-m-r-9"></i>
-                                <span>
-                                info@multi-vendore-commerce.com</span>
+                                <span>info@multi-vendore-commerce.com</span>
                                 </a>
                             </li>
                         </ul>
@@ -143,7 +139,7 @@
                 </ul>
             </div>
             <p class="copyright-text">Copyright &copy; 2022
-                <a target="_blank" rel="nofollow" href="#">Multi-vendor E-commerce Application</a> | All Right Reserved
+                <a target="_blank" rel="nofollow" href="#">Ứng dụng Thương mại Điện tử Đa nhà bán hàng</a> | Bảo lưu toàn quyền
             </p>
         </div>
     </div>

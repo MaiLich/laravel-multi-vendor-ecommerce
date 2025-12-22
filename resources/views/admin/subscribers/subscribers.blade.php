@@ -9,11 +9,11 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Subscribers</h4>
+                            <h4 class="card-title">Người đăng ký</h4>
                             
 
                             {{-- Export Subscribers (the `newsletter_subscribers` database table) as an Excel file Button --}} 
-                            <a href="{{ url('admin/export-subscribers') }}" style="max-width: 100px; float: right" class="btn btn-block btn-primary">Export</a>
+                            <a href="{{ url('admin/export-subscribers') }}" style="max-width: 100px; float: right" class="btn btn-block btn-primary">Xuất file</a>
 
 
 
@@ -22,7 +22,7 @@
                             {{-- Our Bootstrap success message in case of updating admin password is successful: --}}
                             @if (Session::has('success_message')) <!-- Check AdminController.php, updateAdminPassword() method -->
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <strong>Success:</strong> {{ Session::get('success_message') }}
+                                    <strong>Thành công:</strong> {{ Session::get('success_message') }}
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
@@ -37,9 +37,9 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Email</th>
-                                            <th>Subscribed on</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
+                                            <th>Ngày đăng ký</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -50,7 +50,7 @@
                                                 <td>{{ $subscriber['id'] }}</td>
                                                 <td>{{ $subscriber['email'] }}</td>
                                                 <td>
-                                                    {{ date("F j, Y, g:i a", strtotime($subscriber['created_at'])) }} {{-- https://stackoverflow.com/questions/2487921/convert-a-date-format-in-php --}} {{-- https://www.php.net/manual/en/function.date.php#:~:text=date(%22-,F%20j%2C%20Y%2C%20g%3Ai%20a,-%22)%3B%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20//%20March --}} 
+                                                    {{ date("F j, Y, g:i a", strtotime($subscriber['created_at'])) }} {{-- https://stackoverflow.com/questions/2487921/convert-a-date-format-in-php --}} {{-- https://www.php.net/manual/en/function.date.php#:~:text=date(%22-,F%20j%2C%20Y%2C%20g%3Ai%20a,-%22)%3B%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20//%20March --}}
                                                 </td>
                                                 <td>
                                                     @if ($subscriber['status'] == 1)
@@ -93,7 +93,7 @@
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2022. All rights reserved.</span>
+                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Bản quyền © 2022. Mọi quyền được bảo lưu.</span>
             </div>
         </footer>
         <!-- partial -->

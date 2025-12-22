@@ -3,9 +3,9 @@
 @section('content')
 <div class="card shadow-sm">
   <div class="card-header d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Blog Posts</h5>
+    <h5 class="mb-0">Bài viết Blog</h5>
     <a href="{{ route('admin.blog.create') }}" class="btn btn-primary btn-sm">
-      <i class="mdi mdi-plus"></i> Create Post
+      <i class="mdi mdi-plus"></i> Tạo bài viết mới
     </a>
   </div>
 
@@ -15,11 +15,11 @@
         <thead class="thead-light">
           <tr>
             <th style="width:60px;">#</th>
-            <th>Title</th>
-            <th style="width:120px;">Status</th>
-            <th style="width:140px;">Author</th>
-            <th style="width:160px;">Published</th>
-            <th style="width:230px;" class="text-end">Actions</th>
+            <th>Tiêu đề</th>
+            <th style="width:120px;">Trạng thái</th>
+            <th style="width:140px;">Tác giả</th>
+            <th style="width:160px;">Ngày đăng</th>
+            <th style="width:230px;" class="text-end">Thao tác</th>
           </tr>
         </thead>
         <tbody>
@@ -33,33 +33,33 @@
             </td>
             <td>
               @if($post->status === 'published')
-                <span class="badge badge-success">Published</span>
+                <span class="badge badge-success">Đã xuất bản</span>
               @else
-                <span class="badge badge-secondary">Draft</span>
+                <span class="badge badge-secondary">Bản nháp</span>
               @endif
             </td>
-            <td>{{ $post->author->name ?? 'Admin' }}</td>
+            <td>{{ $post->author->name ?? 'Quản trị viên' }}</td>
             <td>{{ optional($post->published_at)->format('d/m/Y H:i') }}</td>
             <td class="text-end">
               <a href="{{ route('admin.blog.edit',$post) }}"
-                 class="btn btn-sm btn-outline-primary">Edit</a>
+                 class="btn btn-sm btn-outline-primary">Chỉnh sửa</a>
 
               <form action="{{ route('admin.blog.toggle',$post) }}"
                     method="POST" class="d-inline">
                 @csrf
                 <button class="btn btn-sm btn-outline-warning">
-                  {{ $post->status === 'published' ? 'Unpublish' : 'Publish' }}
+                  {{ $post->status === 'published' ? 'Hạ bài' : 'Xuất bản' }}
                 </button>
               </form>
 
               <a href="{{ route('admin.blog.comments',$post) }}"
-                 class="btn btn-sm btn-outline-info">Comments</a>
+                 class="btn btn-sm btn-outline-info">Bình luận</a>
 
               <form action="{{ route('admin.blog.destroy',$post) }}"
                     method="POST" class="d-inline"
-                    onsubmit="return confirm('Xóa bài viết này?')">
+                    onsubmit="return confirm('Bạn có chắc muốn xóa bài viết này?')">
                 @csrf @method('DELETE')
-                <button class="btn btn-sm btn-outline-danger">Delete</button>
+                <button class="btn btn-sm btn-outline-danger">Xóa</button>
               </form>
             </td>
           </tr>

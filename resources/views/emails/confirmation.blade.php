@@ -2,10 +2,10 @@
 {{-- Variables ($name, $email, $code, ...) are passed from userRegister() in Front/UserController.php --}}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Confirm Your Account</title>
+    <title>Xác nhận tài khoản của bạn</title>
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -48,11 +48,11 @@
 </head>
 <body>
     <div class="email-container">
-        <h2>Welcome to Multi-vendor E-commerce Application!</h2>
+        <h2>Chào mừng bạn đến với Ứng dụng Thương mại điện tử đa nhà bán!</h2>
 
         <p>Xin chào <strong>{{ $name }}</strong>,</p>
 
-        <p>Cảm ơn bạn đã đăng ký tài khoản tại <strong>Multi-vendor E-commerce Application</strong>.</p>
+        <p>Cảm ơn bạn đã đăng ký tài khoản tại <strong>Ứng dụng Thương mại điện tử đa nhà bán</strong>.</p>
 
         <p>Vui lòng nhấn vào nút bên dưới để kích hoạt tài khoản của bạn:</p>
 
@@ -63,7 +63,7 @@
         <p>Nếu bạn không thực hiện đăng ký này, vui lòng bỏ qua email này.</p>
 
         <div class="footer">
-            <p>Trân trọng,<br><strong>Đội ngũ Multi-vendor E-commerce Application</strong></p>
+            <p>Trân trọng,<br><strong>Đội ngũ Ứng dụng Thương mại điện tử đa nhà bán</strong></p>
         </div>
     </div>
 </body>

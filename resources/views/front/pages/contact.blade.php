@@ -1,20 +1,19 @@
 {{-- This page is rendered by contact() method inside Front/CmsController.php --}}
 @extends('front.layout.layout')
 
-
 @section('content')
     <!-- Page Introduction Wrapper -->
     <div class="page-style-a">
         <div class="container">
             <div class="page-intro">
-                <h2>Contact Us</h2>
+                <h2>Liên hệ với chúng tôi</h2>
                 <ul class="bread-crumb">
                     <li class="has-separator">
                         <i class="ion ion-md-home"></i>
-                        <a href="index.html">Home</a>
+                        <a href="{{ url('/') }}">Trang chủ</a>
                     </li>
                     <li class="is-marked">
-                        <a href="contact.html">Contact Us</a>
+                        <a href="{{ url('contact') }}">Liên hệ</a>
                     </li>
                 </ul>
             </div>
@@ -27,23 +26,17 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="touch-wrapper">
-                        <h1 class="contact-h1">Get In Touch With Us</h1>
+                        <h1 class="contact-h1">Gửi tin nhắn cho chúng tôi</h1>
 
-
-                        {{-- Displaying Laravel Validation Errors: https://laravel.com/docs/9.x/validation#quick-displaying-the-validation-errors --}}    
-                        {{-- Determining If An Item Exists In The Session (using has() method): https://laravel.com/docs/9.x/session#determining-if-an-item-exists-in-the-session --}}
-                        @if (Session::has('error_message')) <!-- Check AdminController.php, updateAdminPassword() method -->
+                        @if (Session::has('error_message'))
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Error:</strong> {{ Session::get('error_message') }}
+                                <strong>Lỗi:</strong> {{ Session::get('error_message') }}
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                         @endif
 
-
-
-                        {{-- Displaying Laravel Validation Errors: https://laravel.com/docs/9.x/validation#quick-displaying-the-validation-errors --}}    
                         @if ($errors->any())
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
 
@@ -57,58 +50,53 @@
                             </div>
                         @endif
 
-
-                        {{-- Displaying The Validation Errors: https://laravel.com/docs/9.x/validation#quick-displaying-the-validation-errors AND https://laravel.com/docs/9.x/blade#validation-errors --}} 
-                        {{-- Determining If An Item Exists In The Session (using has() method): https://laravel.com/docs/9.x/session#determining-if-an-item-exists-in-the-session --}}
-                        {{-- Our Bootstrap success message in case of updating admin password is successful: --}}
-                        {{-- Displaying Success Message --}}
-                        @if (Session::has('success_message')) <!-- Check vendorRegister() method in Front/VendorController.php -->
+                        @if (Session::has('success_message'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>Success:</strong> {{ Session::get('success_message') }}
+                                <strong>Thành công:</strong> {{ Session::get('success_message') }}
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                         @endif
 
-
                         <form action="{{ url('contact') }}" method="post">
-                            @csrf {{-- Preventing CSRF Requests: https://laravel.com/docs/9.x/csrf#preventing-csrf-requests --}}
+                            @csrf
 
                             <div class="group-inline u-s-m-b-30">
                                 <div class="group-1 u-s-p-r-16">
-                                    <label for="contact-name">Your Name
+                                    <label for="contact-name">Họ và tên
                                         <span class="astk">*</span>
                                     </label>
-                                    <input type="text" id="contact-name" class="text-field" placeholder="Name" name="name" value="{{ old('name') }}"> {{-- Retrieving Old Input: https://laravel.com/docs/9.x/requests#retrieving-old-input --}}
+                                    <input type="text" id="contact-name" class="text-field" placeholder="Nhập họ và tên" name="name" value="{{ old('name') }}">
                                 </div>
                                 <div class="group-2">
-                                    <label for="contact-email">Your Email
+                                    <label for="contact-email">Email
                                         <span class="astk">*</span>
                                     </label>
-                                    <input type="email" id="contact-email" class="text-field" placeholder="Email" name="email" value="{{ old('email') }}"> {{-- Retrieving Old Input: https://laravel.com/docs/9.x/requests#retrieving-old-input --}}
+                                    <input type="email" id="contact-email" class="text-field" placeholder="Nhập email" name="email" value="{{ old('email') }}">
                                 </div>
                             </div>
                             <div class="u-s-m-b-30">
-                                <label for="contact-subject">Subject
+                                <label for="contact-subject">Tiêu đề
                                     <span class="astk">*</span>
                                 </label>
-                                <input type="text" id="contact-subject" class="text-field" placeholder="Subject" name="subject" value="{{ old('subject') }}"> {{-- Retrieving Old Input: https://laravel.com/docs/9.x/requests#retrieving-old-input --}}
+                                <input type="text" id="contact-subject" class="text-field" placeholder="Nhập tiêu đề" name="subject" value="{{ old('subject') }}">
                             </div>
                             <div class="u-s-m-b-30">
-                                <label for="contact-message">Message:</label>
-                                <span class="astk">*</span>
-                                <textarea class="text-area" id="contact-message" name="message">{{ old('message') }}</textarea> {{-- Retrieving Old Input: https://laravel.com/docs/9.x/requests#retrieving-old-input --}}
+                                <label for="contact-message">Nội dung tin nhắn
+                                    <span class="astk">*</span>
+                                </label>
+                                <textarea class="text-area" id="contact-message" name="message" placeholder="Viết nội dung tin nhắn của bạn...">{{ old('message') }}</textarea>
                             </div>
                             <div class="u-s-m-b-30">
-                                <button type="submit" class="button button-outline-secondary">Send Message</button>
+                                <button type="submit" class="button button-outline-secondary">Gửi tin nhắn</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="information-about-wrapper">
-                        <h1 class="contact-h1">Information About Us</h1>
+                        <h1 class="contact-h1">Thông tin về chúng tôi</h1>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, tempora, voluptate. Architecto aspernatur, culpa cupiditate deserunt dolore eos facere in, incidunt omnis quae quam quos, similique sunt tempore vel vero.
                         </p>
@@ -117,9 +105,9 @@
                         </p>
                     </div>
                     <div class="contact-us-wrapper">
-                        <h1 class="contact-h1">Contact Us</h1>
+                        <h1 class="contact-h1">Liên hệ</h1>
                         <div class="contact-material u-s-m-b-16">
-                            <h6>Location</h6>
+                            <h6>Địa chỉ</h6>
                             <span>10 Salah Salem St.</span>
                             <span>Cairo, Egypt</span>
                         </div>
@@ -128,7 +116,7 @@
                             <span>developers@computerscience.com</span>
                         </div>
                         <div class="contact-material u-s-m-b-16">
-                            <h6>Telephone</h6>
+                            <h6>Điện thoại</h6>
                             <span>+201122237359</span>
                         </div>
                     </div>

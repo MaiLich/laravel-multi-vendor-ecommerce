@@ -1,7 +1,5 @@
-
-{{-- This page is rendered by addAttributes() method in Admin/ProductsController.php --}}
+{{-- Trang này được render bởi phương thức addAttributes() trong Admin/ProductsController.php --}}
 @extends('admin.layout.layout')
-
 
 @section('content')
     <div class="main-panel">
@@ -10,19 +8,19 @@
                 <div class="col-md-12 grid-margin">
                     <div class="row">
                         <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                            <h4 class="card-title">Attributes</h4> {{-- meaning Product attributes --}}
+                            <h4 class="card-title">Thuộc tính sản phẩm</h4>
                         </div>
                         <div class="col-12 col-xl-4">
                             <div class="justify-content-end d-flex">
                                 <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
                                     <button class="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="mdi mdi-calendar"></i> Today (10 Jan 2021)
+                                        <i class="mdi mdi-calendar"></i> Hôm nay ({{ now()->format('d/m/Y') }})
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDate2">
-                                        <a class="dropdown-item" href="#">January - March</a>
-                                        <a class="dropdown-item" href="#">March - June</a>
-                                        <a class="dropdown-item" href="#">June - August</a>
-                                        <a class="dropdown-item" href="#">August - November</a>
+                                        <a class="dropdown-item" href="#">Tháng 1 - Tháng 3</a>
+                                        <a class="dropdown-item" href="#">Tháng 4 - Tháng 6</a>
+                                        <a class="dropdown-item" href="#">Tháng 7 - Tháng 9</a>
+                                        <a class="dropdown-item" href="#">Tháng 10 - Tháng 12</a>
                                     </div>
                                 </div>
                             </div>
@@ -30,155 +28,166 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
-                <div class="col-md-6 grid-margin stretch-card">
+                <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Add Attributes</h4>
+                            <h4 class="card-title">Thêm thuộc tính sản phẩm</h4>
 
-
-                            {{-- Our Bootstrap error code in case of wrong current password or the new password and confirm password are not matching: --}}
-                            {{-- Determining If An Item Exists In The Session (using has() method): https://laravel.com/docs/9.x/session#determining-if-an-item-exists-in-the-session --}}
-                            @if (Session::has('error_message')) <!-- Check AdminController.php, updateAdminPassword() method -->
+                            {{-- Thông báo lỗi --}}
+                            @if (Session::has('error_message'))
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>Error:</strong> {{ Session::get('error_message') }}
+                                    <strong>Lỗi:</strong> {{ Session::get('error_message') }}
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                             @endif
 
-
-
-                            {{-- Displaying Laravel Validation Errors: https://laravel.com/docs/9.x/validation#quick-displaying-the-validation-errors --}}    
+                            {{-- Lỗi validation --}}
                             @if ($errors->any())
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-
+                                    <ul class="mb-0">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                             @endif
 
-
-
-                            {{-- Displaying The Validation Errors: https://laravel.com/docs/9.x/validation#quick-displaying-the-validation-errors AND https://laravel.com/docs/9.x/blade#validation-errors --}}
-                            {{-- Determining If An Item Exists In The Session (using has() method): https://laravel.com/docs/9.x/session#determining-if-an-item-exists-in-the-session --}}
-                            {{-- Our Bootstrap success message in case of updating admin password is successful: --}}
-                            @if (Session::has('success_message')) <!-- Check AdminController.php, updateAdminPassword() method -->
+                            {{-- Thông báo thành công --}}
+                            @if (Session::has('success_message'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <strong>Success:</strong> {{ Session::get('success_message') }}
+                                    <strong>Thành công:</strong> {{ Session::get('success_message') }}
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                             @endif
-                
 
-                            
-
-
-                            
                             <form class="forms-sample" action="{{ url('admin/add-edit-attributes/' . $product['id']) }}" method="post">
                                 @csrf
 
-                                <div class="form-group">
-                                    <label for="product_name">Product Name:</label>
-                                    &nbsp; {{ $product['product_name'] }}
-                                </div>
-                                <div class="form-group">
-                                    <label for="product_code">Product Code:</label>
-                                    &nbsp; {{ $product['product_code'] }}
-                                </div>
-                                <div class="form-group">
-                                    <label for="product_color">Product Color:</label>
-                                    &nbsp; {{ $product['product_color'] }}
-                                </div>
-                                <div class="form-group">
-                                    <label for="product_price">Product Price:</label>
-                                    &nbsp; {{ $product['product_price'] }}
-                                </div>
-                                <div class="form-group">
-                                    {{-- Show the product image, if any (if exits) --}}
-                                    @if (!empty($product['product_image']))
-                                        <img style="width: 120px" src="{{ url('front/images/product_images/small/' . $product['product_image']) }}"> {{--  the 'small' image --}}
-                                    @else
-                                        <img style="width: 120px" src="{{ url('front/images/product_images/small/no-image.png') }}"> {{--  the 'small' image --}}
-                                    @endif
-                                </div>
-
-                
-
-                                {{-- Add Remove Input Fields Dynamically using jQuery: https://www.codexworld.com/add-remove-input-fields-dynamically-using-jquery/ --}} 
-                                {{-- Products attributes add//remove input fields dynamically using jQuery --}}
-                                <div class="form-group">
-                                    <div class="field_wrapper">
-                                        <div>
-                                            <input type="text" name="size[]"  placeholder="Size"  style="width:100px" required> {{-- !! Note that the "name" HTML attribute is an ARRAY (using SQUARE BRAKETS [] !!) --}}
-                                            <input type="text" name="sku[]"   placeholder="SKU"   style="width:100px" required> {{-- !! Note that the "name" HTML attribute is an ARRAY (using SQUARE BRAKETS [] !!) --}}
-                                            <input type="text" name="price[]" placeholder="Price" style="width:100px" required> {{-- !! Note that the "name" HTML attribute is an ARRAY (using SQUARE BRAKETS [] !!) --}}
-                                            <input type="text" name="stock[]" placeholder="Stock" style="width:100px" required> {{-- !! Note that the "name" HTML attribute is an ARRAY (using SQUARE BRAKETS [] !!) --}}
-                                            <a href="javascript:void(0);" class="add_button" title="Add Attributes">Add</a> {{-- Add another 4 input fields like the former --}}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Tên sản phẩm:</label>
+                                            <strong>{{ $product['product_name'] }}</strong>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Mã sản phẩm:</label>
+                                            <strong>{{ $product['product_code'] }}</strong>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Màu sắc:</label>
+                                            <strong>{{ $product['product_color'] }}</strong>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Giá gốc:</label>
+                                            <strong>{{ number_format($product['product_price']) }} ₫</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 text-center">
+                                        <div class="form-group">
+                                            <label>Hình ảnh sản phẩm:</label><br>
+                                            @if (!empty($product['product_image']))
+                                                <img style="width: 200px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
+                                                     src="{{ url('front/images/product_images/small/' . $product['product_image']) }}" 
+                                                     alt="{{ $product['product_name'] }}">
+                                            @else
+                                                <img style="width: 200px; border-radius: 8px;" 
+                                                     src="{{ url('front/images/product_images/small/no-image.png') }}" 
+                                                     alt="Không có hình ảnh">
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                <button type="reset"  class="btn btn-light">Cancel</button>
+
+                                <hr>
+
+                                <h5>Thêm biến thể mới (Kích thước, SKU, Giá, Tồn kho)</h5>
+                                <div class="form-group">
+                                    <div class="field_wrapper">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <input type="text" name="size[]" placeholder="Kích thước (ví dụ: M, XL)" style="width: 140px;" class="form-control mr-2" required>
+                                            <input type="text" name="sku[]" placeholder="Mã SKU" style="width: 140px;" class="form-control mr-2" required>
+                                            <input type="number" name="price[]" placeholder="Giá bán" style="width: 140px;" class="form-control mr-2" required>
+                                            <input type="number" name="stock[]" placeholder="Tồn kho" style="width: 140px;" class="form-control mr-2" required>
+                                            <a href="javascript:void(0);" class="add_button btn btn-success btn-sm" title="Thêm biến thể">
+                                                <i class="mdi mdi-plus"></i> Thêm
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mr-2">Thêm thuộc tính</button>
+                                <button type="reset" class="btn btn-secondary">Nhập lại</button>
                             </form>
 
-                            <br><br>
-                            
-                            <h4 class="card-title">Product Attributes</h4>
+                            <br><br><hr><br>
+
+                            <h4 class="card-title">Danh sách thuộc tính hiện tại</h4>
 
                             <form method="post" action="{{ url('admin/edit-attributes/' . $product['id']) }}">
                                 @csrf
 
-                                {{-- DataTable --}}
-                                <table id="products" class="table table-bordered"> {{-- using the id here for the DataTable --}}
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Size</th>
-                                            <th>SKU</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($product['attributes'] as $attribute) {{-- using the relationship 'attributes' --}}
-                                            {{--  <input type="hidden" name="attributeId[]" value="{{ $attribute['id'] }}">  --}} {{-- A hidden input field --}} {{-- IMPORTANT NOTE: DIDN'T WORK INSIDE FOR LOOP!! MUST BE OUSTSIDE IT IN ORDER TO WORK! --}}
-                                            <input style="display: none" type="text" name="attributeId[]" value="{{ $attribute['id'] }}"> {{-- A hidden input field --}}
+                                <div class="table-responsive">
+                                    <table id="products" class="table table-bordered table-hover">
+                                        <thead class="thead-light">
                                             <tr>
-                                                <td>{{ $attribute['id'] }}</td>
-                                                <td>{{ $attribute['size'] }}</td>
-                                                <td>{{ $attribute['sku'] }}</td>
-                                                <td>
-                                                    <input type="number" name="price[]" value="{{ $attribute['price'] }}" required style="width: 60px"> {{-- !! Note the "name" HTML attribute SQUARE BRACKETS [] !! --}}
-                                                </td>
-                                                <td>
-                                                    <input type="number" name="stock[]" value="{{ $attribute['stock'] }}" required style="width: 60px"> {{-- !! Note the "name" HTML attribute SQUARE BRACKETS [] !! --}}
-                                                </td>
-                                                <td>
-                                                    @if ($attribute['status'] == 1)
-                                                        <a class="updateAttributeStatus" id="attribute-{{ $attribute['id'] }}" attribute_id="{{ $attribute['id'] }}" href="javascript:void(0)"> {{-- Using HTML Custom Attributes. Check admin/js/custom.js --}}
-                                                            <i style="font-size: 25px" class="mdi mdi-bookmark-check" status="Active"></i> {{-- Icons from Skydash Admin Panel Template --}}
-                                                        </a>
-                                                    @else {{-- if the admin status is inactive --}}
-                                                        <a class="updateAttributeStatus" id="attribute-{{ $attribute['id'] }}" attribute_id="{{ $attribute['id'] }}" href="javascript:void(0)"> {{-- Using HTML Custom Attributes. Check admin/js/custom.js --}}
-                                                            <i style="font-size: 25px" class="mdi mdi-bookmark-outline" status="Inactive"></i> {{-- Icons from Skydash Admin Panel Template --}}
-                                                        </a>
-                                                    @endif
-                                                </td>
+                                                <th>ID</th>
+                                                <th>Kích thước</th>
+                                                <th>Mã SKU</th>
+                                                <th>Giá bán (₫)</th>
+                                                <th>Tồn kho</th>
+                                                <th>Trạng thái</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                <button type="submit" class="btn btn-primary">Update Attributes</button>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($product['attributes'] as $attribute)
+                                                <input type="hidden" name="attributeId[]" value="{{ $attribute['id'] }}">
+                                                <tr>
+                                                    <td>{{ $attribute['id'] }}</td>
+                                                    <td><strong>{{ $attribute['size'] }}</strong></td>
+                                                    <td>{{ $attribute['sku'] }}</td>
+                                                    <td>
+                                                        <input type="number" name="price[]" value="{{ $attribute['price'] }}" 
+                                                               class="form-control form-control-sm" style="width: 100px;" required>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" name="stock[]" value="{{ $attribute['stock'] }}" 
+                                                               class="form-control form-control-sm" style="width: 100px;" required min="0">
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if ($attribute['status'] == 1)
+                                                            <a class="updateAttributeStatus" id="attribute-{{ $attribute['id'] }}" 
+                                                               attribute_id="{{ $attribute['id'] }}" href="javascript:void(0)" 
+                                                               title="Đang hoạt động">
+                                                                <i style="font-size: 25px; color: #28a745;" class="mdi mdi-bookmark-check"></i>
+                                                            </a>
+                                                        @else
+                                                            <a class="updateAttributeStatus" id="attribute-{{ $attribute['id'] }}" 
+                                                               attribute_id="{{ $attribute['id'] }}" href="javascript:void(0)" 
+                                                               title="Đã ẩn">
+                                                                <i style="font-size: 25px; color: #dc3545;" class="mdi mdi-bookmark-outline"></i>
+                                                            </a>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                @if($product['attributes']->count() > 0)
+                                    <button type="submit" class="btn btn-primary mt-3">Cập nhật thuộc tính</button>
+                                @else
+                                    <p class="text-muted mt-3">Chưa có thuộc tính nào cho sản phẩm này.</p>
+                                @endif
                             </form>
                         </div>
                     </div>
@@ -187,6 +196,5 @@
         </div>
         <!-- content-wrapper ends -->
         @include('admin.layout.footer')
-        <!-- partial -->
     </div>
 @endsection

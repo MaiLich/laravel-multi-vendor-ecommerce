@@ -218,8 +218,8 @@
                                     @endforeach
                                 </td>
                                 <td>{{ $order['payment_method'] }}</td>
-                                <td>{{ $order['grand_total'] }}</td>
-                                <td>{{ date('Y-m-d', strtotime($order['created_at'])) }}</td>
+                                <td>{{ number_format($order['grand_total'], 0, ',', '.') }}₫</td>
+                                <td>{{ date('d/m/Y', strtotime($order['created_at'])) }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -256,7 +256,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const orderId = row.cells[0].innerText.toLowerCase();
             const products = row.cells[1].innerText.toLowerCase();
             const dateText = row.cells[4].innerText.trim();
-            const date = new Date(dateText);
+            // Chuyển định dạng ngày từ d/m/Y sang Date object
+            const [day, month, year] = dateText.split('/');
+            const date = new Date(`${year}-${month}-${day}`);
 
             let matchKeyword = orderId.includes(keyword) || products.includes(keyword);
             let matchDate = true;
@@ -278,6 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
         startDate.value = '';
         endDate.value = '';
         rows.forEach(row => row.style.display = '');
+        filterTable(); // Cập nhật lại bảng sau khi xóa
     });
 });
 </script>

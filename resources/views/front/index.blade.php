@@ -1,7 +1,6 @@
 {{-- This page is rendered by index() method in Front/IndexController.php --}}
 @extends('front.layout.layout')
 
-
 @section('content')
     <!-- Main-Slider -->
     <div class="default-height ph-item">
@@ -24,9 +23,6 @@
     </div>
     <!-- Main-Slider /- -->
 
-
-
-    
     @if (isset($fixBanners[1]['image']))
         <!-- Banner-Layer -->
         <div class="banner-layer">
@@ -41,25 +37,23 @@
         <!-- Banner-Layer /- -->    
     @endif
 
-
-
     <!-- Top Collection -->
     <section class="section-maker">
         <div class="container">
             <div class="sec-maker-header text-center">
-                <h3 class="sec-maker-h3">TOP COLLECTION</h3>
+                <h3 class="sec-maker-h3">BỘ SƯU TẬP NỔI BẬT</h3>
                 <ul class="nav tab-nav-style-1-a justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#men-latest-products">New Arrivals</a>
+                        <a class="nav-link active" data-toggle="tab" href="#men-latest-products">Sản phẩm mới</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#men-best-selling-products">Best Sellers</a>
+                        <a class="nav-link" data-toggle="tab" href="#men-best-selling-products">Bán chạy nhất</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#discounted-products">Discounted Products</a>
+                        <a class="nav-link" data-toggle="tab" href="#discounted-products">Sản phẩm giảm giá</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#men-featured-products">Featured Products</a>
+                        <a class="nav-link" data-toggle="tab" href="#men-featured-products">Nổi bật</a>
                     </li>
                 </ul>
             </div>
@@ -70,33 +64,25 @@
                             <div class="slider-fouc">
                                 <div class="products-slider owl-carousel" data-item="4">
 
-                                    {{-- Show 'New Arrivals'. Show the LATEST 8 products ONLY. Check the index() method in IndexController.php --}} 
                                     @foreach ($newProducts as $product)
                                         @php
                                             $product_image_path = 'front/images/product_images/small/' . $product['product_image'];
-                                            // dd($product['product_image']);
-                                            // dd($product_image_path);
-                                            // if (!empty($product['product_image']) && file_exists($product_image_path)) {
-                                            //     dd('Yes');
-                                            // } else {
-                                            //     dd('No');
-                                            // }
                                         @endphp
 
                                         <div class="item">
                                             <div class="image-container">
                                                 <a class="item-img-wrapper-link" href="{{ url('product/' . $product['id']) }}">
-                                                    @if (!empty($product['product_image']) && file_exists($product_image_path)) {{-- if the product image exists in BOTH database table AND filesystem (on server) --}}
-                                                        <img class="img-fluid" src="{{ asset($product_image_path) }}" alt="Product">
-                                                    @else {{-- show the dummy image --}}
-                                                        <img class="img-fluid" src="{{ asset('front/images/product_images/small/no-image.png') }}" alt="Product">
+                                                    @if (!empty($product['product_image']) && file_exists($product_image_path))
+                                                        <img class="img-fluid" src="{{ asset($product_image_path) }}" alt="{{ $product['product_name'] }}">
+                                                    @else
+                                                        <img class="img-fluid" src="{{ asset('front/images/product_images/small/no-image.png') }}" alt="Không có hình ảnh sản phẩm">
                                                     @endif
                                                 </a>
                                                 <div class="item-action-behaviors">
-                                                    <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
-                                                    <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                                    <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                                    <a class="item-addCart" href="{{ url('product/' . $product['id']) }}">Add to Cart</a>
+                                                    <a class="item-quick-look" data-toggle="modal" href="#quick-view">Xem nhanh</a>
+                                                    <a class="item-mail" href="javascript:void(0)">Gửi email</a>
+                                                    <a class="item-addwishlist" href="javascript:void(0)">Thêm vào yêu thích</a>
+                                                    <a class="item-addCart" href="{{ url('product/' . $product['id']) }}">Thêm vào giỏ hàng</a>
                                                 </div>
                                             </div>
                                             <div class="item-content">
@@ -110,43 +96,37 @@
                                                         <a href="{{ url('product/' . $product['id']) }}">{{ $product['product_name'] }}</a>
                                                     </h6>
                                                     <div class="item-stars">
-                                                        <div class='star' title="0 out of 5 - based on 0 Reviews">
+                                                        <div class='star' title="0 trên 5 - dựa trên 0 đánh giá">
                                                             <span style='width:0'></span>
                                                         </div>
                                                         <span>(0)</span>
                                                     </div>
                                                 </div>
 
-
-
-                                                {{-- Call the static getDiscountPrice() method in the Product.php Model to determine the final price of a product because a product can have a discount from TWO things: either a `CATEGORY` discount or `PRODUCT` discout     --}}
                                                 @php
                                                     $getDiscountPrice = \App\Models\Product::getDiscountPrice($product['id']);
                                                 @endphp
 
-
-                                                @if ($getDiscountPrice > 0) {{-- If there's a discount on the price, show the price before (the original price) and after (the new price) the discount --}}
+                                                @if ($getDiscountPrice > 0)
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                            Rs . {{ $getDiscountPrice }}
+                                                            EGP{{ $getDiscountPrice }}
                                                         </div>
                                                         <div class="item-old-price">
-                                                            Rs . {{ $product['product_price'] }}
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
-                                                @else {{-- if there's no discount on the price, show the original price --}}
+                                                @else
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                            Rs . {{ $product['product_price'] }}
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
                                                 @endif
 
-
-
                                             </div>
                                             <div class="tag new">
-                                                <span>NEW</span>
+                                                <span>MỚI</span>
                                             </div>
                                         </div>
                                     @endforeach
@@ -157,34 +137,25 @@
                             <div class="slider-fouc">
                                 <div class="products-slider owl-carousel" data-item="4">
 
-
-                                    {{-- Show the 'Best Seller' products. Check the index() method in IndexController.php --}} 
                                     @foreach ($bestSellers as $product)
                                         @php
                                             $product_image_path = 'front/images/product_images/small/' . $product['product_image'];
-                                            // dd($product['product_image']);
-                                            // dd($product_image_path);
-                                            // if (!empty($product['product_image']) && file_exists($product_image_path)) {
-                                            //     dd('Yes');
-                                            // } else {
-                                            //     dd('No');
-                                            // }
                                         @endphp
 
                                         <div class="item">
                                             <div class="image-container">
                                                 <a class="item-img-wrapper-link" href="{{ url('product/' . $product['id']) }}">
-                                                    @if (!empty($product['product_image']) && file_exists($product_image_path)) {{-- if the product image exists in BOTH database table AND filesystem (on server) --}}
-                                                        <img class="img-fluid" src="{{ asset($product_image_path) }}" alt="Product">
-                                                    @else {{-- show the dummy image --}}
-                                                        <img class="img-fluid" src="{{ asset('front/images/product_images/small/no-image.png') }}" alt="Product">
+                                                    @if (!empty($product['product_image']) && file_exists($product_image_path))
+                                                        <img class="img-fluid" src="{{ asset($product_image_path) }}" alt="{{ $product['product_name'] }}">
+                                                    @else
+                                                        <img class="img-fluid" src="{{ asset('front/images/product_images/small/no-image.png') }}" alt="Không có hình ảnh sản phẩm">
                                                     @endif
                                                 </a>
                                                 <div class="item-action-behaviors">
-                                                    <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
-                                                    <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                                    <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                                    <a class="item-addCart" href="{{ url('product/' . $product['id']) }}">Add to Cart</a>
+                                                    <a class="item-quick-look" data-toggle="modal" href="#quick-view">Xem nhanh</a>
+                                                    <a class="item-mail" href="javascript:void(0)">Gửi email</a>
+                                                    <a class="item-addwishlist" href="javascript:void(0)">Thêm vào yêu thích</a>
+                                                    <a class="item-addCart" href="{{ url('product/' . $product['id']) }}">Thêm vào giỏ hàng</a>
                                                 </div>
                                             </div>
                                             <div class="item-content">
@@ -198,36 +169,36 @@
                                                         <a href="{{ url('product/' . $product['id']) }}">{{ $product['product_name'] }}</a>
                                                     </h6>
                                                     <div class="item-stars">
-                                                        <div class='star' title="0 out of 5 - based on 0 Reviews">
+                                                        <div class='star' title="0 trên 5 - dựa trên 0 đánh giá">
                                                             <span style='width:0'></span>
                                                         </div>
                                                         <span>(0)</span>
                                                     </div>
                                                 </div>
 
-                                                {{-- Call the static getDiscountPrice() method in the Product.php Model to determine the final price of a product because a product can have a discount from TWO things: either a `CATEGORY` discount or `PRODUCT` discout     --}}
                                                 @php
                                                     $getDiscountPrice = \App\Models\Product::getDiscountPrice($product['id']);
                                                 @endphp
-                                                @if ($getDiscountPrice > 0) {{-- If there's a discount on the price, show the price before (the original price) and after (the new price) the discount --}}
+
+                                                @if ($getDiscountPrice > 0)
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                            Rs . {{ $getDiscountPrice }}
+                                                            EGP{{ $getDiscountPrice }}
                                                         </div>
                                                         <div class="item-old-price">
-                                                            Rs . {{ $product['product_price'] }}
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
-                                                @else {{-- if there's no discount on the price, show the original price --}}
+                                                @else
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                            Rs . {{ $product['product_price'] }}
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
                                                 @endif
                                             </div>
                                             <div class="tag new">
-                                                <span>NEW</span>
+                                                <span>MỚI</span>
                                             </div>
                                         </div>
                                     @endforeach
@@ -238,34 +209,25 @@
                             <div class="slider-fouc">
                                 <div class="products-slider owl-carousel" data-item="4">
 
-
-                                    {{-- Show the 'Best Seller' products. Check the index() method in IndexController.php --}} 
                                     @foreach ($discountedProducts as $product)
                                         @php
                                             $product_image_path = 'front/images/product_images/small/' . $product['product_image'];
-                                            // dd($product['product_image']);
-                                            // dd($product_image_path);
-                                            // if (!empty($product['product_image']) && file_exists($product_image_path)) {
-                                            //     dd('Yes');
-                                            // } else {
-                                            //     dd('No');
-                                            // }
                                         @endphp
 
                                         <div class="item">
                                             <div class="image-container">
                                                 <a class="item-img-wrapper-link" href="{{ url('product/' . $product['id']) }}">
-                                                    @if (!empty($product['product_image']) && file_exists($product_image_path)) {{-- if the product image exists in BOTH database table AND filesystem (on server) --}}
-                                                        <img class="img-fluid" src="{{ asset($product_image_path) }}" alt="Product">
-                                                    @else {{-- show the dummy image --}}
-                                                        <img class="img-fluid" src="{{ asset('front/images/product_images/small/no-image.png') }}" alt="Product">
+                                                    @if (!empty($product['product_image']) && file_exists($product_image_path))
+                                                        <img class="img-fluid" src="{{ asset($product_image_path) }}" alt="{{ $product['product_name'] }}">
+                                                    @else
+                                                        <img class="img-fluid" src="{{ asset('front/images/product_images/small/no-image.png') }}" alt="Không có hình ảnh sản phẩm">
                                                     @endif
                                                 </a>
                                                 <div class="item-action-behaviors">
-                                                    <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
-                                                    <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                                    <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                                    <a class="item-addCart" href="{{ url('product/' . $product['id']) }}">Add to Cart</a>
+                                                    <a class="item-quick-look" data-toggle="modal" href="#quick-view">Xem nhanh</a>
+                                                    <a class="item-mail" href="javascript:void(0)">Gửi email</a>
+                                                    <a class="item-addwishlist" href="javascript:void(0)">Thêm vào yêu thích</a>
+                                                    <a class="item-addCart" href="{{ url('product/' . $product['id']) }}">Thêm vào giỏ hàng</a>
                                                 </div>
                                             </div>
                                             <div class="item-content">
@@ -279,36 +241,36 @@
                                                         <a href="{{ url('product/' . $product['id']) }}">{{ $product['product_name'] }}</a>
                                                     </h6>
                                                     <div class="item-stars">
-                                                        <div class='star' title="0 out of 5 - based on 0 Reviews">
+                                                        <div class='star' title="0 trên 5 - dựa trên 0 đánh giá">
                                                             <span style='width:0'></span>
                                                         </div>
                                                         <span>(0)</span>
                                                     </div>
                                                 </div>
 
-                                                {{-- Call the static getDiscountPrice() method in the Product.php Model to determine the final price of a product because a product can have a discount from TWO things: either a `CATEGORY` discount or `PRODUCT` discout     --}}
                                                 @php
                                                     $getDiscountPrice = \App\Models\Product::getDiscountPrice($product['id']);
                                                 @endphp
-                                                @if ($getDiscountPrice > 0) {{-- If there's a discount on the price, show the price before (the original price) and after (the new price) the discount --}}
+
+                                                @if ($getDiscountPrice > 0)
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                            Rs . {{ $getDiscountPrice }}
+                                                            EGP{{ $getDiscountPrice }}
                                                         </div>
                                                         <div class="item-old-price">
-                                                            Rs . {{ $product['product_price'] }}
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
-                                                @else {{-- if there's no discount on the price, show the original price --}}
+                                                @else
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                            Rs . {{ $product['product_price'] }}
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
                                                 @endif
                                             </div>
                                             <div class="tag new">
-                                                <span>NEW</span>
+                                                <span>MỚI</span>
                                             </div>
                                         </div>
                                     @endforeach
@@ -319,34 +281,25 @@
                             <div class="slider-fouc">
                                 <div class="products-slider owl-carousel" data-item="4">
 
-
-                                    {{-- Show the 'Best Seller' products. Check the index() method in IndexController.php --}} 
                                     @foreach ($featuredProducts as $product)
                                         @php
                                             $product_image_path = 'front/images/product_images/small/' . $product['product_image'];
-                                            // dd($product['product_image']);
-                                            // dd($product_image_path);
-                                            // if (!empty($product['product_image']) && file_exists($product_image_path)) {
-                                            //     dd('Yes');
-                                            // } else {
-                                            //     dd('No');
-                                            // }
                                         @endphp
 
                                         <div class="item">
                                             <div class="image-container">
                                                 <a class="item-img-wrapper-link" href="{{ url('product/' . $product['id']) }}">
-                                                    @if (!empty($product['product_image']) && file_exists($product_image_path)) {{-- if the product image exists in BOTH database table AND filesystem (on server) --}}
-                                                        <img class="img-fluid" src="{{ asset($product_image_path) }}" alt="Product">
-                                                    @else {{-- show the dummy image --}}
-                                                        <img class="img-fluid" src="{{ asset('front/images/product_images/small/no-image.png') }}" alt="Product">
+                                                    @if (!empty($product['product_image']) && file_exists($product_image_path))
+                                                        <img class="img-fluid" src="{{ asset($product_image_path) }}" alt="{{ $product['product_name'] }}">
+                                                    @else
+                                                        <img class="img-fluid" src="{{ asset('front/images/product_images/small/no-image.png') }}" alt="Không có hình ảnh sản phẩm">
                                                     @endif
                                                 </a>
                                                 <div class="item-action-behaviors">
-                                                    <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
-                                                    <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                                    <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                                    <a class="item-addCart" href="{{ url('product/' . $product['id']) }}">Add to Cart</a>
+                                                    <a class="item-quick-look" data-toggle="modal" href="#quick-view">Xem nhanh</a>
+                                                    <a class="item-mail" href="javascript:void(0)">Gửi email</a>
+                                                    <a class="item-addwishlist" href="javascript:void(0)">Thêm vào yêu thích</a>
+                                                    <a class="item-addCart" href="{{ url('product/' . $product['id']) }}">Thêm vào giỏ hàng</a>
                                                 </div>
                                             </div>
                                             <div class="item-content">
@@ -360,36 +313,36 @@
                                                         <a href="{{ url('product/' . $product['id']) }}">{{ $product['product_name'] }}</a>
                                                     </h6>
                                                     <div class="item-stars">
-                                                        <div class='star' title="0 out of 5 - based on 0 Reviews">
+                                                        <div class='star' title="0 trên 5 - dựa trên 0 đánh giá">
                                                             <span style='width:0'></span>
                                                         </div>
                                                         <span>(0)</span>
                                                     </div>
                                                 </div>
 
-                                                {{-- Call the static getDiscountPrice() method in the Product.php Model to determine the final price of a product because a product can have a discount from TWO things: either a `CATEGORY` discount or `PRODUCT` discout     --}}
                                                 @php
                                                     $getDiscountPrice = \App\Models\Product::getDiscountPrice($product['id']);
                                                 @endphp
-                                                @if ($getDiscountPrice > 0) {{-- If there's a discount on the price, show the price before (the original price) and after (the new price) the discount --}}
+
+                                                @if ($getDiscountPrice > 0)
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                            Rs . {{ $getDiscountPrice }}
+                                                            EGP{{ $getDiscountPrice }}
                                                         </div>
                                                         <div class="item-old-price">
-                                                            Rs . {{ $product['product_price'] }}
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
-                                                @else {{-- if there's no discount on the price, show the original price --}}
+                                                @else
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                            Rs . {{ $product['product_price'] }}
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
                                                 @endif
                                             </div>
                                             <div class="tag new">
-                                                <span>NEW</span>
+                                                <span>MỚI</span>
                                             </div>
                                         </div>
                                     @endforeach
@@ -403,9 +356,6 @@
     </section>
     <!-- Top Collection /- -->
 
-
-
-    
     @if (isset($fixBanners[1]['image']))
         <!-- Banner-Layer -->
         <div class="banner-layer">
@@ -420,8 +370,6 @@
         <!-- Banner-Layer /- -->    
     @endif
 
-
-
     <!-- Site-Priorities -->
     <section class="app-priority">
         <div class="container">
@@ -433,9 +381,9 @@
                                 <i class="ion ion-md-star"></i>
                             </div>
                             <h2>
-                                Great Value
+                                Giá trị tuyệt vời
                             </h2>
-                            <p>We offer competitive prices on our 100 million plus product range</p>
+                            <p>Chúng tôi cung cấp giá cạnh tranh cho hơn 100 triệu sản phẩm</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3">
@@ -444,9 +392,9 @@
                                 <i class="ion ion-md-cash"></i>
                             </div>
                             <h2>
-                                Shop with Confidence
+                                Mua sắm an tâm
                             </h2>
-                            <p>Our Protection covers your purchase from click to delivery</p>
+                            <p>Chính sách bảo vệ của chúng tôi bảo vệ đơn hàng từ lúc đặt đến khi giao hàng</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3">
@@ -455,9 +403,9 @@
                                 <i class="ion ion-ios-card"></i>
                             </div>
                             <h2>
-                                Safe Payment
+                                Thanh toán an toàn
                             </h2>
-                            <p>Pay with the world’s most popular and secure payment methods</p>
+                            <p>Thanh toán bằng các phương thức phổ biến và an toàn nhất thế giới</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3">
@@ -466,9 +414,9 @@
                                 <i class="ion ion-md-contacts"></i>
                             </div>
                             <h2>
-                                24/7 Help Center
+                                Hỗ trợ 24/7
                             </h2>
-                            <p>Round-the-clock assistance for a smooth shopping experience</p>
+                            <p>Hỗ trợ liên tục để mang lại trải nghiệm mua sắm mượt mà</p>
                         </div>
                     </div>
                 </div>

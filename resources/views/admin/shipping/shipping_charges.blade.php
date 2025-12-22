@@ -9,7 +9,7 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Shipping Charges</h4>
+                            <h4 class="card-title">Phí vận chuyển</h4>
                             
 
 
@@ -18,7 +18,7 @@
                             {{-- Our Bootstrap success message in case of updating admin password is successful: --}}
                             @if (Session::has('success_message')) <!-- Check AdminController.php, updateAdminPassword() method -->
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <strong>Success:</strong> {{ Session::get('success_message') }}
+                                    <strong>Thành công:</strong> {{ Session::get('success_message') }}
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
@@ -32,14 +32,14 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Country</th>
-                                            <th>Rate (0g to 500g)</th>
-                                            <th>Rate (501g to 1000g)</th>
-                                            <th>Rate (1001g to 2000g)</th>
-                                            <th>Rate (2001g to 5000g)</th>
-                                            <th>Rate (Above 5000g)</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
+                                            <th>Quốc gia</th>
+                                            <th>Mức phí (0g đến 500g)</th>
+                                            <th>Mức phí (501g đến 1000g)</th>
+                                            <th>Mức phí (1001g đến 2000g)</th>
+                                            <th>Mức phí (2001g đến 5000g)</th>
+                                            <th>Mức phí (Trên 5000g)</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -92,7 +92,7 @@
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2022. All rights reserved.</span>
+                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Bản quyền © 2025. Mọi quyền được bảo lưu.</span>
             </div>
         </footer>
         <!-- partial -->

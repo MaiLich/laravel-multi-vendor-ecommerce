@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container my-4">
-    <h3 class="mb-3">Chatbot</h3>
+    <h3 class="mb-3">Trợ lý Chatbot</h3>
 
     <div id="chatbot-app" class="card">
         <div class="card-body" style="height: 420px; overflow:auto;" id="chatbot-messages"></div>

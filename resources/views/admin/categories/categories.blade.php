@@ -1,6 +1,5 @@
 @extends('admin.layout.layout')
 
-
 @section('content')
     <div class="main-panel">
         <div class="content-wrapper">
@@ -8,76 +7,66 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Categories</h4>
+                            <h4 class="card-title">Quản lý danh mục sản phẩm</h4>
 
+                            <a href="{{ url('admin/add-edit-category') }}" class="btn btn-primary float-right">
+                                <i class="mdi mdi-plus"></i> Thêm danh mục
+                            </a>
 
-
-                            
-                            <a href="{{ url('admin/add-edit-category') }}" style="max-width: 150px; float: right; display: inline-block" class="btn btn-block btn-primary">Add Category</a>
-
-                            {{-- Displaying The Validation Errors: https://laravel.com/docs/9.x/validation#quick-displaying-the-validation-errors AND https://laravel.com/docs/9.x/blade#validation-errors --}}
-                            {{-- Determining If An Item Exists In The Session (using has() method): https://laravel.com/docs/9.x/session#determining-if-an-item-exists-in-the-session --}}
-                            {{-- Our Bootstrap success message in case of updating admin password is successful: --}}
-                            @if (Session::has('success_message')) <!-- Check AdminController.php, updateAdminPassword() method -->
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <strong>Success:</strong> {{ Session::get('success_message') }}
+                            {{-- Thông báo thành công --}}
+                            @if (Session::has('success_message'))
+                                <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+                                    <strong>Thành công:</strong> {{ Session::get('success_message') }}
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                                        <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                             @endif
 
-
                             <div class="table-responsive pt-3">
-                                {{-- DataTable --}}
-                                <table id="categories" class="table table-bordered"> {{-- using the id here for the DataTable --}}
-                                    <thead>
+                                <table id="categories" class="table table-bordered table-hover">
+                                    <thead class="thead-light">
                                         <tr>
                                             <th>ID</th>
-                                            <th>Category Name</th>
-                                            <th>Parent Category</th> {{-- Through the relationship --}}
-                                            <th>Parent Section</th> {{-- Through the relationship --}}
+                                            <th>Tên danh mục</th>
+                                            <th>Danh mục cha</th>
+                                            <th>Nhóm danh mục</th>
                                             <th>URL</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($categories as $category)
-                                            {{-- @php echo '<pre>', var_dump($category['parent_category']), '</pre>'; @endphp --}}
-                                            @if (isset($category['parent_category']['category_name']) && !empty($category['parent_category']['category_name']))
-                                                @php $parent_category = $category['parent_category']['category_name']; @endphp
-                                            @else
-                                                @php $parent_category = 'Root'; @endphp
-                                            @endif
+                                            @php
+                                                $parent_category = isset($category['parent_category']['category_name']) && !empty($category['parent_category']['category_name'])
+                                                    ? $category['parent_category']['category_name']
+                                                    : 'Gốc (Root)';
+                                            @endphp
                                             <tr>
-                                                <td>{{ $category['id'] }}</td>
+                                                <td class="text-center">{{ $category['id'] }}</td>
                                                 <td>{{ $category['category_name'] }}</td>
-                                                <td>{{ $parent_category }}</td> {{-- Through the relationship --}}
-                                                <td>{{ $category['section']['name'] }}</td> {{-- Through the relationship --}}
+                                                <td>{{ $parent_category }}</td>
+                                                <td>{{ $category['section']['name'] }}</td>
                                                 <td>{{ $category['url'] }}</td>
-                                                <td>
+                                                <td class="text-center">
                                                     @if ($category['status'] == 1)
-                                                        <a class="updateCategoryStatus" id="category-{{ $category['id'] }}" category_id="{{ $category['id'] }}" href="javascript:void(0)"> {{-- Using HTML Custom Attributes. Check admin/js/custom.js --}}
-                                                            <i style="font-size: 25px" class="mdi mdi-bookmark-check" status="Active"></i> {{-- Icons from Skydash Admin Panel Template --}}
+                                                        <a class="updateCategoryStatus" id="category-{{ $category['id'] }}" category_id="{{ $category['id'] }}" href="javascript:void(0)" title="Đang hoạt động">
+                                                            <i style="font-size: 25px; color: #28a745;" class="mdi mdi-bookmark-check"></i>
                                                         </a>
-                                                    @else {{-- if the admin status is inactive --}}
-                                                        <a class="updateCategoryStatus" id="category-{{ $category['id'] }}" category_id="{{ $category['id'] }}" href="javascript:void(0)"> {{-- Using HTML Custom Attributes. Check admin/js/custom.js --}}
-                                                            <i style="font-size: 25px" class="mdi mdi-bookmark-outline" status="Inactive"></i> {{-- Icons from Skydash Admin Panel Template --}}
+                                                    @else
+                                                        <a class="updateCategoryStatus" id="category-{{ $category['id'] }}" category_id="{{ $category['id'] }}" href="javascript:void(0)" title="Đã ẩn">
+                                                            <i style="font-size: 25px; color: #dc3545;" class="mdi mdi-bookmark-outline"></i>
                                                         </a>
                                                     @endif
                                                 </td>
-                                                <td>
-                                                    <a href="{{ url('admin/add-edit-category/' . $category['id']) }}">
-                                                        <i style="font-size: 25px" class="mdi mdi-pencil-box"></i> {{-- Icons from Skydash Admin Panel Template --}}
+                                                <td class="text-center">
+                                                    <a href="{{ url('admin/add-edit-category/' . $category['id']) }}" title="Chỉnh sửa">
+                                                        <i style="font-size: 25px; color: #007bff;" class="mdi mdi-pencil-box"></i>
                                                     </a>
-
-                                                    {{-- Confirm Deletion JS alert and Sweet Alert --}}
-                                                    {{-- <a title="Category" class="confirmDelete" href="{{ url('admin/delete-category/' . $category['id']) }}"> --}}
-                                                        {{-- <i style="font-size: 25px" class="mdi mdi-file-excel-box"></i> --}} {{-- Icons from Skydash Admin Panel Template --}}
-                                                    {{-- </a> --}}
-                                                    <a href="JavaScript:void(0)" class="confirmDelete" module="category" moduleid="{{ $category['id'] }}"> {{-- Check admin/js/custom.js and web.php (routes) --}}
-                                                        <i style="font-size: 25px" class="mdi mdi-file-excel-box"></i> {{-- Icons from Skydash Admin Panel Template --}}
+                                                    &nbsp;&nbsp;
+                                                    <a href="javascript:void(0)" class="confirmDelete" module="category" moduleid="{{ $category['id'] }}" title="Xóa danh mục">
+                                                        <i style="font-size: 25px; color: #dc3545;" class="mdi mdi-delete"></i>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -90,13 +79,12 @@
                 </div>
             </div>
         </div>
+
         <!-- content-wrapper ends -->
-        <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2022. All rights reserved.</span>
+                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Bản quyền © {{ date('Y') }}. Đã đăng ký bản quyền.</span>
             </div>
         </footer>
-        <!-- partial -->
     </div>
 @endsection

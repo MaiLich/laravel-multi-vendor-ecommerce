@@ -11,11 +11,11 @@
     <div class="row">
         <div class="col-xs-12">
     		<div class="invoice-title">
-    			<h2>Invoice</h2>
+    			<h2>Hóa đơn</h2>
                 <h3 class="pull-right">
-                    Order # {{ $orderDetails['id'] }}
+                    Đơn hàng # {{ $orderDetails['id'] }}
 
-                    {{-- Laravel barcode/QR code generation package (to show barcodes/QR codes for both Product ID and Product Code): https://github.com/milon/barcode --}} 
+                    {{-- Laravel barcode/QR code generation package (to show barcodes/QR codes for both Product ID and Product Code): https://github.com/milon/barcode --}}
                     @php
                         echo DNS1D::getBarcodeHTML($orderDetails['id'], 'C39');       // This is the product `id` Barcode
                         // echo DNS2D::getBarcodeHTML($orderDetails['id'], 'QRCODE'); // This is the product `id` QR code
@@ -26,7 +26,7 @@
     		<div class="row">
     			<div class="col-xs-6">
     				<address>
-    				    <strong>Billed To:</strong><br>
+    				    <strong>Thông tin thanh toán:</strong><br>
     					{{ $userDetails['name'] }}<br>
 
                         @if (!empty($userDetails['address']))
@@ -50,7 +50,7 @@
     			</div>
     			<div class="col-xs-6 text-right">
     				<address>
-        			    <strong>Shipped To:</strong><br>
+        			    <strong>Thông tin nhận hàng:</strong><br>
                         {{ $orderDetails['name'] }}<br>
                         {{ $orderDetails['address'] }}<br>
                         {{ $orderDetails['city'] }}, {{ $orderDetails['state'] }}<br>
@@ -62,41 +62,40 @@
     		<div class="row">
     			<div class="col-xs-6">
     				<address>
-    					<strong>Payment Method:</strong><br>
+    					<strong>Phương thức thanh toán:</strong><br>
                         {{ $orderDetails['payment_method'] }}
     				</address>
     			</div>
     			<div class="col-xs-6 text-right">
     				<address>
-    					<strong>Order Date:</strong><br>
+    					<strong>Ngày đặt hàng:</strong><br>
     					{{ date('Y-m-d h:i:s', strtotime($orderDetails['created_at'])) }}<br><br>
     				</address>
     			</div>
     		</div>
     	</div>
     </div>
-    
+
     <div class="row">
     	<div class="col-md-12">
     		<div class="panel panel-default">
     			<div class="panel-heading">
-    				<h3 class="panel-title"><strong>Order summary</strong></h3>
+    				<h3 class="panel-title"><strong>Tóm tắt đơn hàng</strong></h3>
     			</div>
     			<div class="panel-body">
     				<div class="table-responsive">
     					<table class="table table-condensed">
     						<thead>
                                 <tr>
-        							<td><strong>Product Code</strong></td>
-        							<td class="text-center"><strong>Size</strong></td>
-        							<td class="text-center"><strong>Color</strong></td>
-        							<td class="text-center"><strong>Price</strong></td>
-        							<td class="text-center"><strong>Quantity</strong></td>
-        							<td class="text-right"><strong>Totals</strong></td>
+        							<td><strong>Mã sản phẩm</strong></td>
+        							<td class="text-center"><strong>Kích cỡ</strong></td>
+        							<td class="text-center"><strong>Màu sắc</strong></td>
+        							<td class="text-center"><strong>Giá</strong></td>
+        							<td class="text-center"><strong>Số lượng</strong></td>
+        							<td class="text-right"><strong>Thành tiền</strong></td>
                                 </tr>
     						</thead>
     						<tbody>
-
 
                                 {{-- Calculate the Subtotal --}}
                                 @php
@@ -108,7 +107,7 @@
                                         <td>
                                             {{ $product['product_code'] }}
 
-                                            {{-- Laravel barcode/QR code generation package (to show barcodes/QR codes for both Product ID and Product Code): https://github.com/milon/barcode --}} 
+                                            {{-- Laravel barcode/QR code generation package (to show barcodes/QR codes for both Product ID and Product Code): https://github.com/milon/barcode --}}
                                             @php
                                                 echo DNS1D::getBarcodeHTML($product['product_code'], 'C39');       // This is the product `product_code` Barcode
                                                 // echo DNS2D::getBarcodeHTML($product['product_code'], 'QRCODE'); // This is the product `product_code` QR code
@@ -132,7 +131,7 @@
                                     <td class="thick-line"></td>
                                     <td class="thick-line"></td>
                                     <td class="thick-line"></td>
-                                    <td class="thick-line text-right"><strong>Subtotal</strong></td>
+                                    <td class="thick-line text-right"><strong>Tạm tính</strong></td>
                                     <td class="thick-line text-right">INR {{ $subTotal }}</td>
                                 </tr>
                                 <tr>
@@ -140,7 +139,7 @@
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
-                                    <td class="no-line text-right"><strong>Shipping Charges</strong></td>
+                                    <td class="no-line text-right"><strong>Phí vận chuyển</strong></td>
                                     <td class="no-line text-right">INR 0</td>
                                 </tr>
                                 <tr>
@@ -148,13 +147,13 @@
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
-                                    <td class="no-line text-right"><strong>Grand Total</strong></td>
+                                    <td class="no-line text-right"><strong>Tổng cộng</strong></td>
                                     <td class="no-line text-right">
                                         <strong>INR {{ $orderDetails['grand_total'] }}</strong>
                                         <br>
 
                                         @if ($orderDetails['payment_method'] == 'COD')
-                                            <font color=red>(Already Paid)</font>
+                                            <font color=red>(Đã thanh toán)</font>
                                         @endif
                                     </td>
                                 </tr>

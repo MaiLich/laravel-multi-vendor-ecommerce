@@ -6,11 +6,11 @@
     <table>
         <thead>
             <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-                <th>Action</th>
+                <th>Sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+                <th>Hành động</th>
             </tr>
         </thead>
         <tbody>
@@ -33,7 +33,7 @@
                                 <h6>
                                     {{ $item['product']['product_name'] }} ({{ $item['product']['product_code'] }}) - {{ $item['size'] }}
                                     <br>
-                                    Color: {{ $item['product']['product_color'] }}
+                                    Màu sắc: {{ $item['product']['product_color'] }}
                                 </h6>
                             </a>
                         </div>
@@ -46,16 +46,16 @@
                             @if ($getDiscountAttributePrice['discount'] > 0) {{-- If there's a discount on the price, show the price before (the original price) and after (the new price) the discount --}}
                                 <div class="price-template">
                                     <div class="item-new-price">
-                                        EGP{{ $getDiscountAttributePrice['final_price'] }}
+                                        {{ number_format($getDiscountAttributePrice['final_price'], 0, ',', '.') }}₫
                                     </div>
                                     <div class="item-old-price" style="margin-left: -40px">
-                                        EGP{{ $getDiscountAttributePrice['product_price'] }}
+                                        {{ number_format($getDiscountAttributePrice['product_price'], 0, ',', '.') }}₫
                                     </div>
                                 </div>
                             @else {{-- if there's no discount on the price, show the original price --}}
                                 <div class="price-template">
                                     <div class="item-new-price">
-                                        EGP{{ $getDiscountAttributePrice['final_price'] }}
+                                        {{ number_format($getDiscountAttributePrice['final_price'], 0, ',', '.') }}₫
                                     </div>
                                 </div>
                             @endif
@@ -68,20 +68,20 @@
                         <div class="cart-quantity">
                             <div class="quantity">
                                 <input type="text" class="quantity-text-field" value="{{ $item['quantity'] }}">
-                                <a data-max="1000" class="plus-a  updateCartItem" data-cartid="{{ $item['id'] }}" data-qty="{{ $item['quantity'] }}">&#43;</a> {{-- The Plus sign:  Increase items by 1 --}} {{-- .updateCartItem CSS class and the Custom HTML attributes data-cartid & data-qty are used to make the AJAX call in front/js/custom.js --}}
-                                <a data-min="1"    class="minus-a updateCartItem" data-cartid="{{ $item['id'] }}" data-qty="{{ $item['quantity'] }}">&#45;</a> {{-- The Minus sign: Decrease items by 1 --}} {{-- .updateCartItem CSS class and the Custom HTML attributes data-cartid & data-qty are used to make the AJAX call in front/js/custom.js --}}
+                                <a data-max="1000" class="plus-a  updateCartItem" data-cartid="{{ $item['id'] }}" data-qty="{{ $item['quantity'] }}">&#43;</a> 
+                                <a data-min="1"    class="minus-a updateCartItem" data-cartid="{{ $item['id'] }}" data-qty="{{ $item['quantity'] }}">&#45;</a> 
                             </div>
                         </div>
                     </td>
                     <td>
                         <div class="cart-price">
-                            EGP{{ $getDiscountAttributePrice['final_price'] * $item['quantity'] }} {{-- price of all products (after discount (if any)) (= price (after discoutn) * no. of products) --}}
+                            {{ number_format($getDiscountAttributePrice['final_price'] * $item['quantity'], 0, ',', '.') }}₫
                         </div>
                     </td>
                     <td>
                         <div class="action-wrapper">
                             {{-- <button class="button button-outline-secondary fas fa-sync"></button> --}}
-                            <button class="button button-outline-secondary fas fa-trash deleteCartItem" data-cartid="{{ $item['id'] }}"></button>{{-- .deleteCartItem CSS class and the Custom HTML attribute data-cartid is used to make the AJAX call in front/js/custom.js --}} 
+                            <button class="button button-outline-secondary fas fa-trash deleteCartItem" data-cartid="{{ $item['id'] }}" title="Xóa"></button>
                         </div>
                     </td>
                 </tr>
@@ -114,39 +114,39 @@
         <table>
             <thead>
                 <tr>
-                    <th colspan="2">Cart Totals</th>
+                    <th colspan="2">Tổng cộng giỏ hàng</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>
-                        <h3 class="calc-h3 u-s-m-b-0">Sub Total</h3> {{-- Total Price before any Coupon discounts --}}
+                        <h3 class="calc-h3 u-s-m-b-0">Tạm tính</h3> {{-- Total Price before any Coupon discounts --}}
                     </td>
                     <td>
-                        <span class="calc-text">EGP{{ $total_price }}</span>
+                        <span class="calc-text">{{ number_format($total_price, 0, ',', '.') }}₫</span>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <h3 class="calc-h3 u-s-m-b-0">Coupon Discount</h3>
+                        <h3 class="calc-h3 u-s-m-b-0">Giảm giá mã khuyến mãi</h3>
                     </td>
                     <td>
-                        <span class="calc-text couponAmount"> {{-- We create the 'couponAmount' CSS class to use it as a handle for AJAX inside    $('#applyCoupon').submit();    function in front/js/custom.js --}}
+                        <span class="calc-text couponAmount"> 
                             
-                            @if (\Illuminate\Support\Facades\Session::has('couponAmount')) {{-- We stored the 'couponAmount' in a Session Variable inside the applyCoupon() method in Front/ProductsController.php --}}
-                                EGP{{ \Illuminate\Support\Facades\Session::get('couponAmount') }}
+                            @if (\Illuminate\Support\Facades\Session::has('couponAmount')) 
+                                {{ number_format(\Illuminate\Support\Facades\Session::get('couponAmount'), 0, ',', '.') }}₫
                             @else
-                                EGP0
+                                0₫
                             @endif
                         </span>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <h3 class="calc-h3 u-s-m-b-0">Grand Total</h3> {{-- Total Price after Coupon discounts (if any) --}}
+                        <h3 class="calc-h3 u-s-m-b-0">Tổng thanh toán</h3> {{-- Total Price after Coupon discounts (if any) --}}
                     </td>
                     <td>
-                        <span class="calc-text grand_total">EGP{{ $total_price - \Illuminate\Support\Facades\Session::get('couponAmount') }}</span> {{-- We create the 'grand_total' CSS class to use it as a handle for AJAX inside    $('#applyCoupon').submit();    function in front/js/custom.js --}} {{-- We stored the 'couponAmount' a Session Variable inside the applyCoupon() method in Front/ProductsController.php --}}
+                        <span class="calc-text grand_total">{{ number_format($total_price - \Illuminate\Support\Facades\Session::get('couponAmount'), 0, ',', '.') }}₫</span> 
                     </td>
                 </tr>
             </tbody>
