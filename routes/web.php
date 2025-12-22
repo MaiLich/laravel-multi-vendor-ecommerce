@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Front\BlogController as FrontBlogController;
 use App\Http\Controllers\Front\BlogCommentController;
+use App\Http\Controllers\ChatController;
 
 
 /*
@@ -367,4 +368,24 @@ Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function ()
     Route::get('blog/{post}/comments',   [BlogPostController::class,'comments'])->name('blog.comments');
     Route::patch('blog/comments/{id}/approve', [BlogPostController::class,'approveComment'])->name('blog.comments.approve');
     Route::patch('blog/comments/{id}/reject',  [BlogPostController::class,'rejectComment'])->name('blog.comments.reject');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Chat Routes (merged)
+|--------------------------------------------------------------------------
+| NOTE: This block is appended (does not remove any existing routes).
+| It keeps user chat and admin chat separated to avoid URL conflicts.
+*/
+Route::middleware(['auth'])->group(function () {
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+    Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
+    Route::get('/chat/messages/{conversationId}', [ChatController::class, 'getMessages'])->name('chat.messages');
+});
+
+Route::prefix('admin')->middleware(['admin'])->group(function () {
+    Route::get('/chat', [ChatController::class, 'adminIndex'])->name('admin.chat.index');
+    Route::get('/chat/conversation/{id}', [ChatController::class, 'adminShowConversation'])->name('admin.chat.show');
+    Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('admin.chat.send');
+    Route::get('/chat/messages/{conversationId}', [ChatController::class, 'getMessages'])->name('admin.chat.messages');
 });
