@@ -5,6 +5,25 @@ use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Front\BlogController as FrontBlogController;
 use App\Http\Controllers\Front\BlogCommentController;
 use App\Http\Controllers\ChatController;
+use Illuminate\Support\Facades\Schema;
+use App\Http\Controllers\ChatbotController;
+
+if (Schema::hasTable('categories')) {
+    $catUrls = \App\Models\Category::select('url')
+        ->where('status', 1)
+        ->pluck('url')
+        ->toArray();
+
+    foreach ($catUrls as $url) {
+        Route::match(['get', 'post'], '/' . $url, 'ProductsController@listing');
+    }
+}
+
+Route::get('/favicon.ico', function () {
+    return response()->noContent();
+});
+
+Route::get('/chatbot', [ChatbotController::class, 'index'])->name('chatbot.index');
 
 
 /*

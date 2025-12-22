@@ -306,6 +306,9 @@ $sections = \App\Models\Section::sections();
                         <li>
                             <a href="{{ route('front.blog.index') }}">Blog</a>
                         </li>
+                        <li>
+                            <a href="{{ route('chatbot.index') }}">ChatBot</a>
+                        </li>
                         <li class="mega-position">
                             <a>More
                             <i class="fas fa-chevron-down u-s-m-l-9"></i>

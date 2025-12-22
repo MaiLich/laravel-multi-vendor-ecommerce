@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class ChatbotController extends Controller
+{
+    public function index()
+    {
+        return view('front.chatbot.index', [
+            'chatbotBaseUrl' => config('services.chatbot.base_url'),
+        ]);
+    }
+}
