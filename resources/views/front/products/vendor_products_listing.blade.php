@@ -56,16 +56,16 @@
                     @if ($getDiscountPrice > 0)
                         <div class="price-template">
                             <div class="item-new-price">
-                                EGP{{ $getDiscountPrice }}
+                                {{ number_format($getDiscountPrice, 0, ',', '.') }} ₫
                             </div>
                             <div class="item-old-price">
-                                EGP{{ $product['product_price'] }}
+                                {{ number_format($product['product_price'], 0, ',', '.') }} ₫
                             </div>
                         </div>
                     @else
                         <div class="price-template">
                             <div class="item-new-price">
-                                EGP{{ $product['product_price'] }}
+                                {{ number_format($product['product_price'], 0, ',', '.') }} ₫
                             </div>
                         </div>
                     @endif
