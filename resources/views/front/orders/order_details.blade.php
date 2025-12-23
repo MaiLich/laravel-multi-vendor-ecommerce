@@ -153,7 +153,7 @@
                     <a href="{{ url('/') }}">Trang chủ</a>
                 </li>
                 <li class="is-marked">
-                    <a href="{{ url('user/orders') }}">Đơn hàng</a>
+                    <a href="{{ url('user/orders') }}">Đơn hàng của tôi</a>
                 </li>
             </ul>
         </div>
@@ -191,9 +191,9 @@
                     @endphp
                     <strong>
                         @if (Session::has('error_message'))
-                            Thông báo lỗi:
+                            Lỗi:
                         @else
-                            Đánh giá thành công:
+                            Thành công:
                         @endif
                     </strong>
                     <div>{{ $message }}</div>
@@ -226,18 +226,18 @@
             <div class="table-title">Thông tin đơn hàng</div>
             <table class="table table-striped table-borderless">
                 <tr><td>Ngày đặt hàng</td><td>{{ date('Y-m-d H:i:s', strtotime($orderDetails['created_at'])) }}</td></tr>
-                <tr><td>Trạng thái</td><td>{{ $orderDetails['order_status'] }}</td></tr>
-                <tr><td>Tổng tiền</td><td>EGP{{ $orderDetails['grand_total'] }}</td></tr>
-                <tr><td>Phí vận chuyển</td><td>EGP{{ $orderDetails['shipping_charges'] }}</td></tr>
+                <tr><td>Trạng thái đơn hàng</td><td>{{ $orderDetails['order_status'] }}</td></tr>
+                <tr><td>Tổng tiền hàng</td><td>{{ $orderDetails['grand_total'] }}đ</td></tr>
+                <tr><td>Phí vận chuyển</td><td>{{ $orderDetails['shipping_charges'] }}đ</td></tr>
 
                 @if (!empty($orderDetails['coupon_code']))
                     <tr><td>Mã giảm giá</td><td>{{ $orderDetails['coupon_code'] }}</td></tr>
-                    <tr><td>Giá trị giảm</td><td>EGP{{ $orderDetails['coupon_amount'] }}</td></tr>
+                    <tr><td>Số tiền giảm</td><td>{{ $orderDetails['coupon_amount'] }}đ</td></tr>
                 @endif
 
                 @if (!empty($orderDetails['courier_name']))
                     <tr><td>Đơn vị vận chuyển</td><td>{{ $orderDetails['courier_name'] }}</td></tr>
-                    <tr><td>Mã theo dõi</td><td>{{ $orderDetails['tracking_number'] }}</td></tr>
+                    <tr><td>Mã vận đơn</td><td>{{ $orderDetails['tracking_number'] }}</td></tr>
                 @endif
 
                 <tr><td>Phương thức thanh toán</td><td>{{ $orderDetails['payment_method'] }}</td></tr>
@@ -249,7 +249,7 @@
                 <thead>
                     <tr>
                         <th>Hình ảnh</th>
-                        <th>Mã</th>
+                        <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th>Kích cỡ</th>
                         <th>Màu sắc</th>
@@ -286,7 +286,7 @@
             {{-- Địa chỉ giao hàng --}}
             <div class="table-title">Địa chỉ giao hàng</div>
             <table class="table table-striped table-borderless">
-                <tr><td>Họ tên</td><td>{{ $orderDetails['name'] }}</td></tr>
+                <tr><td>Họ và tên</td><td>{{ $orderDetails['name'] }}</td></tr>
                 <tr><td>Địa chỉ</td><td>{{ $orderDetails['address'] }}</td></tr>
                 <tr><td>Thành phố</td><td>{{ $orderDetails['city'] }}</td></tr>
                 <tr><td>Tỉnh / Bang</td><td>{{ $orderDetails['state'] }}</td></tr>
@@ -327,24 +327,24 @@
                     <div class="form-group text-center">
                         <div class="rate">
                             <input type="radio" id="star5_{{ $product['product_id'] }}" name="rating" value="5" />
-                            <label for="star5_{{ $product['product_id'] }}" title="5 sao">5 sao</label>
+                            <label for="star5_{{ $product['product_id'] }}" title="Tuyệt vời - 5 sao">5 sao</label>
 
                             <input type="radio" id="star4_{{ $product['product_id'] }}" name="rating" value="4" />
-                            <label for="star4_{{ $product['product_id'] }}" title="4 sao">4 sao</label>
+                            <label for="star4_{{ $product['product_id'] }}" title="Tốt - 4 sao">4 sao</label>
 
                             <input type="radio" id="star3_{{ $product['product_id'] }}" name="rating" value="3" />
-                            <label for="star3_{{ $product['product_id'] }}" title="3 sao">3 sao</label>
+                            <label for="star3_{{ $product['product_id'] }}" title="Trung bình - 3 sao">3 sao</label>
 
                             <input type="radio" id="star2_{{ $product['product_id'] }}" name="rating" value="2" />
-                            <label for="star2_{{ $product['product_id'] }}" title="2 sao">2 sao</label>
+                            <label for="star2_{{ $product['product_id'] }}" title="Không tốt - 2 sao">2 sao</label>
 
                             <input type="radio" id="star1_{{ $product['product_id'] }}" name="rating" value="1" />
-                            <label for="star1_{{ $product['product_id'] }}" title="1 sao">1 sao</label>
+                            <label for="star1_{{ $product['product_id'] }}" title="Tệ - 1 sao">1 sao</label>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <textarea class="form-control" name="review" rows="4" placeholder="Viết đánh giá của bạn..." required></textarea>
+                        <textarea class="form-control" name="review" rows="4" placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm này..." required></textarea>
                     </div>
                     <button type="submit" class="btn btn-submit-rating btn-block">Gửi đánh giá</button>
                 </form>

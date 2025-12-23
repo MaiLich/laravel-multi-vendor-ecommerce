@@ -7,79 +7,93 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Home Page Banners</h4>
-                            
+                            <h4 class="card-title">Quản lý Banner trang chủ</h4>
 
+                            <a href="{{ url('admin/add-edit-banner') }}" class="btn btn-primary float-right">
+                                <i class="mdi mdi-plus"></i> Thêm banner mới
+                            </a>
 
-                            
-                            <a href="{{ url('admin/add-edit-banner') }}" style="max-width: 150px; float: right; display: inline-block" class="btn btn-block btn-primary">Add Banner</a>
-
-
-                            {{-- Displaying The Validation Errors: https://laravel.com/docs/9.x/validation#quick-displaying-the-validation-errors AND https://laravel.com/docs/9.x/blade#validation-errors --}}
-                            {{-- Determining If An Item Exists In The Session (using has() method): https://laravel.com/docs/9.x/session#determining-if-an-item-exists-in-the-session --}}
-                            {{-- Our Bootstrap success message in case of updating admin password is successful: --}}
-                            @if (Session::has('success_message')) <!-- Check AdminController.php, updateAdminPassword() method -->
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <strong>Success:</strong> {{ Session::get('success_message') }}
+                            {{-- Thông báo thành công --}}
+                            @if (Session::has('success_message'))
+                                <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+                                    <strong>Thành công:</strong> {{ Session::get('success_message') }}
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                                        <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                             @endif
 
-
                             <div class="table-responsive pt-3">
-                                {{-- DataTable --}}
-                                <table id="banners" class="table table-bordered"> {{-- using the id here for the DataTable --}}
-                                    <thead>
+                                <table id="banners" class="table table-bordered table-hover">
+                                    <thead class="thead-light">
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Image</th>
-                                            <th>Type</th>
-                                            <th>Link</th>
-                                            <th>Title</th>
-                                            <th>Alt</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
+                                            <th width="5%">ID</th>
+                                            <th width="25%">Hình ảnh</th>
+                                            <th width="10%">Loại</th>
+                                            <th width="20%">Liên kết</th>
+                                            <th width="15%">Tiêu đề</th>
+                                            <th width="10%">Alt (SEO)</th>
+                                            <th width="8%">Trạng thái</th>
+                                            <th width="7%">Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($banners as $banner)
+                                        @forelse ($banners as $banner)
                                             <tr>
-                                                <td>{{ $banner['id'] }}</td>
-                                                <td>
-                                                    <img style="width: 180px" src="{{ asset('front/images/banner_images/' . $banner['image']) }}">
+                                                <td class="text-center">{{ $banner['id'] }}</td>
+                                                <td class="text-center">
+                                                    <a href="{{ asset('front/images/banner_images/' . $banner['image']) }}" target="_blank">
+                                                        <img src="{{ asset('front/images/banner_images/' . $banner['image']) }}"
+                                                             alt="{{ $banner['alt'] ?? $banner['title'] }}"
+                                                             style="max-height: 100px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+                                                    </a>
                                                 </td>
-                                                <td>{{ $banner['type'] }}</td>
-                                                <td>{{ $banner['link'] }}</td>
-                                                <td>{{ $banner['title'] }}</td>
-                                                <td>{{ $banner['alt'] }}</td>
-                                                <td>
-                                                    @if ($banner['status'] == 1)
-                                                        <a class="updateBannerStatus" id="banner-{{ $banner['id'] }}" banner_id="{{ $banner['id'] }}" href="javascript:void(0)"> {{-- Using HTML Custom Attributes. Check admin/js/custom.js --}}
-                                                            <i style="font-size: 25px" class="mdi mdi-bookmark-check" status="Active"></i> {{-- Icons from Skydash Admin Panel Template --}}
-                                                        </a>
-                                                    @else {{-- if the admin status is inactive --}}
-                                                        <a class="updateBannerStatus" id="banner-{{ $banner['id'] }}" banner_id="{{ $banner['id'] }}" href="javascript:void(0)"> {{-- Using HTML Custom Attributes. Check admin/js/custom.js --}}
-                                                            <i style="font-size: 25px" class="mdi mdi-bookmark-outline" status="Inactive"></i> {{-- Icons from Skydash Admin Panel Template --}}
-                                                        </a>
+                                                <td class="text-center">
+                                                    @if($banner['type'] == 'Slider')
+                                                        <span class="badge badge-info">Slider</span>
+                                                    @else
+                                                        <span class="badge badge-secondary">Cố định</span>
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="{{ url('admin/add-edit-banner/' . $banner['id']) }}">
-                                                        <i style="font-size: 25px" class="mdi mdi-pencil-box"></i> {{-- Icons from Skydash Admin Panel Template --}}
+                                                    @if($banner['link'])
+                                                        <a href="{{ $banner['link'] }}" target="_blank" class="text-primary text-truncate d-block" style="max-width: 200px;">
+                                                            {{ Str::limit($banner['link'], 40) }}
+                                                        </a>
+                                                    @else
+                                                        <span class="text-muted">—</span>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $banner['title'] ?: '<span class="text-muted">—</span>' }}</td>
+                                                <td>{{ $banner['alt'] ?: '<span class="text-muted">—</span>' }}</td>
+                                                <td class="text-center">
+                                                    @if ($banner['status'] == 1)
+                                                        <a class="updateBannerStatus" id="banner-{{ $banner['id'] }}" banner_id="{{ $banner['id'] }}" href="javascript:void(0)" title="Đang hiển thị">
+                                                            <i style="font-size: 28px; color: #28a745;" class="mdi mdi-bookmark-check"></i>
+                                                        </a>
+                                                    @else
+                                                        <a class="updateBannerStatus" id="banner-{{ $banner['id'] }}" banner_id="{{ $banner['id'] }}" href="javascript:void(0)" title="Đã ẩn">
+                                                            <i style="font-size: 28px; color: #dc3545;" class="mdi mdi-bookmark-outline"></i>
+                                                        </a>
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="{{ url('admin/add-edit-banner/' . $banner['id']) }}" title="Chỉnh sửa">
+                                                        <i style="font-size: 25px; color: #007bff;" class="mdi mdi-pencil-box"></i>
                                                     </a>
-
-                                                    {{-- Confirm Deletion JS alert and Sweet Alert --}}
-                                                    {{-- <a title="Banner" class="confirmDelete" href="{{ url('admin/delete-banner/' . $banner['id']) }}"> --}}
-                                                        {{-- <i style="font-size: 25px" class="mdi mdi-file-excel-box"></i> --}} {{-- Icons from Skydash Admin Panel Template --}}
-                                                    {{-- </a> --}}
-                                                    <a href="JavaScript:void(0)" class="confirmDelete" module="banner" moduleid="{{ $banner['id'] }}"> {{-- Check admin/js/custom.js and web.php (routes) --}}
-                                                        <i style="font-size: 25px" class="mdi mdi-file-excel-box"></i> {{-- Icons from Skydash Admin Panel Template --}}
+                                                    &nbsp;&nbsp;
+                                                    <a href="javascript:void(0)" class="confirmDelete" module="banner" moduleid="{{ $banner['id'] }}" title="Xóa banner">
+                                                        <i style="font-size: 25px; color: #dc3545;" class="mdi mdi-delete"></i>
                                                     </a>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="8" class="text-center text-muted py-4">
+                                                    Chưa có banner nào. <a href="{{ url('admin/add-edit-banner') }}">Thêm banner đầu tiên</a>
+                                                </td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -88,13 +102,12 @@
                 </div>
             </div>
         </div>
+
         <!-- content-wrapper ends -->
-        <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2022. All rights reserved.</span>
+                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Bản quyền © {{ date('Y') }}. Đã đăng ký bản quyền.</span>
             </div>
         </footer>
-        <!-- partial -->
     </div>
 @endsection

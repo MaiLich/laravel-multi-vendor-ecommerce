@@ -8,13 +8,13 @@
                 <div class="col-md-12 grid-margin">
                     <div class="row">
                         <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                            <h3 class="font-weight-bold">Welcome {{ Auth::guard('admin')->user()->name }}</h3> {{--
+                            <h3 class="font-weight-bold">Chào mừng {{ Auth::guard('admin')->user()->name }}</h3> {{--
                             Accessing Specific Guard Instances:
                             https://laravel.com/docs/9.x/authentication#accessing-specific-guard-instances --}}
                             <!-- https://laravel.com/docs/9.x/authentication#retrieving-the-authenticated-user -->
                             <!-- https://laravel.com/docs/9.x/authentication#accessing-specific-guard-instances -->
                             <!-- https://laravel.com/docs/9.x/eloquent#retrieving-models -->
-                            <h6 class="font-weight-normal mb-0">All systems are running smoothly!</h6>
+                            <h6 class="font-weight-normal mb-0">Tất cả hệ thống đang hoạt động ổn định!</h6>
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h4 class="card-title text-center"> Doanh thu theo ngày</h4>
+                        <h4 class="text-center">Doanh thu theo ngày</h4>
                         <canvas id="dailyRevenueChart" height="150"></canvas>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h4 class="card-title text-center">Doanh thu theo tháng</h4>
+                        <h4 class="text-center">Doanh thu theo tháng</h4>
                         <canvas id="monthlyRevenueChart" height="150"></canvas>
                     </div>
                 </div>
@@ -136,7 +136,7 @@
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h4 class="card-title text-center">Doanh thu theo năm</h4>
+                        <h4 class="text-center">Doanh thu theo năm</h4>
                         <canvas id="yearlyRevenueChart" height="150"></canvas>
                     </div>
                 </div>
@@ -148,7 +148,7 @@
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h4 class="card-title text-center">Sản phẩm được mua nhiều nhất</h4>
+                        <h4 class="text-center">Sản phẩm được mua nhiều nhất</h4>
                         <canvas id="mostPurchasedChart"></canvas>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h4 class="card-title text-center"> Sản phẩm bán chạy nhất</h4>
+                        <h4 class="text-center">Sản phẩm bán chạy nhất</h4>
                         <canvas id="bestSellingChart"></canvas>
                     </div>
                 </div>
@@ -168,7 +168,7 @@
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h4 class="card-title text-center"> Sản phẩm còn tồn kho nhiều nhất</h4>
+                        <h4 class="text-center">Sản phẩm còn tồn kho nhiều nhất</h4>
                         <canvas id="mostInStockChart"></canvas>
                     </div>
                 </div>
@@ -275,11 +275,10 @@
             function renderBarChart(canvasId, chartData, label, color, isMoney = false) {
                 const ctx = document.getElementById(canvasId).getContext('2d');
                 const maxValue = Math.max(...chartData.data);
-                // Làm tròn maxValue lên bội số gần nhất (tùy theo dạng dữ liệu)
                 const roundedMax = isMoney
-                    ? Math.ceil(maxValue / 10000) * 10000   // nếu là tiền → làm tròn đến hàng chục nghìn
-                    : Math.ceil(maxValue / 10) * 10;        // còn lại → làm tròn đến số chẵn gần nhất
-                const step = Math.ceil(roundedMax / 5);      // chia thành khoảng đều nhau (tầm 5 khoảng)
+                    ? Math.ceil(maxValue / 10000) * 10000
+                    : Math.ceil(maxValue / 10) * 10;
+                const step = Math.ceil(roundedMax / 5);
 
                 new Chart(ctx, {
                     type: 'bar',
@@ -302,7 +301,6 @@
                                     stepSize: step,
                                     callback: function (value) {
                                         if (isMoney) {
-                                            // Nếu là tiền thì format có dấu ngăn cách + thêm "₫"
                                             return value.toLocaleString('vi-VN') + ' ₫';
                                         } else {
                                             return value.toLocaleString('vi-VN');
@@ -316,18 +314,18 @@
                             x: {
                                 grid: { display: false },
                                 ticks: {
-                                    autoSkip: false,        // Hiển thị tất cả nhãn
-                                    maxRotation: 0,         // Không xoay nhãn
+                                    autoSkip: false,
+                                    maxRotation: 0,
                                     minRotation: 0,
                                     font: { size: 10 },
-                                    callback: function (value, index, ticks) {
+                                    callback: function (value) {
                                         const label = this.getLabelForValue(value);
                                         const words = label.split(' ');
                                         const lines = [];
                                         let currentLine = '';
 
                                         words.forEach(word => {
-                                            if ((currentLine + ' ' + word).trim().length > 5) { // tối đa 15 ký tự mỗi dòng
+                                            if ((currentLine + ' ' + word).trim().length > 5) {
                                                 lines.push(currentLine.trim());
                                                 currentLine = word;
                                             } else {
@@ -340,8 +338,6 @@
                                     }
                                 }
                             }
-
-
                         },
                         plugins: {
                             legend: { display: false },

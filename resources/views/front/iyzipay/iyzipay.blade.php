@@ -30,14 +30,14 @@
     <div class="page-style-a">
         <div class="container">
             <div class="page-intro">
-                <h2>Cart</h2>
+                <h2>Giỏ hàng</h2>
                 <ul class="bread-crumb">
                     <li class="has-separator">
                         <i class="ion ion-md-home"></i>
-                        <a href="index.html">Home</a>
+                        <a href="index.html">Trang chủ</a>
                     </li>
                     <li class="is-marked">
-                        <a href="#">Proceed to Payment</a>
+                        <a href="#">Tiến hành thanh toán</a>
                     </li>
                 </ul>
             </div>
@@ -49,9 +49,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12" align="center">
-                    <h3>PLEASE MAKE <span style="color: red">INR {{ Session::get('grand_total') }}</span> PAYMENT FOR YOUR ORDER</h3>
+                    <h3>VUI LÒNG THANH TOÁN <span style="color: red">INR {{ Session::get('grand_total') }}</span> CHO ĐƠN HÀNG CỦA BẠN</h3>
                     <a href="{{ url('iyzipay/pay') }}">
-                        <button class="button button2">Pay Now</button> {{-- Interacting With The Session: Retrieving Data: https://laravel.com/docs/9.x/session#retrieving-data --}}
+                        <button class="button button2">Thanh toán ngay</button> {{-- Interacting With The Session: Retrieving Data: https://laravel.com/docs/9.x/session#retrieving-data --}}
                     </a>
                 </div>
             </div>

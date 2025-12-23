@@ -16,12 +16,12 @@ $sections = \App\Models\Section::sections();
                     <li>
                         <a href="tel:+201255845857">
                         <i class="fas fa-phone u-c-brand u-s-m-r-9"></i>
-                        Telephone: +201255845857</a>
+                        Điện thoại: +8412345678</a>
                     </li>
                     <li>
                         <a href="mailto:info@multi-vendore-commerce.com">
                         <i class="fas fa-envelope u-c-brand u-s-m-r-9"></i>
-                        E-mail: info@multi-vendore-commerce.com
+                        Email: info@Doantotnghiep.com
                         </a>
                     </li>
                 </ul>
@@ -34,10 +34,10 @@ $sections = \App\Models\Section::sections();
 
                         <a>
                             {{-- If the user is authenticated/logged in, show 'My Account', if not, show 'Login/Register' --}} 
-                            @if (\Illuminate\Support\Facades\Auth::check()) {{-- Determining If The Current User Is Authenticated: https://laravel.com/docs/9.x/authentication#determining-if-the-current-user-is-authenticated --}}
-                                My Account
+                            @if (\Illuminate\Support\Facades\Auth::check())
+                                Tài khoản
                             @else
-                                Login/Register
+                                Đăng nhập / Đăng ký
                             @endif
 
                             <i class="fas fa-chevron-down u-s-m-l-9"></i>
@@ -46,22 +46,22 @@ $sections = \App\Models\Section::sections();
                             <li>
                                 <a href="{{ url('cart') }}">
                                 <i class="fas fa-cog u-s-m-r-9"></i>
-                                My Cart</a>
+                                Giỏ hàng của tôi</a>
                             </li>
                             <li>
                                 <a href="{{ url('checkout') }}">
                                 <i class="far fa-check-circle u-s-m-r-9"></i>
-                                Checkout</a>
+                                Thanh toán</a>
                             </li>
 
 
 
                             {{-- If the user is authenticated/logged in, show 'My Account' and 'Logout', if not, show 'Customer Login' and 'Vendor Login' --}} 
-                            @if (\Illuminate\Support\Facades\Auth::check()) {{-- Determining If The Current User Is Authenticated: https://laravel.com/docs/9.x/authentication#determining-if-the-current-user-is-authenticated --}}
+                            @if (\Illuminate\Support\Facades\Auth::check())
                                 <li>
                                     <a href="{{ url('user/account') }}"> 
                                         <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
-                                        My Account
+                                        Tài khoản của tôi
                                     </a>
                                 </li>
 
@@ -69,27 +69,27 @@ $sections = \App\Models\Section::sections();
                                 <li>
                                     <a href="{{ url('user/orders') }}"> 
                                         <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
-                                        My Orders
+                                        Đơn hàng của tôi
                                     </a>
                                 </li>
 
                                 <li>
                                     <a href="{{ url('user/logout') }}"> 
                                         <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
-                                        Logout
+                                        Đăng xuất
                                     </a>
                                 </li>
                             @else
                                 <li>
                                     <a href="{{ url('user/login-register') }}"> 
                                         <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
-                                        Customer Login
+                                        Đăng nhập (Khách hàng)
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ url('vendor/login-register') }}">
                                         <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
-                                        Vendor Login
+                                        Đăng nhập (Nhà bán)
                                     </a>
                                 </li>
                             @endif
@@ -98,31 +98,7 @@ $sections = \App\Models\Section::sections();
 
                         </ul>
                     </li>
-                    <li>
-                        <a>EGP
-                        <i class="fas fa-chevron-down u-s-m-l-9"></i>
-                        </a>
-                        <ul class="g-dropdown" style="width:90px">
-                            <li>
-                                <a href="#" class="u-c-brand">LE EGP</a>
-                            </li>
-                            <li>
-                                <a href="#">($) USD</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a>ENG
-                        <i class="fas fa-chevron-down u-s-m-l-9"></i>
-                        </a>
-                        <ul class="g-dropdown" style="width:70px">
-                            <li>
-                                <a href="#" class="u-c-brand">ENG</a>
-                            </li>
-                            <li>
-                                <a href="#">ARB</a>
-                            </li>
-                        </ul>
+                    
                 </ul>
             </nav>
         </div>
@@ -139,7 +115,7 @@ $sections = \App\Models\Section::sections();
                         <a href="{{ url('/') }}">
 
 
-                            <img src="{{ asset('front/images/main-logo/main-logo.png') }}" alt="Multi-vendor E-commerce Application" class="app-brand-logo">
+                            <img src="{{ asset('front/images/main-logo/main-logo.png') }}" alt="Ứng dụng Thương mại Điện tử Đa nhà bán hàng" class="app-brand-logo">
                         </a>
                     </div>
                 </div>
@@ -149,16 +125,16 @@ $sections = \App\Models\Section::sections();
 
                     {{-- Website Search Form (to search for all website products) --}} 
                     <form class="form-searchbox" action="{{ url('/search-products') }}" method="get">
-                        <label class="sr-only" for="search-landscape">Search</label>
-                        <input id="search-landscape" type="text" class="text-field" placeholder="Search everything" name="search" @if (isset($_REQUEST['search']) && !empty($_REQUEST['search'])) value="{{ $_REQUEST['search'] }}" @endif> {{-- We use the "name" HTML attribute as a key/name for the "value" HTML attribute for submitting the Search Form. Check the "value" HTML attribute too inside the <option> HTML tag down below! --}} {{-- if the user uses the Search Form --}}
+                        <label class="sr-only" for="search-landscape">Tìm kiếm</label>
+                        <input id="search-landscape" type="text" class="text-field" placeholder="Tìm kiếm sản phẩm..." name="search" @if (isset($_REQUEST['search']) && !empty($_REQUEST['search'])) value="{{ $_REQUEST['search'] }}" @endif>
                         <div class="select-box-position">
                             <div class="select-box-wrapper select-hide">
-                                <label class="sr-only" for="select-category">Choose category for search</label>
+                                <label class="sr-only" for="select-category">Chọn danh mục tìm kiếm</label>
                                 <select class="select-box" id="select-category" name="section_id">
 
-                                    <option selected="selected" value="">All</option>
+                                    <option selected="selected" value="">Tất cả</option>
                                     @foreach ($sections as $section)
-                                        <option value="{{ $section['id'] }}"  @if (isset($_REQUEST['section_id']) && !empty($_REQUEST['section_id']) && $_REQUEST['section_id'] == $section['id']) selected @endif>{{ $section['name'] }}</option> {{-- the search bar drop-down menu at the top --}} {{-- We use the "value" HTML attribute as a value for the "name" HTML attribute for submitting the Search Form. Check the "name" HTML attribute too inside the <input> HTML tag above there! --}}
+                                        <option value="{{ $section['id'] }}"  @if (isset($_REQUEST['section_id']) && !empty($_REQUEST['section_id']) && $_REQUEST['section_id'] == $section['id']) selected @endif>{{ $section['name'] }}</option>
                                     @endforeach
 
                                 </select>
@@ -185,7 +161,7 @@ $sections = \App\Models\Section::sections();
                             <li>
                                 <a id="mini-cart-trigger">
                                 <i class="ion ion-md-basket"></i>
-                                <span class="item-counter totalCartItems">{{ totalCartItems() }}</span> {{-- totalCartItems() function is in our custom Helpers/Helper.php file that we have registered in 'composer.json' file --}} {{-- We created the CSS class 'totalCartItems' to use it in front/js/custom.js to update the total cart items via AJAX, because in pages that we originally use AJAX to update the cart items (such as when we delete a cart item in http://127.0.0.1:8000/cart using AJAX), the number doesn't change in the header automatically because AJAX is already used and no page reload/refresh has occurred --}}
+                                <span class="item-counter totalCartItems">{{ totalCartItems() }}</span>
                                 </a>
                             </li>
                         </ul>
@@ -206,7 +182,7 @@ $sections = \App\Models\Section::sections();
 
 
     <!-- Mini Cart Widget -->
-    <div id="appendHeaderCartItems"> {{-- We created the CSS class 'appendHeaderCartItems' to use it in front/js/custom.js to update the total cart items via AJAX in the Mini Cart Wedget, because in pages that we originally use AJAX to update the cart items (such as when we delete a cart item in http://127.0.0.1:8000/cart using AJAX), the number doesn't change in the header automatically because AJAX is already used and no page reload/refresh has occurred --}}
+    <div id="appendHeaderCartItems">
         @include('front.layout.header_cart_items')
     </div>
     <!-- Mini Cart Widget /- -->
@@ -221,7 +197,7 @@ $sections = \App\Models\Section::sections();
                     <div class="v-menu v-close">
                         <span class="v-title">
                         <i class="ion ion-md-menu"></i>
-                        All Categories
+                        Tất cả danh mục
                         <i class="fas fa-angle-down"></i>
                         </span>
                         <nav>
@@ -231,13 +207,13 @@ $sections = \App\Models\Section::sections();
 
 
                                     @foreach ($sections as $section)
-                                        @if (count($section['categories']) > 0) {{-- if the section has child categories, show the section name, but if it doesn't, don't show it --}}
+                                        @if (count($section['categories']) > 0)
                                             <li class="js-backdrop">
                                                 <a href="javascript:;">
                                                 <i class="ion-ios-add-circle"></i>
 
 
-                                                {{ $section['name'] }} {{-- Show section name --}}
+                                                {{ $section['name'] }}
 
 
                                                 <i class="ion ion-ios-arrow-forward"></i>
@@ -248,7 +224,7 @@ $sections = \App\Models\Section::sections();
 
 
 
-                                                        @foreach ($section['categories'] as $category) {{-- Show the section child categories --}}
+                                                        @foreach ($section['categories'] as $category)
                                                             <div class="col-lg-4">
                                                                 <ul class="v-level-2">
                                                                     <li>
@@ -257,7 +233,7 @@ $sections = \App\Models\Section::sections();
 
 
  
-                                                                            @foreach ($category['sub_categories'] as $subcategory) {{-- Show the section child categories child Subcategories --}}
+                                                                            @foreach ($category['sub_categories'] as $subcategory)
                                                                             <li>
                                                                                 <a href="{{ url($subcategory['url']) }}">{{ $subcategory['category_name'] }}</a>
                                                                             </li>
@@ -285,63 +261,66 @@ $sections = \App\Models\Section::sections();
                 <div class="col-lg-9">
                     <ul class="bottom-nav g-nav u-d-none-lg">
                         <li>
-                            <a href="{{ url('search-products?search=new-arrivals') }}">New Arrivals 
-                            <span class="superscript-label-new">NEW</span>
+                            <a href="{{ url('search-products?search=new-arrivals') }}">Sản phẩm mới 
+                            <span class="superscript-label-new">MỚI</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('search-products?search=best-sellers') }}">Best Seller 
+                            <a href="{{ url('search-products?search=best-sellers') }}">Bán chạy 
                             <span class="superscript-label-hot">HOT</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('search-products?search=featured') }}">Featured 
+                            <a href="{{ url('search-products?search=featured') }}">Nổi bật 
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('search-products?search=discounted') }}">Discounted 
+                            <a href="{{ url('search-products?search=discounted') }}">Giảm giá 
                             <span class="superscript-label-discount">>10%</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('front.blog.index') }}">Blog</a>
                         </li>
+                        <li>
+                            <a href="{{ route('chatbot.index') }}">ChatBot</a>
+                        </li>
                         <li class="mega-position">
-                            <a>More
+                            <a>Thêm
                             <i class="fas fa-chevron-down u-s-m-l-9"></i>
                             </a>
                             <div class="mega-menu mega-3-colm">
                                 <ul>
-                                    <li class="menu-title">COMPANY</li>
+                                    <li class="menu-title">CÔNG TY</li>
                                     <li>
-                                        <a href="{{ url('about-us') }}" class="u-c-brand">About Us</a>
+                                        <a href="{{ url('about-us') }}" class="u-c-brand">Giới thiệu</a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('contact') }}">Contact Us</a>
+                                        <a href="{{ url('contact') }}">Liên hệ</a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('faq') }}">FAQ</a>
-                                    </li>
-                                </ul>
-                                <ul>
-                                    <li class="menu-title">COLLECTION</li>
-                                    <li>
-                                        <a href="{{ url('men') }}">Men Clothing</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('women') }}">Women Clothing</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('kids') }}">Kids Clothing</a>
+                                        <a href="{{ url('faq') }}">Câu hỏi thường gặp</a>
                                     </li>
                                 </ul>
                                 <ul>
-                                    <li class="menu-title">ACCOUNT</li>
+                                    <li class="menu-title">DANH MỤC</li>
                                     <li>
-                                        <a href="{{ url('user/account') }}">My Account</a>
+                                        <a href="{{ url('men') }}">Thời trang Nam</a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('user/orders') }}">My Orders</a>
+                                        <a href="{{ url('women') }}">Thời trang Nữ</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('kids') }}">Thời trang Trẻ em</a>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li class="menu-title">TÀI KHOẢN</li>
+                                    <li>
+                                        <a href="{{ url('user/account') }}">Tài khoản của tôi</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('user/orders') }}">Đơn hàng của tôi</a>
                                     </li>
                                 </ul>
                             </div>

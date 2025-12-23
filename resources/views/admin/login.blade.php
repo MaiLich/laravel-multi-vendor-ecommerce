@@ -4,7 +4,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Admin Panel</title>
+        <title>Bảng điều khiển quản trị</title>
         <!-- plugins:css -->
         <link rel="stylesheet" href="{{ url('admin/vendors/feather/feather.css') }}">
         <link rel="stylesheet" href="{{ url('admin/vendors/ti-icons/css/themify-icons.css') }}">
@@ -24,15 +24,15 @@
                     <div class="row w-100 mx-0">
                         <div class="col-lg-4 mx-auto">
                             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-                                <h4>Hello! let's get started</h4>
-                                <h6 class="font-weight-light">Sign in to continue.</h6>
+                                <h4>Xin chào! Bắt đầu thôi</h4>
+                                <h6 class="font-weight-light">Đăng nhập để tiếp tục.</h6>
 
 
                                 {{-- Our Bootstrap error code in case of wrong credentials when logging in: --}}
                                 {{-- Determining If An Item Exists In The Session (using has() method): https://laravel.com/docs/9.x/session#determining-if-an-item-exists-in-the-session --}}
                                 @if (Session::has('error_message')) <!-- Check AdminController.php, login() method -->
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <strong>Error:</strong> {{ Session::get('error_message') }}
+                                        <strong>Lỗi:</strong> {{ Session::get('error_message') }}
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
@@ -61,22 +61,22 @@
 
 
                                     <div class="form-group">
-                                        <input type="email" name="email" id="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username" required>
+                                        <input type="email" name="email" id="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Tên đăng nhập" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="password" id="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" required>
+                                        <input type="password" name="password" id="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Mật khẩu" required>
                                     </div>
                                     <div class="mt-3">
                                         
                                         {{-- My code: --}}
-                                        <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
+                                        <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">ĐĂNG NHẬP</button>
 
                                     </div>
                                     <div class="my-2 d-flex justify-content-between align-items-center">
                                         <div class="form-check">
                                             <label class="form-check-label text-muted">
                                             <input type="checkbox" class="form-check-input">
-                                            Keep me signed in
+                                            Giữ đăng nhập
                                             </label>
                                         </div>
                                     </div>

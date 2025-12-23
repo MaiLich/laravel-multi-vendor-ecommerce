@@ -13,30 +13,30 @@
             <tr><td>&nbsp;</td></tr>
             <tr><td><img src="{{ asset('front/images/main-logo/main-logo.png') }}"></td></tr>
             <tr><td>&nbsp;</td></tr>
-            <tr><td>Hello {{ $name }}</td></tr>
+            <tr><td>Xin chào {{ $name }}</td></tr>
             <tr><td>&nbsp;<br></td></tr>
-            <tr><td>Your Order #{{ $order_id }} Item status has been updated to {{ $order_status }}</td></tr>
+            <tr><td>Trạng thái sản phẩm trong đơn hàng #{{ $order_id }} của bạn đã được cập nhật thành {{ $order_status }}</td></tr>
             <tr><td>&nbsp;</td></tr>
 
             
             @if (!empty($courier_name) && !empty($tracking_number))
                 <tr>
-                    <td>Courier Name is {{ $courier_name }} and Tracking Number is {{ $tracking_number }}</td>
+                    <td>Tên đơn vị vận chuyển là {{ $courier_name }} và mã vận đơn là {{ $tracking_number }}</td>
                 </tr>
                 <tr><td>&nbsp;</td></tr>
             @endif
 
-            <tr><td>Your Order Item details are as below:</td></tr>
+            <tr><td>Chi tiết sản phẩm trong đơn hàng của bạn như sau:</td></tr>
             <tr><td>&nbsp;</td></tr>
             <tr><td>
                 <table style="width: 95%" cellpadding="5" cellspacing="5" bgcolor="#f7f4f4">
                     <tr bgcolor="#cccccc">
-                        <td>Product Name</td>
-                        <td>Product Code</td>
-                        <td>Product Size</td>
-                        <td>Product Color</td>
-                        <td>Product Quantity</td>
-                        <td>Product Price</td>
+                        <td>Tên sản phẩm</td>
+                        <td>Mã sản phẩm</td>
+                        <td>Kích thước</td>
+                        <td>Màu sắc</td>
+                        <td>Số lượng</td>
+                        <td>Giá sản phẩm</td>
                     </tr>
                     @foreach ($orderDetails['orders_products'] as $order)
                         <tr bgcolor="#f9f9f9">
@@ -54,7 +54,7 @@
             <tr><td>
                 <table>
                     <tr>
-                        <td><strong>Delivery Address:</strong></td>
+                        <td><strong>Địa chỉ giao hàng:</strong></td>
                     </tr>
                     <tr>
                         <td>{{ $orderDetails['name'] }}</td>
@@ -80,9 +80,9 @@
                 </table>    
             </td></tr>
             <tr><td>&nbsp;</td></tr>
-            <tr><td>For any queries, you can contact us at <a href="mailto:info@MultiVendorEcommerceApplication.com.eg">info@MultiVendorEcommerceApplication.com.eg</a></td></tr>
+            <tr><td>Nếu có bất kỳ thắc mắc nào, bạn có thể liên hệ với chúng tôi qua <a href="mailto:info@MultiVendorEcommerceApplication.com.eg">info@MultiVendorEcommerceApplication.com.eg</a></td></tr>
             <tr><td>&nbsp;</td></tr>
-            <tr><td>Regards,<br>Team Multi-vendor E-commerce Application</td></tr>
+            <tr><td>Trân trọng,<br>Đội ngũ Multi-vendor E-commerce Application</td></tr>
             <tr><td>&nbsp;</td></tr>
         </table>
     </body>

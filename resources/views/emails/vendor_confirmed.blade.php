@@ -8,22 +8,22 @@
         <title></title>
     </head>
     <body>
-        <tr><td>Dear {{ $name }}!</td></tr>
+        <tr><td>Kính gửi {{ $name }}!</td></tr>
         <tr><td>&nbsp;<br></td></tr>
-        <tr><td>Your Vendor Email is confirmed. Please login and add your personal, business and bank details so that your account will get approved.</td></tr>
+        <tr><td>Email nhà bán hàng của bạn đã được xác nhận. Vui lòng đăng nhập và bổ sung thông tin cá nhân, doanh nghiệp và ngân hàng để tài khoản của bạn được phê duyệt.</td></tr>
         <tr><td>&nbsp;</td></tr>
-        <tr><td>Your Vendor Account Details are as below :-<br></td></tr>
+        <tr><td>Thông tin tài khoản nhà bán hàng của bạn như sau :-<br></td></tr>
         <tr><td>&nbsp;</td></tr>
-        <tr><td>Name: {{ $name }}</td></tr>
+        <tr><td>Họ và tên: {{ $name }}</td></tr>
         <tr><td>&nbsp;</td></tr>
-        <tr><td>Mobile: {{ $mobile }}</td></tr>
+        <tr><td>Số điện thoại: {{ $mobile }}</td></tr>
         <tr><td>&nbsp;</td></tr>
         <tr><td>Email: {{ $email }}</td></tr>
         <tr><td>&nbsp;</td></tr>
-        <tr><td>Password: ***** (as chosen by you)</td></tr>
+        <tr><td>Mật khẩu: ***** (do bạn đã chọn)</td></tr>
         <tr><td>&nbsp;</td></tr>
-        <tr><td>Thanks & Regards,</td></tr>
+        <tr><td>Trân trọng,</td></tr>
         <tr><td>&nbsp;</td></tr>
-        <tr><td>Multi-vendor E-commerce Application</td></tr>
+        <tr><td>Ứng dụng Thương mại điện tử đa nhà bán</td></tr>
     </body>
 </html>
