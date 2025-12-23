@@ -16,12 +16,12 @@ $sections = \App\Models\Section::sections();
                     <li>
                         <a href="tel:+201255845857">
                         <i class="fas fa-phone u-c-brand u-s-m-r-9"></i>
-                        Điện thoại: +201255845857</a>
+                        Điện thoại: +8412345678</a>
                     </li>
                     <li>
                         <a href="mailto:info@multi-vendore-commerce.com">
                         <i class="fas fa-envelope u-c-brand u-s-m-r-9"></i>
-                        Email: info@multi-vendore-commerce.com
+                        Email: info@Doantotnghiep.com
                         </a>
                     </li>
                 </ul>
@@ -98,31 +98,7 @@ $sections = \App\Models\Section::sections();
 
                         </ul>
                     </li>
-                    <li>
-                        <a>VND
-                        <i class="fas fa-chevron-down u-s-m-l-9"></i>
-                        </a>
-                        <ul class="g-dropdown" style="width:90px">
-                            <li>
-                                <a href="#" class="u-c-brand">₫ VND</a>
-                            </li>
-                            <li>
-                                <a href="#">($) USD</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a>VI
-                        <i class="fas fa-chevron-down u-s-m-l-9"></i>
-                        </a>
-                        <ul class="g-dropdown" style="width:70px">
-                            <li>
-                                <a href="#" class="u-c-brand">VI</a>
-                            </li>
-                            <li>
-                                <a href="#">ENG</a>
-                            </li>
-                        </ul>
+                    
                 </ul>
             </nav>
         </div>

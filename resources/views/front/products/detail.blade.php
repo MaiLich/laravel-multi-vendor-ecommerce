@@ -266,9 +266,9 @@
                             </div>
                         </form>
 
-                        <br><br><b>Giao hàng</b>
+                        <!-- <br><br><b>Giao hàng</b>
                         <input type="text" id="pincode" placeholder="Nhập mã vùng giao hàng">
-                        <button type="button" id="checkPincode">Kiểm tra</button>
+                        <button type="button" id="checkPincode">Kiểm tra</button> -->
                     </div>
                 </div>
             </div>

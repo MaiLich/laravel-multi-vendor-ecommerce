@@ -3,7 +3,7 @@
     <div class="container">
         <!-- Outer-Footer -->
         <div class="outer-footer-wrapper u-s-p-y-80">
-            <h6>
+            <!-- <h6>
                 Để nhận các ưu đãi đặc biệt và thông tin giảm giá
             </h6>
             <h1>
@@ -19,7 +19,7 @@
                 {{-- We'll use the HTML id Global Attribute in jQuery in front/js/custom.js --}} 
                 <button type="button" class="button" onclick="addSubscriber()">ĐĂNG KÝ</button> 
                 {{-- Check the addSubscriber() function in front/js/custom.js. We'll use it in conjunction with the id="subscriber_email" of the <input> field --}}
-            </form>
+            </form> -->
 
         </div>
         <!-- Outer-Footer /- -->
@@ -82,13 +82,13 @@
                             <li>
                                 <a href="tel:+201255845857">
                                 <i class="fas fa-phone u-s-m-r-9"></i>
-                                <span>+01255845857</span>
+                                <span>+84123456789</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="mailto:info@multi-vendore-commerce.com">
                                 <i class="fas fa-envelope u-s-m-r-9"></i>
-                                <span>info@multi-vendore-commerce.com</span>
+                                <span>info@Doantotnghiep.com</span>
                                 </a>
                             </li>
                         </ul>

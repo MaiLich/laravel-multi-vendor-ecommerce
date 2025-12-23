@@ -32,7 +32,17 @@ class BlogPostController extends Controller
         $data['author_id'] = Auth::guard('admin')->id();
 
         if ($request->hasFile('thumbnail')) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('blog','public');
+            $path = $request->file('thumbnail')->store('blog','public');
+            $data['thumbnail'] = $path;
+
+            // 👉 COPY sang public/storage/blog
+            $from = storage_path('app/public/'.$path);
+            $to   = public_path('storage/'.$path);
+
+            if (!file_exists(dirname($to))) {
+                mkdir(dirname($to), 0755, true);
+            }
+            copy($from, $to);
         }
         if ($data['status']==='published' && empty($data['published_at'])) {
             $data['published_at'] = now();
@@ -51,8 +61,24 @@ class BlogPostController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('thumbnail')) {
-            if ($post->thumbnail) Storage::disk('public')->delete($post->thumbnail);
-            $data['thumbnail'] = $request->file('thumbnail')->store('blog','public');
+
+            // xóa ảnh cũ (cả storage & public)
+            if ($post->thumbnail) {
+                Storage::disk('public')->delete($post->thumbnail);
+                @unlink(public_path('storage/'.$post->thumbnail));
+            }
+
+            $path = $request->file('thumbnail')->store('blog','public');
+            $data['thumbnail'] = $path;
+
+            // 👉 COPY sang public/storage/blog
+            $from = storage_path('app/public/'.$path);
+            $to   = public_path('storage/'.$path);
+
+            if (!file_exists(dirname($to))) {
+                mkdir(dirname($to), 0755, true);
+            }
+            copy($from, $to);
         }
 
         if($data['status']==='published' && !$post->published_at){
