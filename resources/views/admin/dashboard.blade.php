@@ -116,7 +116,7 @@
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h4 class="card-title text-center">Doanh thu theo ngày</h4>
+                        <h4 class="text-center">Doanh thu theo ngày</h4>
                         <canvas id="dailyRevenueChart" height="150"></canvas>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h4 class="card-title text-center">Doanh thu theo tháng</h4>
+                        <h4 class="text-center">Doanh thu theo tháng</h4>
                         <canvas id="monthlyRevenueChart" height="150"></canvas>
                     </div>
                 </div>
@@ -136,7 +136,7 @@
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h4 class="card-title text-center">Doanh thu theo năm</h4>
+                        <h4 class="text-center">Doanh thu theo năm</h4>
                         <canvas id="yearlyRevenueChart" height="150"></canvas>
                     </div>
                 </div>
@@ -148,7 +148,7 @@
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h4 class="card-title text-center">Sản phẩm được mua nhiều nhất</h4>
+                        <h4 class="text-center">Sản phẩm được mua nhiều nhất</h4>
                         <canvas id="mostPurchasedChart"></canvas>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h4 class="card-title text-center">Sản phẩm bán chạy nhất</h4>
+                        <h4 class="text-center">Sản phẩm bán chạy nhất</h4>
                         <canvas id="bestSellingChart"></canvas>
                     </div>
                 </div>
@@ -168,7 +168,7 @@
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h4 class="card-title text-center">Sản phẩm còn tồn kho nhiều nhất</h4>
+                        <h4 class="text-center">Sản phẩm còn tồn kho nhiều nhất</h4>
                         <canvas id="mostInStockChart"></canvas>
                     </div>
                 </div>

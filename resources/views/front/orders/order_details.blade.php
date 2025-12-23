@@ -227,12 +227,12 @@
             <table class="table table-striped table-borderless">
                 <tr><td>Ngày đặt hàng</td><td>{{ date('Y-m-d H:i:s', strtotime($orderDetails['created_at'])) }}</td></tr>
                 <tr><td>Trạng thái đơn hàng</td><td>{{ $orderDetails['order_status'] }}</td></tr>
-                <tr><td>Tổng tiền hàng</td><td>EGP{{ $orderDetails['grand_total'] }}</td></tr>
-                <tr><td>Phí vận chuyển</td><td>EGP{{ $orderDetails['shipping_charges'] }}</td></tr>
+                <tr><td>Tổng tiền hàng</td><td>{{ $orderDetails['grand_total'] }}đ</td></tr>
+                <tr><td>Phí vận chuyển</td><td>{{ $orderDetails['shipping_charges'] }}đ</td></tr>
 
                 @if (!empty($orderDetails['coupon_code']))
                     <tr><td>Mã giảm giá</td><td>{{ $orderDetails['coupon_code'] }}</td></tr>
-                    <tr><td>Số tiền giảm</td><td>EGP{{ $orderDetails['coupon_amount'] }}</td></tr>
+                    <tr><td>Số tiền giảm</td><td>{{ $orderDetails['coupon_amount'] }}đ</td></tr>
                 @endif
 
                 @if (!empty($orderDetails['courier_name']))

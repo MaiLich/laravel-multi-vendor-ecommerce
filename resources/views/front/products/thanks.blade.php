@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-lg-12" align="center">
                     <h3>ĐẶT HÀNG THÀNH CÔNG!</h3>
-                    <p>Mã đơn hàng của bạn là {{ Session::get('order_id') }} và tổng tiền thanh toán là EGP {{ Session::get('grand_total') }}</p>
+                    <p>Mã đơn hàng của bạn là {{ Session::get('order_id') }} và tổng tiền thanh toán là  {{ Session::get('grand_total') }}đ</p>
                 </div>
             </div>
         </div>
