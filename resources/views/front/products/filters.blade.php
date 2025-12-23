@@ -149,7 +149,7 @@
                         @php
                             // Chuyển đổi định dạng hiển thị giá
                             $priceDisplay = str_replace(['0-', '-100000'], ['Dưới ', 'Trở lên '], $price);
-                            $priceDisplay = 'đ ' . str_replace('-', ' - đ', $priceDisplay);
+                            $priceDisplay = 'EGP ' . str_replace('-', ' - EGP ', $priceDisplay);
                         @endphp
                         <input type="checkbox" class="check-box price" id="price{{ $key }}" name="price[]" value="{{ $price }}">
                         <label class="label-text" for="price{{ $key }}">{{ $priceDisplay }}

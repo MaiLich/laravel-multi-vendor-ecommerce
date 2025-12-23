@@ -8,7 +8,7 @@
             <div class="col-md-12 grid-margin">
                 <div class="row">
                     <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                        <h4 class="card-title">Danh mục cha</h4>
+                        <h4 class="card-title">Phân khu</h4>
                     </div>
                     <div class="col-12 col-xl-4">
                         <div class="justify-content-end d-flex">
@@ -76,11 +76,11 @@
                             @csrf
 
                             <div class="form-group">
-                                <label for="section_name">Tên Danh mục cha</label>
+                                <label for="section_name">Tên phân khu</label>
                                 <input type="text"
                                        class="form-control"
                                        id="section_name"
-                                       placeholder="Nhập tên Danh mục cha"
+                                       placeholder="Nhập tên phân khu"
                                        name="section_name"
                                        @if (!empty($section['name']))
                                            value="{{ $section['name'] }}"

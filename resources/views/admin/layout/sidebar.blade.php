@@ -91,7 +91,7 @@
                 </a>
                 <div class="collapse" id="ui-catalogue">
                     <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #052CA3 !important">
-                        <li class="nav-item"> <a @if (Session::get('page') == 'sections')   style="background: #052CA3 !important; color: #FFF !important" @else style="background: #fff !important; color: #052CA3 !important" @endif class="nav-link" href="{{ url('admin/sections') }}">Danh mục cha</a></li>
+                        <li class="nav-item"> <a @if (Session::get('page') == 'sections')   style="background: #052CA3 !important; color: #FFF !important" @else style="background: #fff !important; color: #052CA3 !important" @endif class="nav-link" href="{{ url('admin/sections') }}">Khu vực</a></li>
                         <li class="nav-item"> <a @if (Session::get('page') == 'categories') style="background: #052CA3 !important; color: #FFF !important" @else style="background: #fff !important; color: #052CA3 !important" @endif class="nav-link" href="{{ url('admin/categories') }}">Danh mục</a></li>
                         <li class="nav-item"> <a @if (Session::get('page') == 'brands')     style="background: #052CA3 !important; color: #FFF !important" @else style="background: #fff !important; color: #052CA3 !important" @endif class="nav-link" href="{{ url('admin/brands') }}">Thương hiệu</a></li> 
                         <li class="nav-item"> <a @if (Session::get('page') == 'products')   style="background: #052CA3 !important; color: #FFF !important" @else style="background: #fff !important; color: #052CA3 !important" @endif class="nav-link" href="{{ url('admin/products') }}">Sản phẩm</a></li>

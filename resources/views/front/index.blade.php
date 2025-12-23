@@ -110,16 +110,16 @@
                                                 @if ($getDiscountPrice > 0)
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                            {{ $getDiscountPrice }}đ
+                                                            EGP{{ $getDiscountPrice }}
                                                         </div>
                                                         <div class="item-old-price">
-                                                            {{ $product['product_price'] }}đ
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
                                                 @else
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                            {{ $product['product_price'] }}đ
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
                                                 @endif
@@ -183,16 +183,16 @@
                                                 @if ($getDiscountPrice > 0)
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                    {{ $getDiscountPrice }}đ
+                                                            EGP{{ $getDiscountPrice }}
                                                         </div>
                                                         <div class="item-old-price">
-                                                            {{ $product['product_price'] }}đ
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
                                                 @else
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                            {{ $product['product_price'] }}đ
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
                                                 @endif
@@ -255,16 +255,16 @@
                                                 @if ($getDiscountPrice > 0)
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                            {{ $getDiscountPrice }}đ
+                                                            EGP{{ $getDiscountPrice }}
                                                         </div>
                                                         <div class="item-old-price">
-                                                            {{ $product['product_price'] }}đ
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
                                                 @else
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                            {{ $product['product_price'] }}đ
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
                                                 @endif
@@ -327,16 +327,16 @@
                                                 @if ($getDiscountPrice > 0)
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                            {{ $getDiscountPrice }}đ
+                                                            EGP{{ $getDiscountPrice }}
                                                         </div>
                                                         <div class="item-old-price">
-                                                            {{ $product['product_price'] }}đ
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
                                                 @else
                                                     <div class="price-template">
                                                         <div class="item-new-price">
-                                                            {{ $product['product_price'] }}đ
+                                                            EGP{{ $product['product_price'] }}
                                                         </div>
                                                     </div>
                                                 @endif

@@ -8,12 +8,12 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Danh mục cha</h4>
+                            <h4 class="card-title">Phân khu</h4>
 
                             <a href="{{ url('admin/add-edit-section') }}"
                                style="max-width: 150px; float: right; display: inline-block"
                                class="btn btn-block btn-primary">
-                                Thêm Danh mục cha
+                                Thêm phân khu
                             </a>
 
                             @if (Session::has('success_message'))
@@ -31,7 +31,7 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Tên Danh mục cha</th>
+                                            <th>Tên phân khu</th>
                                             <th>Trạng thái</th>
                                             <th>Thao tác</th>
                                         </tr>
@@ -63,7 +63,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a title="Sửa Danh mục cha"
+                                                    <a title="Sửa phân khu"
                                                        href="{{ url('admin/add-edit-section/' . $section['id']) }}">
                                                         <i style="font-size: 25px" class="mdi mdi-pencil-box"></i>
                                                     </a>
