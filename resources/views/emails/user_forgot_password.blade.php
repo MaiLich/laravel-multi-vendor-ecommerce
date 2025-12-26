@@ -1,4 +1,5 @@
-{{-- This is the User Forgot Password E-mail using Mailtrap --}} {{-- All the variables (like $name, $mobile, $email, $code, ...) used here are passed in from the forgotPassword() method in Front/UserController.php --}}
+{{-- This is the User Forgot Password E-mail using Mailtrap --}} 
+{{-- All the variables (like $name, $mobile, $email, $code, ...) used here are passed in from the forgotPassword() method in Front/UserController.php --}}
 
 
 
@@ -6,26 +7,22 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Khôi phục mật khẩu</title>
     </head>
     <body>
 
-
-
         <table>
-            <tr><td>Dear {{ $name }},</td></tr>
+            <tr><td>Kính gửi {{ $name }},</td></tr>
             <tr><td>&nbsp;</td></tr>
-            <tr><td>You requested to change your password. New Password is as below:-</td></tr>
+            <tr><td>Quý khách đã yêu cầu thay đổi mật khẩu. Mật khẩu mới của quý khách như sau:</td></tr>
             <tr><td>&nbsp;</td></tr>
             <tr><td>Email: {{ $email }}</td></tr> {{-- $email is passed in from forgotPassword() method in UserController.php --}}
             <tr><td>&nbsp;</td></tr>
-            <tr><td>Password: {{ $password }}</td></tr> {{-- $password is passed in from forgotPassword() method in UserController.php --}}
+            <tr><td>Mật khẩu: {{ $password }}</td></tr> {{-- $password is passed in from forgotPassword() method in UserController.php --}}
             <tr><td>&nbsp;</td></tr>
-            <tr><td>Thanks & Regards,</td></tr>
-            <tr><td>Multi-vendor E-commerce Application</td></tr>
+            <tr><td>Trân trọng,</td></tr>
+            <tr><td>Ứng dụng Thương mại Điện tử Đa nhà bán hàng</td></tr>
         </table>
-
-
 
     </body>
 </html>

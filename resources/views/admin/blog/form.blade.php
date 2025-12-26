@@ -3,7 +3,7 @@
 @section('content')
 <div class="card shadow-sm">
   <div class="card-header">
-    <h5 class="mb-0">{{ $post->exists ? 'Edit Post' : 'Create Post' }}</h5>
+    <h5 class="mb-0">{{ $post->exists ? 'Chỉnh sửa bài viết' : 'Tạo bài viết mới' }}</h5>
   </div>
 
   <div class="card-body">
@@ -16,36 +16,36 @@
         <div class="col-md-8">
 
           <div class="mb-3">
-            <label class="form-label">Title *</label>
+            <label class="form-label">Tiêu đề <span class="text-danger">*</span></label>
             <input type="text" name="title" class="form-control"
                    value="{{ old('title',$post->title) }}" required>
             @error('title')<div class="text-danger small">{{ $message }}</div>@enderror
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Content *</label>
+            <label class="form-label">Nội dung <span class="text-danger">*</span></label>
             <textarea name="content" rows="12" class="form-control" required>
 {{ old('content',$post->content) }}</textarea>
             @error('content')<div class="text-danger small">{{ $message }}</div>@enderror
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Status *</label>
+            <label class="form-label">Trạng thái <span class="text-danger">*</span></label>
             <select name="status" class="form-select">
-              <option value="draft" {{ old('status',$post->status)=='draft'?'selected':'' }}>Draft</option>
-              <option value="published" {{ old('status',$post->status)=='published'?'selected':'' }}>Published</option>
+              <option value="draft" {{ old('status',$post->status)=='draft'?'selected':'' }}>Bản nháp</option>
+              <option value="published" {{ old('status',$post->status)=='published'?'selected':'' }}>Đã xuất bản</option>
             </select>
           </div>
 
           <button class="btn btn-primary">
-            {{ $post->exists ? 'Update' : 'Create' }}
+            {{ $post->exists ? 'Cập nhật' : 'Tạo mới' }}
           </button>
         </div>
 
         {{-- Cột phải: thumbnail + preview ngắn --}}
         <div class="col-md-4">
           <div class="mb-3">
-            <label class="form-label">Thumbnail</label>
+            <label class="form-label">Ảnh đại diện (Thumbnail)</label>
             <input type="file" name="thumbnail" class="form-control">
             @error('thumbnail')<div class="text-danger small">{{ $message }}</div>@enderror
           </div>

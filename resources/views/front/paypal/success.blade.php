@@ -7,14 +7,14 @@
     <div class="page-style-a">
         <div class="container">
             <div class="page-intro">
-                <h2>Payment</h2>
+                <h2>Thanh toán</h2>
                 <ul class="bread-crumb">
                     <li class="has-separator">
                         <i class="ion ion-md-home"></i>
-                        <a href="index.html">Home</a>
+                        <a href="{{ url('/') }}">Trang chủ</a>
                     </li>
                     <li class="is-marked">
-                        <a href="#">Thanks</a>
+                        <a href="#">Cảm ơn</a>
                     </li>
                 </ul>
             </div>
@@ -26,9 +26,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12" align="center">
-                    <h3>YOUR PAYMENT HAS BEEN CONFIRMED</h3>
-                    <p>Thanks for the Payment. We will process your order very soon.</p>
-                    <p>Your order number is {{ Session::get('order_id') }} and total amount paid is INR {{ Session::get('grand_total') }}</p> {{-- The Order Number is the order `id` in the `orders` database table. We stored the order id in Session in checkout() method in Front/ProductsController.php --}} {{-- Retrieving Data: https://laravel.com/docs/10.x/session#retrieving-data --}}
+                    <h3>Thanh toán của bạn đã được xác nhận</h3>
+                    <p>Cảm ơn quý khách đã thanh toán. Chúng tôi sẽ xử lý đơn hàng của quý khách trong thời gian sớm nhất.</p>
+                    <p>Mã đơn hàng của quý khách là <strong>{{ Session::get('order_id') }}</strong> và tổng số tiền đã thanh toán là <strong>{{ number_format(Session::get('grand_total'), 0, ',', '.') }}₫</strong></p> 
+                    {{-- The Order Number is the order `id` in the `orders` database table. We stored the order id in Session in checkout() method in Front/ProductsController.php --}} 
+                    {{-- Retrieving Data: https://laravel.com/docs/10.x/session#retrieving-data --}}
                 </div>
             </div>
         </div>

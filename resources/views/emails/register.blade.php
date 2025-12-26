@@ -13,21 +13,21 @@
 
 
         <table>
-            <tr><td>Dear {{ $name }},</td></tr>
+            <tr><td>Kính gửi {{ $name }},</td></tr>
             <tr><td>&nbsp;</td></tr>
-            <tr><td>Welcome to Multi-vendor E-commerce Application. Your account has been successfully created with below information:</td></tr>
+            <tr><td>Chào mừng bạn đến với Ứng dụng Thương mại điện tử đa nhà bán. Tài khoản của bạn đã được tạo thành công với các thông tin sau:</td></tr>
             <tr><td>&nbsp;</td></tr>
-            <tr><td>Name: {{ $name }}</td></tr>
+            <tr><td>Họ và tên: {{ $name }}</td></tr>
             <tr><td>&nbsp;</td></tr>
-            <tr><td>Mobile: {{ $mobile }}</td></tr>
+            <tr><td>Số điện thoại: {{ $mobile }}</td></tr>
             <tr><td>&nbsp;</td></tr>
             <tr><td>Email: {{ $email }}</td></tr>
             <tr><td>&nbsp;</td></tr>
-            <tr><td>Password: ****** (as chosen by you)</td></tr>
+            <tr><td>Mật khẩu: ****** (do bạn đã chọn)</td></tr>
             <tr><td>&nbsp;</td></tr>
             <tr><td>&nbsp;</td></tr>
-            <tr><td>Thanks & Regards,</td></tr>
-            <tr><td>Multi-vendor E-commerce Application</td></tr>
+            <tr><td>Trân trọng,</td></tr>
+            <tr><td>Ứng dụng Thương mại điện tử đa nhà bán</td></tr>
         </table>
 
 

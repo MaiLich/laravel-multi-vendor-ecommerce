@@ -14,18 +14,18 @@
                         @endphp
 
                         @if (!empty($product['product_image']) && file_exists($product_image_path)) {{-- if the product image exists in BOTH database table AND filesystem (on server) --}}
-                            <img class="img-fluid" src="{{ asset($product_image_path) }}" alt="Product">
+                            <img class="img-fluid" src="{{ asset($product_image_path) }}" alt="{{ $product['product_name'] }}">
                         @else {{-- show the dummy image --}}
-                            <img class="img-fluid" src="{{ asset('front/images/product_images/small/no-image.png') }}" alt="Product">
+                            <img class="img-fluid" src="{{ asset('front/images/product_images/small/no-image.png') }}" alt="Không có hình ảnh sản phẩm">
                         @endif
 
 
                     </a>
                     <div class="item-action-behaviors">
-                        <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
-                        <a class="item-mail" href="javascript:void(0)">Mail</a>
-                        <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                        <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
+                        <a class="item-quick-look" data-toggle="modal" href="#quick-view">Xem nhanh</a>
+                        <a class="item-mail" href="javascript:void(0)">Gửi email</a>
+                        <a class="item-addwishlist" href="javascript:void(0)">Thêm vào yêu thích</a>
+                        <a class="item-addCart" href="javascript:void(0)">Thêm vào giỏ hàng</a>
                     </div>
                 </div>
                 <div class="item-content">
@@ -66,16 +66,16 @@
                     @if ($getDiscountPrice > 0) {{-- If there's a discount on the price, show the price before (the original price) and after (the new price) the discount --}}
                         <div class="price-template">
                             <div class="item-new-price">
-                                EGP{{ $getDiscountPrice }}
+                                {{ number_format($getDiscountPrice, 0, ',', '.') }} ₫
                             </div>
                             <div class="item-old-price">
-                                EGP{{ $product['product_price'] }}
+                                {{ number_format($product['product_price'], 0, ',', '.') }} ₫
                             </div>
                         </div>
                     @else {{-- if there's no discount on the price, show the original price --}}
                         <div class="price-template">
                             <div class="item-new-price">
-                                EGP{{ $product['product_price'] }}
+                                {{ number_format($product['product_price'], 0, ',', '.') }} ₫
                             </div>
                         </div>
                     @endif
@@ -92,7 +92,7 @@
                 @endphp
                 @if ($isProductNew == 'Yes')
                     <div class="tag new">
-                        <span>NEW</span>
+                        <span>MỚI</span>
                     </div>
                 @endif
 

@@ -5,7 +5,7 @@
 <div class="mini-cart-wrapper">
     <div class="mini-cart">
         <div class="mini-cart-header">
-            YOUR CART
+            GIỎ HÀNG CỦA BẠN
             <button type="button" class="button ion ion-md-close" id="mini-cart-close"></button>
         </div>
         <ul class="mini-cart-list">
@@ -27,7 +27,7 @@
                     <a href="{{ url('product/' . $item['product_id']) }}">
                     <img src="{{ asset('front/images/product_images/small/' . $item['product']['product_image']) }}" alt="Product">
                     <span class="mini-item-name">{{ $item['product']['product_name'] }}</span>
-                    <span class="mini-item-price">EGP{{ $getDiscountAttributePrice['final_price'] }}</span>
+                    <span class="mini-item-price">{{ number_format($getDiscountAttributePrice['final_price'], 0, ',', '.') }}₫</span>
                     <span class="mini-item-quantity"> x {{ $item['quantity'] }} </span>
                     </a>
                 </li>
@@ -39,12 +39,12 @@
 
         </ul>
         <div class="mini-shop-total clearfix">
-            <span class="mini-total-heading float-left">Total:</span>
-            <span class="mini-total-price float-right">EGP{{ $total_price }}</span>
+            <span class="mini-total-heading float-left">Tổng cộng:</span>
+            <span class="mini-total-price float-right">{{ number_format($total_price, 0, ',', '.') }}₫</span>
         </div>
         <div class="mini-action-anchors">
-            <a href="{{ url('cart') }}"     class="cart-anchor">View Cart</a>
-            <a href="{{ url('checkout') }}" class="checkout-anchor">Checkout</a>
+            <a href="{{ url('cart') }}"     class="cart-anchor">Xem giỏ hàng</a>
+            <a href="{{ url('checkout') }}" class="checkout-anchor">Thanh toán</a>
         </div>
     </div>
 </div>

@@ -1,139 +1,139 @@
-# Laravel Multi-vendor E-commerce Application (Mega Project)
-Multi-vendor E-commerce is a large-scale project/application built with Laravel framework. The application contains comprehensive and feature-rich modules and functionalities. It is designed to provide a robust platform for businesses to create their online marketplaces, allowing multiple vendors to sell their products and manage their stores within a single platform. Additionally, the application has its own dedicated extensive API, which requires authentication using Laravel Passport package.
+# Ứng dụng Thương mại Điện tử Đa nhà bán hàng Laravel (Dự án Lớn)
+Ứng dụng Thương mại Điện tử Đa nhà bán hàng là một dự án/ứng dụng quy mô lớn được xây dựng bằng framework Laravel. Ứng dụng bao gồm các module và tính năng toàn diện, phong phú. Nó được thiết kế để cung cấp một nền tảng vững chắc giúp doanh nghiệp tạo ra chợ trực tuyến của riêng mình, cho phép nhiều nhà bán hàng (vendors) bán sản phẩm và quản lý cửa hàng của họ trên cùng một nền tảng. Ngoài ra, ứng dụng còn có API riêng biệt rất chi tiết và mạnh mẽ, yêu cầu xác thực bằng package Laravel Passport.
 
-Frontend technologies used: jQuery, AJAX, and many JavaScript & jQuery libraries and plugins.
+Công nghệ Frontend sử dụng: jQuery, AJAX, và nhiều thư viện/plugin JavaScript & jQuery khác.
 
-## Features:
-1- Third-pary API Integration (Shiprocket API integration (for shipping and order management services)).
+## Các Tính năng Chính:
+1- Tích hợp API bên thứ ba (Tích hợp Shiprocket API cho dịch vụ vận chuyển và quản lý đơn hàng).
 
-2- PayPal Payment Gateway Integration.
+2- Tích hợp Cổng thanh toán PayPal.
 
-3- Iyzico Payment Gateway Integration.
+3- Tích hợp Cổng thanh toán Iyzico.
 
-4- A dedicated extensive API with multiple different endpoints for the application.
+4- API riêng biệt với nhiều endpoint khác nhau dành cho ứng dụng.
 
-5- API authentication using Laravel Passport package.
+5- Xác thực API bằng package Laravel Passport.
 
-6- Webhook implemented for inventory/stock update.
+6- Triển khai Webhook để cập nhật tồn kho/số lượng hàng.
 
-7 - Using PHP cURL.
+7- Sử dụng PHP cURL.
 
-8- Multiple Authentication using Laravel Guards.
+8- Đa xác thực (Multi Authentication) bằng Laravel Guards.
 
-9- Multi-level Relationships/Categories.
+9- Quan hệ phân cấp đa cấp cho Danh mục (Multi-level Relationships/Categories).
 
-10- Product Dynamic Filters (using AJAX).
+10- Bộ lọc sản phẩm động (sử dụng AJAX).
 
-11- Shipping Charges Module (third-party service API integration, product-weight and country-wise shipping charges, etc).
+11- Module Phí vận chuyển (tích hợp API dịch vụ bên thứ ba, tính phí theo trọng lượng sản phẩm và quốc gia, v.v.).
 
-12- Showing Order Shipping Status.
+12- Hiển thị trạng thái vận chuyển đơn hàng.
 
-13- Vendor Commissions Module.
+13- Module Hoa hồng cho nhà bán hàng (Vendor Commissions).
 
-14- Coupon Codes Module (single time/multiple times, percentage/fixed).
+14- Module Mã giảm giá (sử dụng một lần/nhiều lần, phần trăm/số tiền cố định).
 
-15- Star Rating and Reviews System.
+15- Hệ thống Đánh giá sao và Bình luận.
 
-16- Recently Viewed Products Feature.
+16- Tính năng Sản phẩm đã xem gần đây.
 
-17- Order Logs/History.
+17- Nhật ký/Lịch sử đơn hàng.
 
-18- New Arrivals, Discounted Products, Featured Products, Similar Products, and Best-Seller Products Features.
+18- Các tính năng: Sản phẩm mới về, Sản phẩm giảm giá, Sản phẩm nổi bật, Sản phẩm tương tự, Sản phẩm bán chạy nhất.
 
-19- Using external libraries and packages such as 'Intervention Image' for image manipulation, 'Dompdf' library for printing PDF order invoices, 'Laravel Excel' package for importing/exporting database tables as Excel files, 'Laravel Barcode/QR Code Generator' to generate barcodes and QR codes for both Product ID and Product Code in order invoices, etc.
+19- Sử dụng các thư viện và package bên ngoài như 'Intervention Image' để xử lý hình ảnh, thư viện 'Dompdf' để in hóa đơn đơn hàng dưới dạng PDF, package 'Laravel Excel' để nhập/xuất bảng cơ sở dữ liệu dưới dạng file Excel, 'Laravel Barcode/QR Code Generator' để tạo mã vạch và QR code cho ID sản phẩm và Mã sản phẩm trên hóa đơn, v.v.
 
-20- Using JavaScript libraries and jQuery plugins such as 'DataTables' for adding interaction controls to HTML tables, 'EasyZoom' for zooming product images, etc.
+20- Sử dụng các thư viện JavaScript và plugin jQuery như 'DataTables' để thêm tương tác cho bảng HTML, 'EasyZoom' để phóng to hình ảnh sản phẩm, v.v.
 
-21 - Sending Confirmation Emails (Mailtrap) upon registration, account activation and approval, order shipping status, etc.
+21- Gửi Email xác nhận (Mailtrap) khi đăng ký, kích hoạt tài khoản và phê duyệt, cập nhật trạng thái vận chuyển đơn hàng, v.v.
 
-22- Sending offline SMSs (upon registration, starting order shipping process, ...).
+22- Gửi SMS ngoại tuyến (khi đăng ký, bắt đầu quá trình vận chuyển đơn hàng, ...).
 
-23- Multiple Delivery Addresses.
+23- Hỗ trợ nhiều Địa chỉ giao hàng.
 
-24- Website Search Form functionality for products by name, color, and code.
+24- Chức năng Tìm kiếm sản phẩm trên website theo tên, màu sắc và mã sản phẩm.
 
-25- User Roles and Permissions (superadmin, admins, vendors, users).
+25- Vai trò và Phân quyền Người dùng (superadmin, admins, vendors, users).
 
-26- User and vendor registration approval by the superadmin.
+26- Phê duyệt đăng ký Người dùng và Nhà bán hàng bởi superadmin.
 
-27- Image & Video Upload Functionality.
+27- Chức năng Tải lên Hình ảnh & Video.
 
-28- Dynamically creating and editing Sections and Categories.
+28- Tạo và chỉnh sửa động các Phần (Sections) và Danh mục (Categories).
 
-29- Dynamic Banner Sliders Module.
+29- Module Slider Banner động.
 
-30- Dynamic Breadcrumb Navigation.
+30- Điều hướng Breadcrumb động.
 
-31- Dynamic SEO/HTML Meta tags.
+31- Thẻ Meta SEO/HTML động.
 
-32- Newsletter Subscription (email).
+32- Đăng ký nhận Bản tin (Newsletter) qua email.
 
-33- Regular Expression.
+33- Sử dụng Biểu thức chính quy (Regular Expression).
 
 34- Database Seeders.
 
-35- Tens of jQuery AJAX requests (update admin password via AJAX, AJAX form validation, ...).
+35- Hàng chục yêu cầu jQuery AJAX (cập nhật mật khẩu admin qua AJAX, xác thực form bằng AJAX, ...).
 
-36- Custom AJAX pop-up Mini-Cart.
+36- Mini-Cart popup tùy chỉnh bằng AJAX.
 
-37- Showing a Preloading Screen upon form submission.
+37- Hiển thị màn hình Preloading khi submit form.
 
-38- TinyMCE WYSIWYG Editor Integrated.
+38- Tích hợp Trình soạn thảo TinyMCE WYSIWYG.
 
-39- Using two Favicons for both the Frontend and Admin Panel Sections of the application.
+39- Sử dụng hai Favicon riêng biệt cho phần Frontend và Admin Panel.
 
-## Screenshots:
-### Frontend Section Homepage:
+## Hình ảnh Minh họa:
+### Trang Chủ Phần Frontend:
 ![frontend-homepage](https://github.com/AhmedYahyaE/laravel-multi-vendor-e-commerce-application/assets/118033266/37646610-8c9f-4ac6-8a75-75e83cc469c7)
 
-### Product Listing Page:
+### Trang Danh sách Sản phẩm:
 ![frontend-product-listing-page](https://github.com/AhmedYahyaE/laravel-multi-vendor-e-commerce-application/assets/118033266/6a68ba25-ebd0-4b93-b687-487e35bf4912)
 
-### Shopping Cart Page:
+### Trang Giỏ hàng:
 ![shopping-cart-page](https://github.com/AhmedYahyaE/laravel-multi-vendor-e-commerce-application/assets/118033266/64f9cbbf-87d2-4f26-aaf1-5c942d1db85b)
 
-### Checkout Page:
+### Trang Thanh toán:
 ![checkout-page](https://github.com/AhmedYahyaE/laravel-multi-vendor-e-commerce-application/assets/118033266/0e4057a8-dd7e-4db5-944d-8d8754b86c32)
 
-### Admin Panel HomePage:
+### Trang Chủ Admin Panel:
 ![admin-panel-homepage](https://github.com/AhmedYahyaE/laravel-multi-vendor-e-commerce-application/assets/118033266/afda126b-2ab2-4ce8-9f42-2bd6eee36bfa)
 
-### Admin Panel Products Management Page:
+### Trang Quản lý Sản phẩm trong Admin Panel:
 ![admin-panel-products-management](https://github.com/AhmedYahyaE/laravel-multi-vendor-e-commerce-application/assets/118033266/06d8fd5b-6538-4574-b6f4-c3bf4a6a5c32)
 
-## Application URLs:
-1- **Frontend**: The public-facing website can be accessed at http://127.0.0.1:8000/. This is where users/customers/members can view categories and products and interact with the website in general. The frontend URL is typically accessible to all visitors of the website.
+## Đường dẫn Ứng dụng:
+1- **Frontend**: Website công khai có thể truy cập tại http://127.0.0.1:8000/. Đây là nơi người dùng/khách hàng/thành viên có thể xem danh mục, sản phẩm và tương tác với website. Phần Frontend thường mở cho mọi khách truy cập.
 
-2- **Admin Panel**: The Admin Panel for managing the application is available at http://127.0.0.1:8000/admin/login. This secure area is exclusively accessible to authorized administrators where only authenticated superadmin, admins, and vendors can access. It grants access to the administrative functionalities of the application, such as adding new products and their features, orders management, users management, creating and editing website sections and categories, orders shipping management, etc.
+2- **Admin Panel**: Bảng quản trị ứng dụng truy cập tại http://127.0.0.1:8000/admin/login. Khu vực bảo mật này chỉ dành cho quản trị viên được ủy quyền (superadmin, admins và vendors đã xác thực). Nó cung cấp quyền truy cập vào các chức năng quản trị như thêm sản phẩm mới, quản lý đơn hàng, quản lý người dùng, tạo/sửa các phần và danh mục website, quản lý vận chuyển đơn hàng, v.v.
 
-## Application Routes and API Endpoints:
-All application routes & API endpoints are defined in both the **[web.php](routes/web.php)** file (Frontend and Admin Panel routes) and **[api.php](routes/api.php)** file (API Endpoints).
+## Routes và API Endpoints của Ứng dụng:
+Tất cả routes ứng dụng và API endpoints được định nghĩa trong file **[web.php](routes/web.php)** (routes cho Frontend và Admin Panel) và file **[api.php](routes/api.php)** (API Endpoints).
 
 ## API Endpoints:
-> ***\*\* Check the application API Collection on my Postman Profile: https://www.postman.com/ahmed-yahya/workspace/my-public-portfolio-postman-workspace/collection/28181483-179adc20-2dcc-426c-a755-5a48da9ca7a4***
+> ***\*\* Xem bộ sưu tập API của ứng dụng trên Postman Profile của tôi: https://www.postman.com/ahmed-yahya/workspace/my-public-portfolio-postman-workspace/collection/28181483-179adc20-2dcc-426c-a755-5a48da9ca7a4***
 
-> ***\*\* Also, you can test the API Endpoints yourself using Postman. Here is the API's Postman Collection .json file [API Postman Collection file](<Postman Collection of API Endpoints/Multi-vendor E-commerce Application API.postman_collection.json>) that you can download and import into your Postman.***
+> ***\*\* Bạn cũng có thể tự kiểm tra các API Endpoints bằng Postman. Đây là file .json của Postman Collection [API Postman Collection file](<Postman Collection of API Endpoints/Multi-vendor E-commerce Application API.postman_collection.json>) mà bạn có thể tải về và import vào Postman.***
 
-## Installation & Configuration:
+## Hướng dẫn Cài đặt & Cấu hình:
 
-1- Open your terminal, and use the '***git clone https://github.com/AhmedYahyaE/laravel-multi-vendor-e-commerce-application.git***' command, or just download the ZIP project.
+1- Mở terminal, sử dụng lệnh '***git clone https://github.com/AhmedYahyaE/laravel-multi-vendor-e-commerce-application.git***' hoặc tải file ZIP dự án về.
 
-2- Navigate/Change into (using the **cd** command) to the project root directory, then run the '***composer install***' command.
+2- Di chuyển (bằng lệnh **cd**) vào thư mục gốc dự án, sau đó chạy lệnh '***composer install***'.
 
-3- Run the '***npm install***' command (and only in case you face any issues/errors, run the 'npm audit fix' command), and then run the '***npm run build***' command.
+3- Chạy lệnh '***npm install***' (nếu gặp lỗi, chạy 'npm audit fix'), sau đó chạy '***npm run build***'.
 
-4- Create a MySQL database named **\`multivendor_ecommerce\`**, then import the **[multivendor_ecommerce database SQL Dump File](<Database - multivendor_ecommerce/multivendor_ecommerce database - SQL Dump File - phpMyAdmin Export.sql>)** into your **\`multivendor_ecommerce\`** database.
+4- Tạo cơ sở dữ liệu MySQL có tên **\`multivendor_ecommerce\`**, sau đó import file **[multivendor_ecommerce database SQL Dump File](<Database - multivendor_ecommerce/multivendor_ecommerce database - SQL Dump File - phpMyAdmin Export.sql>)** vào cơ sở dữ liệu này.
 
-5- Navigate to the **[.env](.env)** file and configure/update it with your MySQL database credentials and other configuration settings.
+5- Mở file **[.env](.env)** và cấu hình/cập nhật thông tin kết nối MySQL cùng các thiết lập khác.
 
-6- Run the '***php artisan serve***' command, and then open your browser and visit **http://127.0.0.1:8000** to access the Frontend section of the application, or **http://127.0.0.1:8000/admin/login** to access the Admin Panel.
+6- Chạy lệnh '***php artisan serve***', sau đó mở trình duyệt truy cập **http://127.0.0.1:8000** để vào phần Frontend, hoặc **http://127.0.0.1:8000/admin/login** để vào Admin Panel.
 
-\*\* Ready-to-use registered accounts credentials you can use to log in:
-> 1) Superadmin (to access the Admin Panel): Email: **admin@admin.com**, Password: **123456**
+\*\* Tài khoản đăng nhập sẵn có để bạn thử nghiệm:
+> 1) Superadmin (đăng nhập Admin Panel): Email: **admin@admin.com**, Mật khẩu: **123456**
 
-> 2) Vendor (to access the Admin Panel): Email: **yasser@admin.com**, Password: **123456**
+> 2) Vendor (đăng nhập Admin Panel): Email: **yasser@admin.com**, Mật khẩu: **123456**
     
-> 3) User (to access the Frontend): Email: **ibrahim@gmail.com**, Password: **123456**
+> 3) User (đăng nhập Frontend): Email: **ibrahim@gmail.com**, Mật khẩu: **123456**
 
-## Contribution:
-Contributions to my Multi-vendor E-commerce Laravel application are most welcome! If you find any issues or have suggestions for improvements or want to add new features, please open an issue or submit a pull request.
+## Đóng góp:
+Rất hoan nghênh mọi đóng góp cho dự án Thương mại Điện tử Đa nhà bán hàng Laravel của tôi! Nếu bạn phát hiện lỗi, có ý tưởng cải tiến hoặc muốn thêm tính năng mới, vui lòng mở issue hoặc gửi pull request.

@@ -11,7 +11,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-0" style="background:transparent;">
                             <li class="breadcrumb-item">
-                                <a href="{{ url('/') }}">Home</a>
+                                <a href="{{ url('/') }}">Trang chủ</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
                                 Blog
@@ -52,7 +52,7 @@
                             <p class="text-muted small mb-2">
                                 {{ $post->published_at ? $post->published_at->format('d/m/Y') : '' }}
                                 @if($post->author)
-                                    · by {{ $post->author->name }}
+                                    · bởi {{ $post->author->name }}
                                 @endif
                             </p>
 
@@ -61,7 +61,7 @@
                             </p>
 
                             <a href="{{ route('front.blog.show', $post->slug) }}" class="btn btn-outline-primary btn-sm">
-                                Read more
+                                Đọc thêm
                             </a>
                         </div>
                     </article>

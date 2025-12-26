@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en-US">
+<html class="no-js" lang="vi">
     <head>
         <meta charset="UTF-8">
         <!--[if IE]>
@@ -33,7 +33,7 @@
             @if (!empty($meta_title))
                 {{ $meta_title }}
             @else
-                Laravel Multi Vendor E-commerce Template - By Multi-vendor E-commerce Application Channel
+                Ứng dụng Thương mại Điện tử Đa nhà bán hàng
             @endif
             
         </title>
@@ -79,7 +79,7 @@
 
         {{-- My Preloader/Loader/Loading Page/Preloading Screen --}} 
         <div class="loader">
-            <img src="{{ asset('front/images/loaders/loader.gif') }}" alt="loading..." />
+            <img src="{{ asset('front/images/loaders/loader.gif') }}" alt="Đang tải..." />
          </div>
 
 
@@ -108,8 +108,8 @@
         <div class="app-issue">
             <div class="vertical-center">
                 <div class="text-center">
-                    <h1>You are using an outdated browser.</h1>
-                    <span>This web app is not compatible with following browser. Please upgrade your browser to improve your security and experience.</span>
+                    <h1>Bạn đang sử dụng trình duyệt cũ.</h1>
+                    <span>Ứng dụng web này không tương thích với trình duyệt hiện tại. Vui lòng nâng cấp trình duyệt để tăng cường bảo mật và trải nghiệm.</span>
                 </div>
             </div>
         </div>
@@ -123,8 +123,8 @@
             <div class="app-issue">
                 <div class="vertical-center">
                     <div class="text-center">
-                        <h1>JavaScript is disabled in your browser.</h1>
-                        <span>Please enable JavaScript in your browser or upgrade to a JavaScript-capable browser.</span>
+                        <h1>JavaScript bị tắt trong trình duyệt của bạn.</h1>
+                        <span>Vui lòng bật JavaScript trong trình duyệt hoặc nâng cấp lên trình duyệt hỗ trợ JavaScript.</span>
                     </div>
                 </div>
             </div>

@@ -1,21 +1,22 @@
-{{-- This page is included by the add_edit_product.php page to show the related filters <select> box for the newly added product DEPENDING ON THE SELECTED CATEGORY of the product --}} 
-
+{{-- Trang này được include bởi add_edit_product.php để hiển thị các bộ lọc liên quan <select> cho sản phẩm mới THÙY THEO DANH MỤC đã chọn --}}
 
 @php
-    
-    $productFilters = \App\Models\ProductsFilter::productFilters(); // Get ALL the (enabled/active) Filters
+
+    $productFilters = \App\Models\ProductsFilter::productFilters(); // Lấy TẤT CẢ bộ lọc (đang bật/hoạt động)
     // dd($productFilters);
 
-    // Note: $category_id may come from TWO places: the AJAX call and gets passed in through categoryFilters() method in Admin/FilterController.php    OR    the $product object in case of 'Edit Product' from addEditProduct() method in Admin/ProductsController    
+    // Lưu ý: $category_id có thể đến từ 2 nơi: AJAX call (truyền vào categoryFilters() trong Admin/FilterController.php)
+    // HOẶC từ object $product khi 'Sửa sản phẩm' trong addEditProduct() của Admin/ProductsController
 
-    // In case of 'Edit a Product' only (NOT 'Add a new Product' and NOT from the $category_id which comes from the AJAX call), where $product is passed from addEditProduct() method in Admin/ProductsController    
+    // Trường hợp chỉ dành cho 'Sửa sản phẩm' (KHÔNG phải 'Thêm sản phẩm' và KHÔNG phải $category_id từ AJAX),
+    // khi $product được truyền từ addEditProduct() trong Admin/ProductsController
     if (isset($product['category_id'])) {
         $category_id = $product['category_id'];
     }
 @endphp
 
 
-@foreach ($productFilters as $filter) {{-- show ALL the (enabled/active) Filters --}}
+@foreach ($productFilters as $filter) {{-- hiển thị TẤT CẢ bộ lọc (đang bật/hoạt động) --}}
     @php
         // echo '<pre>', var_dump($product), '</pre>';
         // exit;
@@ -24,24 +25,26 @@
         // dd($filter);
     @endphp
 
-    @if (isset($category_id)) {{-- which comes from the AJAX call (passed in through the categoryFilters() method in Admin/FilterController.php, and ALSO may come from the if condition above there (in this page) in case of 'Edit Product' (not 'Add a Product') from addEditProduct() method in Admin/ProductsController --}}
+    @if (isset($category_id)) {{-- đến từ AJAX (categoryFilters() trong Admin/FilterController.php) và cũng có thể đến từ if phía trên khi 'Sửa sản phẩm' --}}
         @php
             // dd($filter);
 
-            // Firstly, for every filter in the `products_filters` table, Get the filter's (from the foreach loop) `cat_ids` using filterAvailable() method, then check if the current category id (using the $category_id variable and depending on the URL) exists in the filter's `cat_ids`. If it exists, then show the filter, if not, then don't show the filter
-            $filterAvailable = \App\Models\ProductsFilter::filterAvailable($filter['id'], $category_id); // $category_id comes from the AJAX call (check categoryFilters() method in Admin/FilterController.php
+            // Với mỗi filter trong bảng `products_filters`, lấy `cat_ids` của filter đó bằng filterAvailable(),
+            // sau đó kiểm tra category hiện tại ($category_id) có nằm trong `cat_ids` không.
+            // Nếu có thì hiển thị filter, nếu không thì không hiển thị.
+            $filterAvailable = \App\Models\ProductsFilter::filterAvailable($filter['id'], $category_id); // $category_id đến từ AJAX (xem categoryFilters() trong Admin/FilterController.php)
         @endphp
 
-        @if ($filterAvailable == 'Yes') {{-- if the filter has the current category_id in its `cat_ids` --}}
+        @if ($filterAvailable == 'Yes') {{-- nếu filter có category_id hiện tại trong `cat_ids` --}}
             <div class="form-group">
-                <label for="{{ $filter['filter_column'] }}">Select {{ $filter['filter_name'] }}</label> {{-- ONLY show the related filters of the added product! (NOT ALL FILTERS!) --}}
-                <select name="{{ $filter['filter_column'] }}" id="{{ $filter['filter_column'] }}" class="form-control text-dark"> {{-- $filter['filter_column'] is like 'ram' --}}
-                    <option value="">Select Filter Value</option>
-                    @foreach ($filter['filter_values'] as $value) {{-- show the related values of the filter of the product --}}
+                <label for="{{ $filter['filter_column'] }}">Chọn {{ $filter['filter_name'] }}</label> {{-- Chỉ hiển thị các filter liên quan của sản phẩm (KHÔNG phải tất cả filter) --}}
+                <select name="{{ $filter['filter_column'] }}" id="{{ $filter['filter_column'] }}" class="form-control text-dark"> {{-- $filter['filter_column'] ví dụ: 'ram' --}}
+                    <option value="">Chọn giá trị bộ lọc</option>
+                    @foreach ($filter['filter_values'] as $value) {{-- hiển thị các giá trị liên quan của filter --}}
                         @php
                             // echo '<pre>', var_dump($value), '</pre>'; exit;
                         @endphp
-                        <option value="{{ $value['filter_value'] }}" @if (!empty($product[$filter['filter_column']]) && $product[$filter['filter_column']] == $value['filter_value']) selected @endif>{{ ucwords($value['filter_value']) }}</option> {{-- $value['filter_value'] is like '4GB' --}} {{-- $product[$filter['filter_column']]    is like    $product['screen_size']    which in turn, may be equal to    '5 to 5.4 in' --}}
+                        <option value="{{ $value['filter_value'] }}" @if (!empty($product[$filter['filter_column']]) && $product[$filter['filter_column']] == $value['filter_value']) selected @endif>{{ ucwords($value['filter_value']) }}</option> {{-- $value['filter_value'] ví dụ: '4GB' --}} {{-- $product[$filter['filter_column']] ví dụ: $product['screen_size'] có thể bằng '5 to 5.4 in' --}}
                     @endforeach
                 </select>
             </div>

@@ -57,7 +57,7 @@
                     $('.filter_products').html(data);
                 },
                 error  : function() {
-                    alert('Error');
+                    alert('Lỗi');
                 }
             });
         });
@@ -107,7 +107,7 @@
                         $('.filter_products').html(data); // in listing.blade.php
                     },
                     error  : function() {
-                        alert('Error');
+                        alert('Lỗi');
                     }
                 });
             });
@@ -156,7 +156,7 @@
                     $('.filter_products').html(data); // in listing.blade.php
                 },
                 error  : function() {
-                    alert('Error');
+                    alert('Lỗi');
                 }
             });
         });
@@ -200,7 +200,7 @@
                     $('.filter_products').html(data); // in listing.blade.php
                 },
                 error  : function() {
-                    alert('Error');
+                    alert('Lỗi');
                 }
             });
         });
@@ -243,7 +243,7 @@
                     $('.filter_products').html(data); // in listing.blade.php
                 },
                 error  : function() {
-                    alert('Error');
+                    alert('Lỗi');
                 }
             });
         });
@@ -286,7 +286,7 @@
                     $('.filter_products').html(data); // in listing.blade.php
                 },
                 error  : function() {
-                    alert('Error');
+                    alert('Lỗi');
                 }
             });
         });
